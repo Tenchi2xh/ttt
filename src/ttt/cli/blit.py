@@ -1,7 +1,10 @@
 import click
+
 from .ttt import ttt
+
+from ..core.image import load_image
+from ..core.atlas import load_atlas
 from ..core.blit import blit as do_blit
-from ..core.convert import load_atlas, load_image
 
 
 @ttt.group()

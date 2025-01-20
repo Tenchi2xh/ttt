@@ -1,2 +1,3 @@
 from .ttt import ttt
-from .blit import *
+from . import blit
+from . import banner
