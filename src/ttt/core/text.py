@@ -12,25 +12,35 @@ def get_width(text: str, font: ImageFont.FreeTypeFont):
 
 
 def render_text(text: str, max_width: int, font: Font):
-    font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
-    words = text.split()
-    lines = []
+    for transform in font.transform:
+        match transform:
+            case "upper":
+                text = text.upper()
+            case "lower":
+                text = text.lower()
 
+    font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
     # Determine line breaking, width and height
 
-    current_line = words[0]
-    total_width = get_width(current_line, font)
+    lines = []
+    raw_lines = text.splitlines()
+    total_width = 0
 
-    for word in words[1:]:
-        test_line = f"{current_line} {word}"
-        width = get_width(test_line, font)
-        if width <= max_width:
-            current_line = test_line
-            total_width = max(total_width, width)
-        else:
-            lines.append(current_line)
-            current_line = word
-    lines.append(current_line)
+    for raw_line in raw_lines:
+        words = raw_line.split(" ")
+        current_line = words[0]
+        total_width = max(total_width, get_width(current_line, font))
+
+        for word in words[1:]:
+            test_line = f"{current_line} {word}"
+            width = get_width(test_line, font)
+            if width <= max_width:
+                current_line = test_line
+                total_width = max(total_width, width)
+            else:
+                lines.append(current_line)
+                current_line = word
+        lines.append(current_line)
 
     ascent, descent = font.getmetrics()
     line_height = descent + ascent
