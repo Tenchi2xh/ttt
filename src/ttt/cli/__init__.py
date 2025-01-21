@@ -1,3 +1,3 @@
 from .ttt import ttt
-from . import blit
-from . import banner
+from . import draw
+from . import write

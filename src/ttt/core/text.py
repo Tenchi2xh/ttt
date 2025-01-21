@@ -10,18 +10,35 @@ def get_width(text: str, font: ImageFont.FreeTypeFont):
     return right - left
 
 
-
 def render_text(text: str, max_width: int, font: Font):
+
+    text = transform_text(text, font)
+    font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
+    lines, total_width, total_height, line_height = break_and_measure(text, max_width, font)
+
+    image = Image.new("1", (total_width, total_height), 0)
+    draw = ImageDraw.Draw(image)
+
+    y = 0
+    for line in lines:
+        draw.text((0, y), line, font=font, fill=255)
+        y += line_height
+
+    pixels = image.load()
+    return to_block(pixels, 0, 0, total_width, total_height)
+
+
+def transform_text(text: str, font: Font):
     for transform in font.transform:
         match transform:
             case "upper":
                 text = text.upper()
             case "lower":
                 text = text.lower()
+    return text
 
-    font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
-    # Determine line breaking, width and height
 
+def break_and_measure(text: str, max_width: int, font: ImageFont.FreeTypeFont):
     lines = []
     raw_lines = text.splitlines()
     total_width = 0
@@ -46,16 +63,4 @@ def render_text(text: str, max_width: int, font: Font):
     line_height = descent + ascent
     total_height = line_height * len(lines)
 
-    # Create the final image
-
-    image = Image.new("1", (total_width, total_height), 0)
-    draw = ImageDraw.Draw(image)
-
-    y = 0
-    for line in lines:
-        draw.text((0, y), line, font=font, fill=255)
-        y += line_height
-
-    pixels = image.load()
-
-    return to_block(pixels, 0, 0, total_width, total_height)
+    return lines, total_width, total_height, line_height
