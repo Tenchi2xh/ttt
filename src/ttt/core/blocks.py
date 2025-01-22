@@ -1,3 +1,5 @@
+import numpy as np
+
 """
 https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing_Supplement
 U+1CD0x 𜴀 𜴁 𜴂 𜴃 𜴄 𜴅 𜴆 𜴇 𜴈 𜴉 𜴊 𜴋 𜴌 𜴍 𜴎 𜴏
@@ -55,6 +57,7 @@ int_to_block_inverse = int_to_block[::-1]
 
 def to_block(pixels, x0: int, y0: int, width: int, height: int, invert=False):
     c = 0 if invert else 255
+
     for y in range(y0, y0 + height, 4):
         line = []
         for x in range(x0, x0 + width, 2):
@@ -64,5 +67,25 @@ def to_block(pixels, x0: int, y0: int, width: int, height: int, invert=False):
                 pixel_y = y + (i // 2)
                 if pixel_x < x0 + width and pixel_y < y0 + height:
                   block_value |= (pixels[pixel_x, pixel_y] == c) << i
+            line.append(block_value)
+        yield line
+
+
+# TODO: Optimize
+def to_block_numpy(pixels: np.ndarray, x0: int, y0: int, width: int, height: int, invert=False):
+    c = 0 if invert else 255
+
+    for y in range(y0, y0 + height, 4):
+        line = []
+        for x in range(x0, x0 + width, 2):
+            block = pixels[y:y + 4, x:x + 2]
+            block = np.pad(block, ((0, max(0, 4 - block.shape[0])), (0, max(0, 2 - block.shape[1]))), constant_values=0)
+
+            block_bits = (block == c).astype(np.uint8).flatten()
+
+            block_value = 0
+            for i, bit in enumerate(block_bits):
+                block_value |= bit << i
+
             line.append(block_value)
         yield line

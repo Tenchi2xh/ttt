@@ -1,10 +1,10 @@
-import shutil
 import sys
 import click
 
 from .ttt import ttt
 from .util import invert_option
 
+from ..core import term
 from ..core.types import Font, OutlineMode
 from ..core.text import render_text
 from ..core.blit import blit
@@ -31,7 +31,7 @@ samples = {
 def blit_text(text: str, font: Font, invert: bool, outline: OutlineMode):
     blocks = render_text(
         text=text,
-        max_width=2 * shutil.get_terminal_size()[0],
+        max_width=2 * term.get_size()[0],
         font=font,
         invert=invert,
         outline=outline
