@@ -14,24 +14,29 @@ from ..core.video import video_frames
 @ttt.command()
 @click.argument("file")
 @click.option(
-    "-d", "--dither",
+    "-D", "--disable-dithering",
     is_flag=True,
-    help="Dither the output to simulate shades of gray."
+    help="Disable dithering."
 )
 @click.option(
-    "--no-resize",
+    "-R", "--no-resize",
     is_flag=True,
     help="Display the video in its original resolution (only use for small videos; overriden if too big)."
 )
 @click.option(
-    "--fill",
+    "-f", "--fill",
     is_flag=True,
     help="Disregard aspect ratio and fill the screen (overriden by '--no-resize')."
 )
 @click.option(
+    "-a", "--enable-audio",
+    is_flag=True,
+    help="Enable audio (synchronization not guaranteed)."
+)
+@click.option(
     "-F", "--disable-frame-rate-limit",
     is_flag=True,
-    help="Disable frame rate limit."
+    help="Disable frame rate limit (mutes the audio)."
 )
 @click.option(
     "-m", "--enable-metrics",
@@ -39,10 +44,13 @@ from ..core.video import video_frames
     help="Show frame rate metrics."
 )
 @invert_option
-def watch(file, dither, no_resize, fill, invert, disable_frame_rate_limit, enable_metrics):
+def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disable_frame_rate_limit, enable_metrics):
     """
     Watch a video provided by the given FILE.
     """
+
+    if disable_frame_rate_limit:
+        enable_audio = False
 
     screen_width, screen_height = term.get_size()
     screen_width *= 2
@@ -52,10 +60,11 @@ def watch(file, dither, no_resize, fill, invert, disable_frame_rate_limit, enabl
         file,
         screen_width, screen_height,
         invert=invert,
-        dither=dither,
+        dither=not(disable_dithering),
         resize=not(no_resize),
         preserve_ratio=not(fill),
         enable_metrics=enable_metrics,
+        enable_audio=enable_audio,
     )
 
     global print
@@ -70,7 +79,7 @@ def watch(file, dither, no_resize, fill, invert, disable_frame_rate_limit, enabl
 
         total_time = sum(t for _, t in step_times)
         blit_time = elapsed
-        idle_time = 0
+        idle_time, sleep_time = 0, 0
         total_time += blit_time
 
         if not disable_frame_rate_limit:
@@ -83,10 +92,10 @@ def watch(file, dither, no_resize, fill, invert, disable_frame_rate_limit, enabl
             overshoot = sleep_time - idle_time
 
         step_times.extend([("blit", blit_time), ("idle", sleep_time)])
-        print(f"frame rate: {1000 / total_time:5.1f} FPS")
-        print(f"frame time:  {total_time:7.4f}ms")
+        print(f"frame rate: {1000 / total_time:5.1f} FPS   ")
+        print(f"frame time:  {total_time:7.4f}ms   ")
         for s, t in step_times:
-            print(f"- {s + ':':10s} {t:7.4f}ms")
+            print(f"- {s + ':':10s} {t:7.4f}ms   ")
 
 
     with term.full_screen():

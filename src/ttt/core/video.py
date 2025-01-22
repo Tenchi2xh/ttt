@@ -1,7 +1,10 @@
+import wave
 import ffmpeg
+import pyaudio
+import threading
 import numpy as np
 
-from .blocks import to_block_numpy
+from .blocks import to_block
 from ..core.time import callback_timer
 
 
@@ -35,7 +38,8 @@ def video_frames(
     dither: bool=False,
     resize: bool=True,
     preserve_ratio=True,
-    enable_metrics: bool=False
+    enable_metrics: bool=False,
+    enable_audio: bool=True,
 ):
     input_width, input_height, target_frame_time = video_metrics(file)
 
@@ -58,10 +62,10 @@ def video_frames(
 
     process = (
         ffmpeg
-        .input(file)
-        .filter("scale", output_width, output_height)
-        .output("pipe:", format="rawvideo", pix_fmt=pix_fmt)
-        .run_async(pipe_stdout=True, pipe_stderr=True)
+            .input(file)
+            .filter("scale", output_width, output_height)
+            .output("pipe:", format="rawvideo", pix_fmt=pix_fmt)
+            .run_async(pipe_stdout=True, pipe_stderr=True)
     )
 
     row_bytes = (output_width + 7) // 8
@@ -79,6 +83,10 @@ def video_frames(
     global print
     if not enable_metrics:
         print = lambda *_: None
+
+    if enable_audio:
+        audio_thread = threading.Thread(target=play_audio, args=(file,))
+        audio_thread.start()
 
     while True:
         step_times = []
@@ -98,8 +106,37 @@ def video_frames(
             binary_frame = make_frame(in_bytes)
 
         with callback_timer(display_metrics, "blocks"):
-            blocks = to_block_numpy(binary_frame, x0=0, y0=0, width=output_width, height=output_height, invert=invert)
+            blocks = to_block(binary_frame, x0=0, y0=0, width=output_width, height=output_height, invert=invert)
 
         yield (output_width, output_height, blocks, step_times, target_frame_time)
 
     process.wait()
+    audio_thread.join()
+
+
+def play_audio(file: str):
+    process = (
+        ffmpeg
+            .input(file)
+            .output("pipe:", format="wav")
+            .run_async(pipe_stdout=True, pipe_stderr=True)
+    )
+
+    wf = wave.open(process.stdout, "rb")
+    p = pyaudio.PyAudio()
+    stream = p.open(
+        format=p.get_format_from_width(wf.getsampwidth()),
+        channels=wf.getnchannels(),
+        rate=wf.getframerate(),
+        output=True
+    )
+
+    chunk_size = 1024
+    data = wf.readframes(chunk_size)
+    while data:
+        stream.write(data)
+        data = wf.readframes(chunk_size)
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()

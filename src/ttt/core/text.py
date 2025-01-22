@@ -1,7 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
+import numpy as np
 
-from .blocks import to_block
+from .blocks import to_block_pil
 from .types import Font, OutlineMode
 
 
@@ -49,8 +50,7 @@ def render_text(
         draw.text((x, y), line, font=pil_font, fill=fill)
         y += line_height
 
-    pixels = image.load()
-    return to_block(pixels, x0=0, y0=0, width=total_width, height=total_height, invert=invert)
+    return to_block_pil(image, x0=0, y0=0, width=total_width, height=total_height, invert=invert)
 
 
 def transform_text(text: str, font: Font):

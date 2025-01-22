@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
+from PIL import Image
 
-from .blocks import to_block
+from .blocks import to_block_pil
 from .io import load
 
 
@@ -24,9 +25,10 @@ def load_atlas(
     offset_x: int,     offset_y: int,
     gap_x: int,        gap_y: int,
 
+    invert: bool = False,
     index: Optional[int] = None
 ):
-    pixels, width, height = load(file)
+    image, width, height = load(file)
 
     md = AtlasMetadata(
         width=width,               height=height,
@@ -39,12 +41,12 @@ def load_atlas(
 
     if index is not None:
         assert index < total_sprites
-        return atlas_render_sprite(pixels, md=md, index=index, sprites_per_row=sprites_per_row)
+        return atlas_render_sprite(image, md=md, index=index, sprites_per_row=sprites_per_row, invert=invert)
     else:
         for i in range(total_sprites):
             x0, y0 = atlas_coordinates(md, i, sprites_per_row)
             return (
-                atlas_render_sprite(pixels, md=md, index=i, sprites_per_row=sprites_per_row)
+                atlas_render_sprite(image, md=md, index=i, sprites_per_row=sprites_per_row, invert=invert)
                 for i in range(total_sprites)
             )
 
@@ -74,11 +76,11 @@ def atlas_coordinates(
 
 
 def atlas_render_sprite(
-    pixels,
+    image: Image,
     md: AtlasMetadata,
     index: int,
     sprites_per_row: int,
     invert: bool
 ):
     x0, y0 = atlas_coordinates(md, index, sprites_per_row)
-    return to_block(pixels, x0=x0, y0=y0, width=md.sprite_width, height=md.sprite_height, invert=invert)
+    return to_block_pil(image, x0=x0, y0=y0, width=md.sprite_width, height=md.sprite_height, invert=invert)

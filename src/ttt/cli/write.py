@@ -50,7 +50,7 @@ def blit_text(text: str, font: Font, invert: bool, outline: OutlineMode):
     help="Specify the font to use for rendering the text. Default is 'monogram'."
 )
 @click.option(
-    "-L", "--list-fonts", is_flag=True,
+    "-l", "--list-fonts", is_flag=True,
     help="List all available fonts with details and examples.",
 )
 @click.option(

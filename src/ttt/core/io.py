@@ -1,8 +1,8 @@
 from PIL import Image
+import numpy as np
 
 
 def load(file: str):
-    img = Image.open(file).convert("1", dither=Image.NONE)
-    width, height = img.size
-    pixels = img.load()
-    return pixels, width, height
+    image = Image.open(file).convert("1", dither=Image.NONE)
+    width, height = image.size
+    return image, width, height

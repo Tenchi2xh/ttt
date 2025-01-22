@@ -1,4 +1,5 @@
 import numpy as np
+from PIL import Image
 
 """
 https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing_Supplement
@@ -55,24 +56,12 @@ int_to_block = block_map[1:-1:2]
 int_to_block_inverse = int_to_block[::-1]
 
 
-def to_block(pixels, x0: int, y0: int, width: int, height: int, invert=False):
-    c = 0 if invert else 255
-
-    for y in range(y0, y0 + height, 4):
-        line = []
-        for x in range(x0, x0 + width, 2):
-            block_value = 0
-            for i in range(8):
-                pixel_x = x + (i % 2)
-                pixel_y = y + (i // 2)
-                if pixel_x < x0 + width and pixel_y < y0 + height:
-                    block_value |= (pixels[pixel_x, pixel_y] == c) << i
-            line.append(block_value)
-        yield line
+def to_block_pil(image: Image, x0: int, y0: int, width: int, height: int, invert=False):
+    pixels = np.array(image).astype(np.uint8) * 255
+    return to_block(pixels, x0, y0, width, height, invert)
 
 
-# TODO: Optimize
-def to_block_numpy(pixels: np.ndarray, x0: int, y0: int, width: int, height: int, invert=False):
+def to_block(pixels: np.ndarray, x0: int, y0: int, width: int, height: int, invert=False):
     c = 0 if invert else 255
 
     lines = []
