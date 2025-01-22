@@ -3,5 +3,10 @@
     "author": "Epoch Mini",
     "url": "https://www.dafont.com/gumball-thick-wires.font",
     "size": 22,
-    "transform": ["lower"]
+    "transform": [
+        "lower"
+    ],
+    "charsets": [
+        "Latin"
+    ]
 }

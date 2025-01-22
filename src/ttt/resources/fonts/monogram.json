@@ -2,5 +2,10 @@
     "name": "monogram",
     "author": "datagoblin",
     "url": "https://datagoblin.itch.io/monogram",
-    "size": 16
+    "size": 16,
+    "charsets": [
+        "Latin+",
+        "Greek",
+        "Cyrillic"
+    ]
 }

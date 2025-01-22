@@ -12,6 +12,7 @@ class Font:
     url: str
     size: int
     transform: List[str]
+    charsets: List[str]
     binary: bytes
 
 
@@ -28,6 +29,7 @@ def load_font(name: str):
         url=metadata["url"],
         size=metadata["size"],
         transform=metadata.get("transform", []),
+        charsets=metadata["charsets"],
         binary=font
     )
 
