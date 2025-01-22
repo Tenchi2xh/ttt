@@ -2,7 +2,7 @@ import ffmpeg
 import numpy as np
 
 from .blocks import to_block_numpy
-from ..core.time import get_callback_timer
+from ..core.time import callback_timer
 
 
 def video_metrics(file: str):
@@ -20,7 +20,12 @@ def video_metrics(file: str):
     scaled_width = width * sar_num // sar_den
     scaled_height = height
 
-    return scaled_width, scaled_height
+    r_frame_rate = video_stream.get("r_frame_rate", "30/1")
+    num, den = map(int, r_frame_rate.split("/"))
+    frame_rate = num / den
+    frame_time = 1000 / frame_rate
+
+    return scaled_width, scaled_height, frame_time
 
 
 def video_frames(
@@ -32,7 +37,7 @@ def video_frames(
     preserve_ratio=True,
     enable_metrics: bool=False
 ):
-    input_width, input_height = video_metrics(file)
+    input_width, input_height, target_frame_time = video_metrics(file)
 
     if not resize and (input_width > output_width or input_height > output_height):
         resize = True
@@ -71,29 +76,30 @@ def video_frames(
 
     make_frame = make_frame_1bit if dither else make_frame_8bit
 
-    timer = get_callback_timer(enable=enable_metrics)
+    global print
+    if not enable_metrics:
+        print = lambda *_: None
 
     while True:
-        total_time = 0
+        step_times = []
 
-        def display_metrics(elapsed: float, format: str):
-            nonlocal total_time
-            total_time += elapsed
-            print(format.format(elapsed=elapsed))
+        def display_metrics(elapsed: float, name: str):
+            nonlocal step_times
+            step_times.append((name, elapsed))
 
-        with timer(display_metrics, "- io:\t\t{elapsed:7.4f}ms"):
+        with callback_timer(display_metrics, "io"):
             in_bytes = process.stdout.read(bytes_to_read)
 
         if not in_bytes:
             break
 
-        with timer(display_metrics, "- numpy:\t{elapsed:7.4f}ms"):
+        with callback_timer(display_metrics, "numpy"):
             frame = np.frombuffer(in_bytes, np.uint8).reshape(shape)
             binary_frame = make_frame(in_bytes)
 
-        with timer(display_metrics, "- blocks:\t{elapsed:7.4f}ms"):
+        with callback_timer(display_metrics, "blocks"):
             blocks = to_block_numpy(binary_frame, x0=0, y0=0, width=output_width, height=output_height, invert=invert)
 
-        yield (output_width, output_height, blocks, total_time)
+        yield (output_width, output_height, blocks, step_times, target_frame_time)
 
     process.wait()

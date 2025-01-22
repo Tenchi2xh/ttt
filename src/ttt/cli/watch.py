@@ -1,10 +1,12 @@
+import time
 import click
+from typing import List, Tuple
 
 from .ttt import ttt
 from .util import invert_option
 
 from ..core import term
-from ..core.time import get_callback_timer
+from ..core.time import callback_timer
 from ..core.blit import blit
 from ..core.video import video_frames
 
@@ -27,17 +29,20 @@ from ..core.video import video_frames
     help="Disregard aspect ratio and fill the screen (overriden by '--no-resize')."
 )
 @click.option(
-    "-m", "--metrics",
+    "-F", "--disable-frame-rate-limit",
+    is_flag=True,
+    help="Disable frame rate limit."
+)
+@click.option(
+    "-m", "--enable-metrics",
     is_flag=True,
     help="Show frame rate metrics."
 )
 @invert_option
-def watch(file, dither, no_resize, fill, invert, metrics):
+def watch(file, dither, no_resize, fill, invert, disable_frame_rate_limit, enable_metrics):
     """
     Watch a video provided by the given FILE.
     """
-
-    timer = get_callback_timer(enable=metrics)
 
     screen_width, screen_height = term.get_size()
     screen_width *= 2
@@ -50,24 +55,48 @@ def watch(file, dither, no_resize, fill, invert, metrics):
         dither=dither,
         resize=not(no_resize),
         preserve_ratio=not(fill),
-        enable_metrics=metrics,
+        enable_metrics=enable_metrics,
     )
+
+    global print
+    if not enable_metrics:
+        print = lambda *_: None
+
+    overshoot = 0
+
+    def display_metrics_and_wait(elapsed: float, step_times: List[Tuple[str, float]], target_frame_time: float):
+        nonlocal overshoot
+        term.move_cursor(0, 0)
+
+        total_time = sum(t for _, t in step_times)
+        blit_time = elapsed
+        idle_time = 0
+        total_time += blit_time
+
+        if not disable_frame_rate_limit:
+            idle_time = max(0, target_frame_time - total_time - overshoot)
+            start = time.time()
+            if idle_time > 0:
+                time.sleep(idle_time / 1000)
+            sleep_time = (time.time() - start) * 1000
+            total_time += sleep_time
+            overshoot = sleep_time - idle_time
+
+        step_times.extend([("blit", blit_time), ("idle", sleep_time)])
+        print(f"frame rate: {1000 / total_time:5.1f} FPS")
+        print(f"frame time:  {total_time:7.4f}ms")
+        for s, t in step_times:
+            print(f"- {s + ':':10s} {t:7.4f}ms")
+
 
     with term.full_screen():
         with term.hide_cursor():
             term.clear_screen()
-            for width, height, frame, total_time in frames:
-                with timer(display_metrics, total_time):
+            for width, height, frame, step_times, target_frame_time in frames:
+                with callback_timer(display_metrics_and_wait, step_times, target_frame_time):
                     ox = (screen_width - width) // (2 * 2)
                     oy = (screen_height - height) // (2 * 4)
                     term.move_cursor(0, oy)
                     blit(frame, offset=ox, end="")
 
 
-def display_metrics(elapsed: float, total_time: float):
-    term.move_cursor(0, 0)
-    blit_time = elapsed
-    total_time += blit_time
-    print(f"frame rate:\t{1000 / total_time:.1f} FPS")
-    print(f"frame time:\t{total_time:7.4f}ms")
-    print(f"- blit:\t\t{blit_time:7.4f}ms")
