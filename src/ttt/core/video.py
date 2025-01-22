@@ -2,6 +2,7 @@ import ffmpeg
 import numpy as np
 
 from .blocks import to_block_numpy
+from ..core.time import get_callback_timer
 
 
 def video_metrics(file: str):
@@ -28,7 +29,8 @@ def video_frames(
     invert: bool=False,
     dither: bool=False,
     resize: bool=True,
-    preserve_ratio=True
+    preserve_ratio=True,
+    enable_metrics: bool=False
 ):
     input_width, input_height = video_metrics(file)
 
@@ -61,31 +63,37 @@ def video_frames(
     bytes_to_read = row_bytes * output_height if dither else output_width * output_height
     shape = (output_height, row_bytes) if dither else (output_height, output_width)
 
+    def make_frame_8bit(in_bytes):
+        return np.where(frame > 127, 255, 0)
+
+    def make_frame_1bit(in_bytes):
+        return np.unpackbits(frame, axis=1)[:, :output_width] * 255
+
     make_frame = make_frame_1bit if dither else make_frame_8bit
 
+    timer = get_callback_timer(enable=enable_metrics)
+
     while True:
-        in_bytes = process.stdout.read(bytes_to_read)
+        total_time = 0
+
+        def display_metrics(elapsed: float, format: str):
+            nonlocal total_time
+            total_time += elapsed
+            print(format.format(elapsed=elapsed))
+
+        with timer(display_metrics, "- io:\t\t{elapsed:7.4f}ms"):
+            in_bytes = process.stdout.read(bytes_to_read)
+
         if not in_bytes:
             break
 
-        frame = make_frame(in_bytes, shape, output_width)
+        with timer(display_metrics, "- numpy:\t{elapsed:7.4f}ms"):
+            frame = np.frombuffer(in_bytes, np.uint8).reshape(shape)
+            binary_frame = make_frame(in_bytes)
 
-        yield (
-            output_width,
-            output_height,
-            to_block_numpy(frame, x0=0, y0=0, width=output_width, height=output_height, invert=invert),
-        )
+        with timer(display_metrics, "- blocks:\t{elapsed:7.4f}ms"):
+            blocks = to_block_numpy(binary_frame, x0=0, y0=0, width=output_width, height=output_height, invert=invert)
+
+        yield (output_width, output_height, blocks, total_time)
 
     process.wait()
-
-
-# TODO: optimize
-def make_frame_8bit(in_bytes, shape, _):
-    frame = np.frombuffer(in_bytes, np.uint8).reshape(shape)
-    return np.where(frame > 127, 255, 0).astype(np.uint8)
-
-
-# TODO: optimize
-def make_frame_1bit(in_bytes, shape, output_width):
-    frame = np.frombuffer(in_bytes, np.uint8).reshape(shape)
-    return np.unpackbits(frame, axis=1)[:, :output_width] * 255

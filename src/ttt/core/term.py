@@ -22,6 +22,10 @@ def move_cursor(x, y):
     sys.stdout.flush()
 
 
+def move_cursor_right_raw(amount):
+    return f"{CSI}{amount}C"
+
+
 def get_size():
     return shutil.get_terminal_size()
 
