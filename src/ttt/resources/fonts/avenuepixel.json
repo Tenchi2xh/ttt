@@ -1,0 +1,12 @@
+{
+    "name": "Avenue Pixel",
+    "author": "J. D. Jimenez",
+    "url": "https://jdjimenez.itch.io/avenue-pixel",
+    "size": 25,
+    "offset_y": -1,
+    "line_height": 26,
+    "charsets": [
+        "Latin",
+        "Cyrillic"
+    ]
+}

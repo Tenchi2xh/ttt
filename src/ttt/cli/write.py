@@ -9,19 +9,21 @@ from ..core.text import render_text
 from ..core.blit import blit
 from ..resources import all_fonts, Font, font_names
 
+# TODO: Stroke modes: soft (vertical horizontal) and hard (all 8 directions)
 
 samples = {
-    "Latin":          "AaBbCc",
-    "Latin+":         "ĐđĒēĞğ",
-    "Greek":          "ΑαΒβΓγ",
-    "Cyrillic":       "АаБбВв",
-    "Hebrew":         "אבגד",
-    "Arabic":         "جميل ﺝﻡﻱﻝ",
-    "Runic":          "ᚦᚢᚱᛁᛉᚨᛉ",
-    "Hiragana":       "あいうえお",
-    "Katakana":       "アイウエオ",
-    "CJK Ideographs": "發藝 发艺",
-    "Korean":         "가너미도루배",
+    "Latin":           "AaBbCc",
+    "Latin+":          "ĐđĒēĞğ",
+    "Greek":           "ΑαΒβΓγ",
+    "Cyrillic":        "АаБбВв",
+    "Hebrew":          "אבגד",
+    "Arabic":          "جميل ج م ي ل",
+    "Runic":           "ᚦᚢᚱᛁᛉᚨᛉ",
+    "Hiragana":        "あいうえお",
+    "Katakana":        "アイウエオ",
+    "CJK Simplified":  "爱发叶艺",
+    "CJK Traditional": "愛發葉藝",
+    "Korean":          "가너미도루배",
 }
 
 
@@ -29,9 +31,10 @@ def blit_text(text: str, font: Font, invert: bool):
     blocks = render_text(
         text=text,
         max_width=2 * shutil.get_terminal_size()[0],
-        font=font
+        font=font,
+        invert=invert,
     )
-    blit(blocks, invert=invert)
+    blit(blocks)
 
 
 @ttt.command()
@@ -40,6 +43,7 @@ def blit_text(text: str, font: Font, invert: bool):
 @click.option(
     "-f", "--font",
     type=click.Choice(font_names),
+    metavar="FONT",
     default="monogram",
     help="Specify the font to use for rendering the text. Defaults to 'monogram'."
 )

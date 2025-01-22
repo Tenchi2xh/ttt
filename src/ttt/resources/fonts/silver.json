@@ -1,0 +1,20 @@
+{
+    "name": "Silver",
+    "author": "Poppy Works",
+    "url": "https://poppyworks.itch.io/silver",
+    "size": 19,
+    "offset_y": 1,
+    "line_height": 16,
+    "charsets": [
+        "Latin",
+        "Latin+",
+        "Greek",
+        "Cyrillic",
+        "Runic",
+        "Hiragana",
+        "Katakana",
+        "Korean",
+        "CJK Simplified",
+        "CJK Traditional"
+    ]
+}

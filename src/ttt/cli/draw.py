@@ -20,8 +20,8 @@ def image(file, invert):
     """
     Draw a picture provided by the given FILE.
     """
-    blocks = load_image(file)
-    blit(blocks, invert=invert)
+    blocks = load_image(file, invert=invert)
+    blit(blocks)
 
 
 @draw.command()
@@ -79,10 +79,11 @@ def atlas(file, invert, width, height, offset_x, offset_y, gap_x, gap_y, index):
         offset_y=offset_y,
         gap_x=gap_x,
         gap_y=gap_y,
-        index=index
+        index=index,
+        invert=invert
     )
     if index is not None:
-        blit(blocks, invert=invert)
+        blit(blocks)
     else:
         for b in blocks:
-            blit(b, invert=invert)
+            blit(b)

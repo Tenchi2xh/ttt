@@ -1,0 +1,14 @@
+{
+    "name": "Vonwaon Bitmap",
+    "author": "Haoyu Qiu",
+    "url": "https://timothyqiu.itch.io/vonwaon-bitmap",
+    "size": 12,
+    "charsets": [
+        "Latin",
+        "Greek",
+        "Cyrillic",
+        "Hiragana",
+        "Katakana",
+        "CJK Simplified"
+    ]
+}

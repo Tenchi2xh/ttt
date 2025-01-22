@@ -77,7 +77,8 @@ def atlas_render_sprite(
     pixels,
     md: AtlasMetadata,
     index: int,
-    sprites_per_row: int
+    sprites_per_row: int,
+    invert: bool
 ):
     x0, y0 = atlas_coordinates(md, index, sprites_per_row)
-    return to_block(pixels, x0=x0, y0=y0, width=md.sprite_width, height=md.sprite_height)
+    return to_block(pixels, x0=x0, y0=y0, width=md.sprite_width, height=md.sprite_height, invert=invert)

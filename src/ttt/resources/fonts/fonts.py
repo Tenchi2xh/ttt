@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import importlib.resources
 import json
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -11,14 +11,22 @@ class Font:
     author: str
     url: str
     size: int
+    offset_y: Optional[int]
+    line_height: Optional[int]
     transform: List[str]
     charsets: List[str]
     binary: bytes
 
 
 def load_font(name: str):
+    if "." in name:
+        filename = name
+        name = name.split(".")[0]
+    else:
+        filename = f"{name}.ttf"
+
     metadata = json.loads(importlib.resources.read_text(__package__, f"{name}.json"))
-    font = importlib.resources.read_binary(__package__, f"{name}.ttf")
+    font = importlib.resources.read_binary(__package__, filename)
 
     assert all(k in metadata for k in ("name", "author", "url", "size"))
 
@@ -28,12 +36,25 @@ def load_font(name: str):
         author=metadata["author"],
         url=metadata["url"],
         size=metadata["size"],
+        offset_y=metadata.get("offset_y"),
+        line_height=metadata.get("line_height"),
         transform=metadata.get("transform", []),
         charsets=metadata["charsets"],
         binary=font
     )
 
 
-font_names = ["monogram", "notjamblackletter", "vhsgothic", "gumballthickwires", "kiwisoda"]
+_fonts = [
+    "monogram",
+    "arkpixel.ttc",
+    "silver",
+    "vhsgothic",
+    "avenuepixel",
+    "pixelae",
+    "kiwisoda",
+    "notjamblackletter",
+]
 
-all_fonts = [load_font(n) for n in font_names]
+all_fonts = [load_font(n) for n in _fonts]
+
+font_names = [f.id for f in all_fonts]

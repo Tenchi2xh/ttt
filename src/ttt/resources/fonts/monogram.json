@@ -3,6 +3,7 @@
     "author": "datagoblin",
     "url": "https://datagoblin.itch.io/monogram",
     "size": 16,
+    "line_height": 15,
     "charsets": [
         "Latin",
         "Latin+",
