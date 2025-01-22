@@ -1,1 +1,1 @@
-from .fonts import all_fonts, Font, font_names
+from .fonts import all_fonts, font_names

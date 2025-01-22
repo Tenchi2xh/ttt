@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 
 from .blocks import to_block
-from ..resources import Font
+from .types import Font, OutlineMode
 
 
 def get_width(text: str, font: ImageFont.FreeTypeFont):
@@ -10,18 +10,43 @@ def get_width(text: str, font: ImageFont.FreeTypeFont):
     return right - left
 
 
-def render_text(text: str, max_width: int, font: Font, invert: bool):
-
+def render_text(
+    text: str,
+    max_width: int,
+    font: Font,
+    invert: bool=False,
+    outline: OutlineMode=OutlineMode.none
+):
     text = transform_text(text, font)
     pil_font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
     lines, total_width, total_height, line_height = break_and_measure(text, max_width, font, pil_font)
 
+    fill = 255
+    x = 0
+    y = font.offset_y if font.offset_y is not None else 0
+
+    if outline != OutlineMode.none:
+        fill = 0
+        x += 1
+        y += 1
+        total_width += 2
+        total_height += 2
+
     image = Image.new("1", (total_width, total_height), 0)
     draw = ImageDraw.Draw(image)
 
-    y = font.offset_y if font.offset_y is not None else 0
     for line in lines:
-        draw.text((0, y), line, font=pil_font, fill=255)
+        if outline in (OutlineMode.soft, OutlineMode.hard):
+            draw.text((x - 1, y), line, font=pil_font, fill=255)
+            draw.text((x + 1, y), line, font=pil_font, fill=255)
+            draw.text((x, y - 1), line, font=pil_font, fill=255)
+            draw.text((x, y + 1), line, font=pil_font, fill=255)
+        if outline in (OutlineMode.hard):
+            draw.text((x - 1, y - 1), line, font=pil_font, fill=255)
+            draw.text((x + 1, y - 1), line, font=pil_font, fill=255)
+            draw.text((x - 1, y + 1), line, font=pil_font, fill=255)
+            draw.text((x + 1, y + 1), line, font=pil_font, fill=255)
+        draw.text((x, y), line, font=pil_font, fill=fill)
         y += line_height
 
     pixels = image.load()

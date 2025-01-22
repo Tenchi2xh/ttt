@@ -1,21 +1,7 @@
-from dataclasses import dataclass
 import importlib.resources
 import json
-from typing import List, Optional
 
-
-@dataclass
-class Font:
-    id: str
-    name: str
-    author: str
-    url: str
-    size: int
-    offset_y: Optional[int]
-    line_height: Optional[int]
-    transform: List[str]
-    charsets: List[str]
-    binary: bytes
+from ...core.types import Font
 
 
 def load_font(name: str):
