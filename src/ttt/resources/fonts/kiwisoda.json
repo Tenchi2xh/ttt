@@ -4,6 +4,7 @@
     "url": "https://fontenddev.com/fonts/kiwi-soda",
     "size": 16,
     "charsets": [
+        "Latin",
         "Latin+"
     ]
 }

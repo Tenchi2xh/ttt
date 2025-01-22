@@ -4,6 +4,7 @@
     "url": "https://not-jam.itch.io/not-jam-blackletter-13",
     "size": 16,
     "charsets": [
+        "Latin",
         "Latin+"
     ]
 }

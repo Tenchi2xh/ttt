@@ -4,6 +4,7 @@
     "url": "https://datagoblin.itch.io/monogram",
     "size": 16,
     "charsets": [
+        "Latin",
         "Latin+",
         "Greek",
         "Cyrillic"

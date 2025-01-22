@@ -10,6 +10,21 @@ from ..core.blit import blit
 from ..resources import all_fonts, Font, font_names
 
 
+samples = {
+    "Latin":          "AaBbCc",
+    "Latin+":         "ĐđĒēĞğ",
+    "Greek":          "ΑαΒβΓγ",
+    "Cyrillic":       "АаБбВв",
+    "Hebrew":         "אבגד",
+    "Arabic":         "جميل ﺝﻡﻱﻝ",
+    "Runic":          "ᚦᚢᚱᛁᛉᚨᛉ",
+    "Hiragana":       "あいうえお",
+    "Katakana":       "アイウエオ",
+    "CJK Ideographs": "發藝 发艺",
+    "Korean":         "가너미도루배",
+}
+
+
 def blit_text(text: str, font: Font, invert: bool):
     blocks = render_text(
         text=text,
@@ -46,7 +61,11 @@ def write(text, invert, font, list_fonts):
         for i, f in enumerate(all_fonts):
             print(f"{i + 1}. {f.id} '{f.name}' ({f.size}px) by {f.author}: {f.url}")
             print()
-            blit_text(text if text else f.name, font=f, invert=invert)
+            if text:
+                blit_text(text, font=f, invert=invert)
+            else:
+                blit_text(f.name, font=f, invert=invert)
+                blit_text(" ".join(samples[cs] for cs in f.charsets), font=f, invert=invert)
             print()
 
     else:
