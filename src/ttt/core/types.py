@@ -21,3 +21,15 @@ class OutlineMode(StrEnum):
     none = auto()
     soft = auto()
     hard = auto()
+
+
+@dataclass
+class AtlasMetadata:
+    width: int
+    height: int
+    sprite_width: int
+    sprite_height: int
+    offset_x: int
+    offset_y: int
+    gap_x: int
+    gap_y: int

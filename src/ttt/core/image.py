@@ -1,5 +1,11 @@
+from PIL import Image
 from .blocks import to_block_pil
-from .io import load
+
+
+def load(file: str):
+    image = Image.open(file).convert("1", dither=Image.NONE)
+    width, height = image.size
+    return image, width, height
 
 
 def load_image(file: str, invert: bool):

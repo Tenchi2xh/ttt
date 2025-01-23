@@ -1,21 +1,10 @@
-from dataclasses import dataclass
 from typing import Optional
 from PIL import Image
 
+
+from .types import AtlasMetadata
 from .blocks import to_block_pil
-from .io import load
-
-
-@dataclass
-class AtlasMetadata:
-    width: int
-    height: int
-    sprite_width: int
-    sprite_height: int
-    offset_x: int
-    offset_y: int
-    gap_x: int
-    gap_y: int
+from .image import load
 
 
 def load_atlas(
