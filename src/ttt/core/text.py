@@ -1,14 +1,29 @@
+from dataclasses import dataclass
+from typing import List, Optional
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
-import numpy as np
 
 from .blocks import to_block_pil
-from .types import Font, OutlineMode
+from .effects import OutlineMode, draw_with_outline
 
 
 def get_width(text: str, font: ImageFont.FreeTypeFont):
     left, _, right, _ = font.getbbox(text)
     return right - left
+
+
+@dataclass
+class Font:
+    id: str
+    name: str
+    author: str
+    url: str
+    size: int
+    offset_y: Optional[int]
+    line_height: Optional[int]
+    transform: List[str]
+    charsets: List[str]
+    binary: bytes
 
 
 def render_text(
@@ -22,12 +37,10 @@ def render_text(
     pil_font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
     lines, total_width, total_height, line_height = break_and_measure(text, max_width, font, pil_font)
 
-    fill = 255
     x = 0
     y = font.offset_y if font.offset_y is not None else 0
 
     if outline != OutlineMode.none:
-        fill = 0
         x += 1
         y += 1
         total_width += 2
@@ -37,17 +50,10 @@ def render_text(
     draw = ImageDraw.Draw(image)
 
     for line in lines:
-        if outline in (OutlineMode.soft, OutlineMode.hard):
-            draw.text((x - 1, y), line, font=pil_font, fill=255)
-            draw.text((x + 1, y), line, font=pil_font, fill=255)
-            draw.text((x, y - 1), line, font=pil_font, fill=255)
-            draw.text((x, y + 1), line, font=pil_font, fill=255)
-        if outline in (OutlineMode.hard):
-            draw.text((x - 1, y - 1), line, font=pil_font, fill=255)
-            draw.text((x + 1, y - 1), line, font=pil_font, fill=255)
-            draw.text((x - 1, y + 1), line, font=pil_font, fill=255)
-            draw.text((x + 1, y + 1), line, font=pil_font, fill=255)
-        draw.text((x, y), line, font=pil_font, fill=fill)
+        draw_with_outline(
+            outline, x, y,
+            lambda x, y, fill: draw.text((x, y), line, font=pil_font, fill=fill)
+        )
         y += line_height
 
     return to_block_pil(image, x0=0, y0=0, width=total_width, height=total_height, invert=invert)

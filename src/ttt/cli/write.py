@@ -1,11 +1,13 @@
 import sys
 import click
 
+from ..core.effects import OutlineMode
+
 from .ttt import ttt
 from .util import invert_option
 
 from ..core import term
-from ..core.types import Font, OutlineMode
+from ..core.text import Font
 from ..core.text import render_text
 from ..core.blit import blit
 from ..resources import all_fonts, font_names
