@@ -72,10 +72,10 @@ def video_frames(
     bytes_to_read = row_bytes * output_height if dither else output_width * output_height
     shape = (output_height, row_bytes) if dither else (output_height, output_width)
 
-    def make_frame_8bit(in_bytes):
-        return np.where(frame > 127, 255, 0)
+    def make_frame_8bit(frame):
+        return np.where(frame > 127, np.uint8(255), np.uint8(0))
 
-    def make_frame_1bit(in_bytes):
+    def make_frame_1bit(frame):
         return np.unpackbits(frame, axis=1)[:, :output_width] * 255
 
     make_frame = make_frame_1bit if dither else make_frame_8bit
@@ -103,7 +103,7 @@ def video_frames(
 
         with callback_timer(display_metrics, "numpy"):
             frame = np.frombuffer(in_bytes, np.uint8).reshape(shape)
-            binary_frame = make_frame(in_bytes)
+            binary_frame = make_frame(frame)
 
         with callback_timer(display_metrics, "blocks"):
             blocks = to_blocks(binary_frame, 0, 0, output_width, output_height, invert)
