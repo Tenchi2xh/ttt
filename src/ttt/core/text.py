@@ -3,7 +3,7 @@ from typing import List, Optional
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 
-from .blocks import to_block_pil
+from .blocks import to_blocks_pil
 from .effects import OutlineMode, draw_with_outline
 
 
@@ -56,7 +56,7 @@ def render_text(
         )
         y += line_height
 
-    return to_block_pil(image, x0=0, y0=0, width=total_width, height=total_height, invert=invert)
+    return to_blocks_pil(image, x0=0, y0=0, width=total_width, height=total_height, invert=invert)
 
 
 def transform_text(text: str, font: Font):

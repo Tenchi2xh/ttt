@@ -1,5 +1,5 @@
-import importlib.resources
 import json
+import importlib.resources
 
 from ...core.text import Font
 

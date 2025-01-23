@@ -1,11 +1,17 @@
 import click
 
+
+
 from .ttt import ttt
 from .util import invert_option
 
+from ..core import term
+from ..core.blit import blit
 from ..core.image import load_image
 from ..core.atlas import load_atlas
-from ..core.blit import blit
+from ..core.banner import render_pattern
+
+from ..resources.patterns.patterns import get_pattern
 
 
 @ttt.group()
@@ -87,3 +93,48 @@ def atlas(file, invert, width, height, offset_x, offset_y, gap_x, gap_y, index):
     else:
         for b in blocks:
             blit(b)
+
+
+@draw.command()
+@click.option(
+    "-p", "--pattern", "pattern_name",
+    metavar="INTEGER",
+    required=True, type=click.IntRange(min=0, max=299),
+    help="Pattern number."
+)
+@click.option(
+    "-l", "--lines",
+    type=int, default=None,
+    help="Number of text lines to fill (overriden by '-repeat')."
+)
+@click.option(
+    "-r", "--repeat",
+    metavar="INTEGER",
+    type=click.IntRange(min=1), default=None,
+    help="Repeat the full pattern x times.",
+)
+@invert_option
+def banner(pattern_name, lines, repeat, invert):
+    """
+    Draw a full-width banner using repeating patterns.
+
+    Patterns by Lettercore (https://lettercore.itch.io/).
+    """
+    try:
+        pattern_name = int(pattern_name)
+    finally:
+        pass
+
+    pattern = get_pattern(pattern_name)
+    width = term.get_size()[0] * 2
+
+    if lines is None:
+        height = pattern.size[1]
+    else:
+        height = lines * 4
+
+    if repeat is not None:
+        height = pattern.size[1] * repeat
+
+    blocks = render_pattern(pattern, width, height, invert=invert)
+    blit(blocks)

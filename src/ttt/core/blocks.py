@@ -59,6 +59,6 @@ int_to_block = block_map[1:-1:2]
 int_to_block_inverse = int_to_block[::-1]
 
 
-def to_block_pil(image: Image, x0: int, y0: int, width: int, height: int, invert=False):
+def to_blocks_pil(image: Image, x0: int, y0: int, width: int, height: int, invert=False):
     pixels = np.array(image).astype(np.uint8) * 255
     return to_blocks(pixels, x0, y0, width, height, invert)

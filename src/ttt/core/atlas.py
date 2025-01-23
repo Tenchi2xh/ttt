@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from .blocks import to_block_pil
+from .blocks import to_blocks_pil
 from .image import load
 
 
@@ -33,7 +33,7 @@ class Atlas:
     def render_sprite(self, index: int, invert: bool):
         x0, y0 = self.coordinates(index)
 
-        return to_block_pil(
+        return to_blocks_pil(
             self.image, x0=x0, y0=y0,
             width=self.sprite_width, height=self.sprite_height,
             invert=invert
