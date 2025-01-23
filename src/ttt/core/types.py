@@ -3,6 +3,7 @@ from enum import StrEnum, auto
 from typing import List, Optional
 
 
+
 @dataclass
 class Font:
     id: str
@@ -23,13 +24,3 @@ class OutlineMode(StrEnum):
     hard = auto()
 
 
-@dataclass
-class AtlasMetadata:
-    width: int
-    height: int
-    sprite_width: int
-    sprite_height: int
-    offset_x: int
-    offset_y: int
-    gap_x: int
-    gap_y: int
