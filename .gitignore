@@ -4,6 +4,7 @@
 /dist
 /build
 
+*.so
 *.pyc
 *.egg-info
 /setup.py
