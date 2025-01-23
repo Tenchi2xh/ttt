@@ -1,2 +1,9 @@
 .DS_Store
+
+/.vscode
+/dist
+/build
+
 *.pyc
+*.egg-info
+/setup.py

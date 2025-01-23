@@ -1,10 +1,10 @@
-from typing import Sequence
+import numpy as np
 
 from .blocks import int_to_block
 from ..core import term
 
 
-def blit(blocks: Sequence[Sequence[int]], offset: int=0, end: str="\n"):
+def blit(blocks: np.ndarray, offset: int=0, end: str="\n"):
     buffer = []
     padding = "" if offset == 0 else term.move_cursor_right_raw(offset)
     for line in blocks:

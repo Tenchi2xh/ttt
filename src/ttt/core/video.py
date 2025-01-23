@@ -4,7 +4,7 @@ import pyaudio
 import threading
 import numpy as np
 
-from .blocks import to_block
+from .convert import to_blocks
 from ..core.time import callback_timer
 
 
@@ -106,12 +106,13 @@ def video_frames(
             binary_frame = make_frame(in_bytes)
 
         with callback_timer(display_metrics, "blocks"):
-            blocks = to_block(binary_frame, x0=0, y0=0, width=output_width, height=output_height, invert=invert)
+            blocks = to_blocks(binary_frame, 0, 0, output_width, output_height, invert)
 
         yield (output_width, output_height, blocks, step_times, target_frame_time)
 
     process.wait()
-    audio_thread.join()
+    if enable_audio:
+        audio_thread.join()
 
 
 def play_audio(file: str):

@@ -21,10 +21,12 @@
   ```
 
 > [!TIP]
-> Did you know? The video player is SO FAST it can reach up to 150 FPS!
+> Did you know? The video player is SO FAST it can reach up to _**2000**_ FPS!
 > You can disable the frame rate limit with the `-F` option.
 
 ## Requirements
+
+- `ffmpeg`
 
 ### macOS
 
@@ -32,4 +34,18 @@ On macOS, `pyaudio` needs an extra dependency before the package can be installe
 
 ```bash
 brew install portaudio
+```
+
+## Development
+
+Before running locally, run:
+
+```bash
+poetry install
+```
+
+To make VSCode happy, run:
+
+```bash
+poetry run python tools/vs_code.py
 ```
