@@ -32,6 +32,7 @@ def load_font(name: str):
 
 _fonts = [
     "monogram",
+    "monogram-italic",
     "m3x6",
     "herospeak",
     "silver",
