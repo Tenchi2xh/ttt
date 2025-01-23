@@ -10,7 +10,7 @@ from ..core.text import render_text
 from ..core.blit import blit
 from ..resources import all_fonts, font_names
 
-# TODO: Stroke modes: soft (vertical horizontal) and hard (all 8 directions)
+# TODO: Alignments
 
 samples = {
     "Latin":           "AaBbCc",

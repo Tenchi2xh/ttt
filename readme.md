@@ -44,8 +44,11 @@ Before running locally, run:
 poetry install
 ```
 
-To make VSCode happy, run:
+To make VS Code happy, run:
 
 ```bash
 poetry run python tools/vs_code.py
 ```
+
+> [!NOTE]
+> You might need to adjust the content of the generated VS Code config (generated at `.vscode/c_cpp_properties.json`) to suit your OS.
