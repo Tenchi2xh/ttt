@@ -8,7 +8,7 @@ from .util import invert_option
 from ..core import term
 from ..core.time import callback_timer
 from ..core.blit import blit
-from ..core.video import video_frames
+from ..core.video import video_frames, Frame
 
 
 @ttt.command()
@@ -73,17 +73,17 @@ def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disabl
 
     overshoot = 0
 
-    def display_metrics_and_wait(elapsed: float, step_times: List[Tuple[str, float]], target_frame_time: float):
+    def display_metrics_and_wait(elapsed: float, frame: Frame):
         nonlocal overshoot
         term.move_cursor(0, 0)
 
-        total_time = sum(t for _, t in step_times)
+        total_time = sum(t for _, t in frame.step_times)
         blit_time = elapsed
         idle_time, sleep_time = 0, 0
         total_time += blit_time
 
         if not disable_frame_rate_limit:
-            idle_time = max(0, target_frame_time - total_time - overshoot)
+            idle_time = max(0, frame.target_frame_time - total_time - overshoot)
             start = time.time()
             if idle_time > 0:
                 time.sleep(idle_time / 1000)
@@ -91,21 +91,23 @@ def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disabl
             total_time += sleep_time
             overshoot = sleep_time - idle_time
 
-        step_times.extend([("blit", blit_time), ("idle", sleep_time)])
-        print(f"frame rate: {1000 / total_time:5.1f} FPS   ")
-        print(f"frame time:  {total_time:7.4f}ms   ")
-        for s, t in step_times:
-            print(f"- {s + ':':10s} {t:7.4f}ms   ")
+        extra_steps = [("blit", blit_time), ("idle", sleep_time)]
+        input_res = f"{frame.input_width}x{frame.input_height}"
+        output_res = f"{frame.output_width}x{frame.output_height}"
+        print(f"  input res {input_res:>11s} ")
+        print(f" output res {output_res:>11s} ")
+        print(f" frame rate {1000 / total_time:7.1f} FPS ")
+        for s, t in frame.step_times + extra_steps:
+            print(f" {s:>10s} {t:8.3f} ms ")
+        print(f"      total {total_time:8.3f} ms ")
 
 
     with term.full_screen():
         with term.hide_cursor():
             term.clear_screen()
-            for width, height, frame, step_times, target_frame_time in frames:
-                with callback_timer(display_metrics_and_wait, step_times, target_frame_time):
-                    ox = (screen_width - width) // (2 * 2)
-                    oy = (screen_height - height) // (2 * 4)
+            for frame in frames:
+                with callback_timer(display_metrics_and_wait, frame):
+                    ox = (screen_width - frame.output_width) // (2 * 2)
+                    oy = (screen_height - frame.output_height) // (2 * 4)
                     term.move_cursor(0, oy)
-                    blit(frame, offset=ox, end="")
-
-
+                    blit(frame.blocks, offset=ox, end="")

@@ -1,11 +1,25 @@
+import json
 import wave
 import ffmpeg
 import pyaudio
 import threading
 import numpy as np
+from typing import List, Tuple
+from dataclasses import dataclass
 
 from .convert import to_blocks
 from ..core.time import callback_timer
+
+
+@dataclass
+class Frame():
+    input_width: int
+    input_height: int
+    output_width: int
+    output_height: int
+    blocks: np.ndarray
+    step_times: List[Tuple[str, float]]
+    target_frame_time: float
 
 
 def video_metrics(file: str):
@@ -18,10 +32,15 @@ def video_metrics(file: str):
     height = int(video_stream["height"])
 
     sar = video_stream.get("sample_aspect_ratio", "1:1")
+    dar = video_stream.get("display_aspect_ratio", None)
     sar_num, sar_den = map(int, sar.split(":"))
 
     scaled_width = width * sar_num // sar_den
     scaled_height = height
+
+    if dar:
+        dar_num, dar_den = map(int, dar.split(":"))
+        scaled_height = scaled_width * dar_den // dar_num
 
     r_frame_rate = video_stream.get("r_frame_rate", "30/1")
     num, den = map(int, r_frame_rate.split("/"))
@@ -41,6 +60,8 @@ def video_frames(
     enable_metrics: bool=False,
     enable_audio: bool=True,
 ):
+    global print
+
     input_width, input_height, target_frame_time = video_metrics(file)
 
     if not resize and (input_width > output_width or input_height > output_height):
@@ -80,7 +101,6 @@ def video_frames(
 
     make_frame = make_frame_1bit if dither else make_frame_8bit
 
-    global print
     if not enable_metrics:
         print = lambda *_: None
 
@@ -108,7 +128,15 @@ def video_frames(
         with callback_timer(display_metrics, "blocks"):
             blocks = to_blocks(binary_frame, 0, 0, output_width, output_height, invert)
 
-        yield (output_width, output_height, blocks, step_times, target_frame_time)
+        yield Frame(
+            input_width=input_width,
+            input_height=input_height,
+            output_width=output_width,
+            output_height=output_height,
+            blocks=blocks,
+            step_times=step_times,
+            target_frame_time=target_frame_time
+        )
 
     process.wait()
     if enable_audio:
