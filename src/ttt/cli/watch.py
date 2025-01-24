@@ -1,6 +1,6 @@
 import time
 import click
-from typing import List, Tuple
+import shutil
 
 from .ttt import ttt
 from .util import invert_option
@@ -48,6 +48,9 @@ def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disabl
     """
     Watch a video provided by the given FILE.
     """
+
+    if shutil.which("ffmpeg") is None:
+        raise click.UsageError("ffmpeg is not installed or not available in the PATH. Please install ffmpeg and try again.")
 
     if disable_frame_rate_limit:
         enable_audio = False
