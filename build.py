@@ -1,36 +1,51 @@
-# From https://github.com/Lucky-Mano/Poetry_C_Extension_Example
+import os
+import shutil
+from pathlib import Path
 
-from distutils.errors import CCompilerError, DistutilsExecError, DistutilsPlatformError
-
+import numpy as np
+from Cython.Build import cythonize
+from setuptools import Distribution
 from setuptools import Extension
 from setuptools.command.build_ext import build_ext
 
-import numpy
+
+include_dirs = [np.get_include()]
 
 
-extensions = [
-    Extension("ttt.core.convert", sources=["src/ext/to_blocks.c"]),
-]
+def build() -> None:
+    extensions = Extension(
+        "*",
+        [
+            "src/ttt/**/*.pyx",
+        ],
+        include_dirs=include_dirs,
+    )
+
+    ext_modules = cythonize(
+        extensions,
+        include_path=include_dirs,
+        compiler_directives={"binding": True, "language_level": 3},
+    )
+
+    distribution = Distribution({
+        "name": "ttt",
+        "ext_modules": ext_modules
+    })
+
+    cmd = build_ext(distribution)
+    cmd.ensure_finalized()
+    cmd.run()
+
+    # Copy built extensions back to the project
+    for output in cmd.get_outputs():
+        output = Path(output)
+        relative_extension = Path("src") / output.relative_to(cmd.build_lib)
+
+        shutil.copyfile(output, relative_extension)
+        mode = os.stat(relative_extension).st_mode
+        mode |= (mode & 0o444) >> 2
+        os.chmod(relative_extension, mode)
 
 
-class BuildFailed(Exception):
-    pass
-
-
-class ExtBuilder(build_ext):
-    def run(self):
-        try:
-            build_ext.run(self)
-        except (DistutilsPlatformError, FileNotFoundError):
-            pass
-
-    def build_extension(self, ext):
-        try:
-            ext.include_dirs.insert(0, numpy.get_include())
-            build_ext.build_extension(self, ext)
-        except (CCompilerError, DistutilsExecError, DistutilsPlatformError, ValueError):
-            pass
-
-
-def build(setup_kwargs):
-    setup_kwargs.update({"ext_modules": extensions, "cmdclass": {"build_ext": ExtBuilder}})
+if __name__ == "__main__":
+    build()

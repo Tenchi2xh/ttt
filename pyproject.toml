@@ -20,16 +20,15 @@ packages = [
     { include = "ttt", from = "src" }
 ]
 include = [
-    { path = "src/ext", format = "sdist" },
+    { path = "src/ttt/**/*.pyx", format = "sdist" },
     { path = "build.py", format = "sdist" }
 ]
 
 [tool.poetry.build]
 script = "build.py"
-generate-setup-file = true
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0", "setuptools", "numpy"]
+requires = ["poetry-core>=2.0.0,<3.0.0", "setuptools", "numpy", "cython"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]

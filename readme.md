@@ -63,15 +63,6 @@ TODO
 poetry install
 ```
 
-- To make VS Code happy when editing C extensions, run:
-
-```bash
-poetry run python tools/vs_code.py
-```
-
-> [!IMPORTANT]
-> You might need to adjust the content of the generated VS Code config (generated at `.vscode/c_cpp_properties.json`) to suit your OS.
-
 - Adding new fonts:
 
   Add `fontname` to the list of font names in `src/ttt/resources/fonts/fonts.py`. The font name should be in all lowercase and no punctuations. If the font is a variant, then `fontname-variant`.

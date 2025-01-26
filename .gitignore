@@ -3,6 +3,7 @@
 /.vscode
 /dist
 /build
+/src/ttt/**/*.c
 
 *.so
 *.pyc
