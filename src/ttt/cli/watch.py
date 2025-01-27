@@ -7,7 +7,7 @@ from .util import invert_option
 
 from ..core import term
 from ..core.time import callback_timer
-from ..core.blit import blit
+from ..core.blit import blit, blit_colors
 from ..core.video import video_frames, Frame
 
 
@@ -17,6 +17,11 @@ from ..core.video import video_frames, Frame
     "-D", "--disable-dithering",
     is_flag=True,
     help="Disable dithering."
+)
+@click.option(
+    "-c", "--color",
+    is_flag=True,
+    help="Enable color mode."
 )
 @click.option(
     "-R", "--no-resize",
@@ -44,7 +49,7 @@ from ..core.video import video_frames, Frame
     help="Show frame rate metrics."
 )
 @invert_option
-def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disable_frame_rate_limit, enable_metrics):
+def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio, disable_frame_rate_limit, enable_metrics):
     """
     Watch a video provided by the given FILE.
     """
@@ -64,6 +69,7 @@ def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disabl
         screen_width, screen_height,
         invert=invert,
         dither=not(disable_dithering),
+        color=color,
         resize=not(no_resize),
         preserve_ratio=not(fill),
         enable_metrics=enable_metrics,
@@ -104,6 +110,10 @@ def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disabl
             print(f" {s:>10s} {t:8.3f} ms ")
         print(f"      total {total_time:8.3f} ms ")
 
+    def blit_mono(pixels, _, offset, end):
+        return blit(pixels, offset, end)
+
+    do_blit = blit_colors if color else blit_mono
 
     with term.full_screen():
         with term.hide_cursor():
@@ -113,4 +123,4 @@ def watch(file, disable_dithering, no_resize, fill, invert, enable_audio, disabl
                     ox = (screen_width - frame.output_width) // (2 * 2)
                     oy = (screen_height - frame.output_height) // (2 * 4)
                     term.move_cursor(0, oy)
-                    blit(frame.blocks, offset=ox, end="")
+                    do_blit(frame.blocks, frame.colors, offset=ox, end="")

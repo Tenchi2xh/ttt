@@ -1,7 +1,9 @@
 import shutil
 import sys
 import atexit
+from typing import Tuple
 from contextlib import contextmanager
+
 
 CSI = "\033["
 
@@ -10,6 +12,7 @@ FULL_SCREEN_OFF = CSI + "?1049l"
 HIDE_CURSOR = CSI + "?25l"
 SHOW_CURSOR = CSI + "?25h"
 CLEAR_SCREEN = CSI + "2J"
+RESET = CSI + "0m"
 
 
 def clear_screen():
@@ -24,6 +27,10 @@ def move_cursor(x, y):
 
 def move_cursor_right_raw(amount):
     return f"{CSI}{amount}C"
+
+
+def colors_raw(colors: Tuple[int, int]):
+    return f"{CSI}38;5;{colors[0]};48;5;{colors[1]}m"
 
 
 def get_size():
