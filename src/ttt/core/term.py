@@ -29,6 +29,14 @@ def move_cursor_right_raw(amount):
     return f"{CSI}{amount}C"
 
 
+def color_fg_raw(fg: int):
+    return f"{CSI}38;5;{fg}m"
+
+
+def color_bg_raw(bg: int):
+    return f"{CSI}48;5;{bg}m"
+
+
 def colors_raw(colors: Tuple[int, int]):
     return f"{CSI}38;5;{colors[0]};48;5;{colors[1]}m"
 
