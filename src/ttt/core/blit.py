@@ -22,7 +22,7 @@ def blit_colors(blocks: np.ndarray, colors: np.ndarray, offset: int=0, end: str=
 
     for j in range(height):
         line = padding
-        prev_fg = prev_bg = 0
+        prev_fg = prev_bg = None
 
         for i in range(width):
             fg, bg = fix_colors(colors[j, i])
