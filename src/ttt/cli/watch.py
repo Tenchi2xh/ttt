@@ -82,8 +82,13 @@ def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio,
 
     overshoot = 0
 
+    min_fps = float("inf")
+    max_fps = 0
+    sum_fps = 0.0
+    frame_count = 0
+
     def display_metrics_and_wait(elapsed: float, frame: Frame):
-        nonlocal overshoot
+        nonlocal overshoot, min_fps, max_fps, sum_fps, frame_count
         term.move_cursor(0, 0)
 
         total_time = sum(t for _, t in frame.step_times)
@@ -100,12 +105,19 @@ def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio,
             total_time += sleep_time
             overshoot = sleep_time - idle_time
 
-        extra_steps = [("blit", blit_time), ("idle", sleep_time)]
+        fps = 1000 / total_time
+        min_fps = min(fps, min_fps)
+        max_fps = max(fps, max_fps)
+        sum_fps += fps
+        frame_count += 1
+
         input_res = f"{frame.input_width}x{frame.input_height}"
         output_res = f"{frame.output_width}x{frame.output_height}"
+        extra_steps = [("blit", blit_time), ("idle", sleep_time)]
+
         print(f"  input res {input_res:>11s} ")
         print(f" output res {output_res:>11s} ")
-        print(f" frame rate {1000 / total_time:7.1f} FPS ")
+        print(f" frame rate {fps:7.1f} FPS ")
         for s, t in frame.step_times + extra_steps:
             print(f" {s:>10s} {t:8.3f} ms ")
         print(f"      total {total_time:8.3f} ms ")
@@ -124,3 +136,8 @@ def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio,
                     oy = (screen_height - frame.output_height) // (2 * 4)
                     term.move_cursor(0, oy)
                     do_blit(frame.blocks, frame.colors, offset=ox, end="")
+
+    if enable_metrics:
+        print(f"Min FPS: {min_fps:7.1f} FPS")
+        print(f"Max FPS: {max_fps:7.1f} FPS")
+        print(f"Avg FPS: {sum_fps / frame_count:7.1f} FPS")
