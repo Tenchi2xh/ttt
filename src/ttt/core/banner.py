@@ -3,7 +3,7 @@ from typing import Optional, override
 import PIL
 
 from .engine import Renderable
-from ..resources.patterns.patterns import get_pattern
+from ..resources import get_pattern
 
 
 class Banner(Renderable):
