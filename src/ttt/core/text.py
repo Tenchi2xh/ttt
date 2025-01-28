@@ -1,15 +1,9 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, override
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 
-from .blocks import to_blocks_pil
-from .effects import OutlineMode, draw_with_outline
-
-
-def get_width(text: str, font: ImageFont.FreeTypeFont):
-    left, _, right, _ = font.getbbox(text)
-    return right - left
+from .engine import Renderable
 
 
 @dataclass
@@ -26,37 +20,27 @@ class Font:
     binary: bytes
 
 
-def render_text(
-    text: str,
-    max_width: int,
-    font: Font,
-    invert: bool=False,
-    outline: OutlineMode=OutlineMode.none
-):
-    text = transform_text(text, font)
-    pil_font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
-    lines, total_width, total_height, line_height = break_and_measure(text, max_width, font, pil_font)
+class Text(Renderable):
+    def __init__(self, font: Font):
+        self.font = font
+        self.pil_font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
 
-    x = 0
-    y = font.offset_y if font.offset_y is not None else 0
+    @override
+    def to_image(self, available_width: int, text: str):
+        text = transform_text(text, self.font)
 
-    if outline != OutlineMode.none:
-        x += 1
-        y += 1
-        total_width += 2
-        total_height += 2
+        lines, total_width, total_height, line_height = break_and_measure(text, available_width, self.font, self.pil_font)
 
-    image = Image.new("1", (total_width, total_height), 0)
-    draw = ImageDraw.Draw(image)
+        y = self.font.offset_y if self.font.offset_y is not None else 0
 
-    for line in lines:
-        draw_with_outline(
-            outline, x, y,
-            lambda x, y, fill: draw.text((x, y), line, font=pil_font, fill=fill)
-        )
-        y += line_height
+        image = Image.new("1", (total_width, total_height), 0)
+        draw = ImageDraw.Draw(image)
 
-    return to_blocks_pil(image, x0=0, y0=0, width=total_width, height=total_height, invert=invert)
+        for line in lines:
+            draw.text((0, y), line, font=self.pil_font, fill=255)
+            y += line_height
+
+        return image
 
 
 def transform_text(text: str, font: Font):
@@ -67,6 +51,11 @@ def transform_text(text: str, font: Font):
             case "lower":
                 text = text.lower()
     return text
+
+
+def get_width(text: str, font: ImageFont.FreeTypeFont):
+    left, _, right, _ = font.getbbox(text)
+    return right - left
 
 
 def break_and_measure(text: str, max_width: int, font: Font, pil_font: ImageFont.FreeTypeFont):

@@ -1,25 +1,21 @@
-from dataclasses import dataclass
-from typing import Optional
+from typing import override
 
-from .blocks import to_blocks_pil
-from .image import load
+import PIL
+
+from .engine import Renderable
 
 
-@dataclass
-class Atlas:
-    file: str
-    sprite_width: int
-    sprite_height: int
-    offset_x: int
-    offset_y: int
-    gap_x: int
-    gap_y: int
+class Atlas(Renderable):
+    def __init__(self, file: str, sprite_width: int, sprite_height: int, offset_x: int, offset_y: int, gap_x: int, gap_y: int):
+        self.image = PIL.Image.open(file).convert("1", dither=PIL.Image.NONE)
+        self.image_width, self.image_height = self.image.size
 
-    def __post_init__(self):
-        self.image, width, height = load(self.file)
-        self.width, self.height = width, height
-        self.sprites_per_row = (self.gap_x + width - 2 * self.offset_x) // (self.sprite_width + self.gap_x)
-        self.sprites_per_col = (self.gap_y + height - 2 * self.offset_y) // (self.sprite_height + self.gap_y)
+        self.sprite_width, self.sprite_height = sprite_width, sprite_height
+        self.offset_x, self.offset_y = offset_x, offset_y
+        self.gap_x, self.gap_y = gap_x, gap_y
+
+        self.sprites_per_row = (self.gap_x + self.image_width - 2 * self.offset_x) // (self.sprite_width + self.gap_x)
+        self.sprites_per_col = (self.gap_y + self.image_height - 2 * self.offset_y) // (self.sprite_height + self.gap_y)
         self.total_sprites = self.sprites_per_row * self.sprites_per_col
 
     def coordinates(self, index: int):
@@ -28,43 +24,10 @@ class Atlas:
 
         x0 = self.offset_x + column * (self.sprite_width + self.gap_x)
         y0 = self.offset_y + row * (self.sprite_height + self.gap_y)
+
         return x0, y0
 
-    def render_sprite(self, index: int, invert: bool):
+    @override
+    def to_image(self, available_width: int, index: int=0):
         x0, y0 = self.coordinates(index)
-
-        return to_blocks_pil(
-            self.image, x0=x0, y0=y0,
-            width=self.sprite_width, height=self.sprite_height,
-            invert=invert
-        )
-
-
-def load_atlas(
-    file: str,
-
-    sprite_width: int, sprite_height: int,
-    offset_x: int,     offset_y: int,
-    gap_x: int,        gap_y: int,
-
-    invert: bool = False,
-    index: Optional[int] = None
-):
-    atlas = Atlas(
-        file=file,
-        sprite_width=sprite_width,
-        sprite_height=sprite_height,
-        offset_x=offset_x,
-        offset_y=offset_y,
-        gap_x=gap_x,
-        gap_y=gap_y
-    )
-
-    if index is not None:
-        assert index < atlas.total_sprites
-        return atlas.render_sprite(index=index, invert=invert)
-    else:
-        return (
-            atlas.render_sprite(index=i, invert=invert)
-            for i in range(atlas.total_sprites)
-        )
+        return self.image.crop((x0, y0, x0 + self.sprite_width, y0 + self.sprite_height))

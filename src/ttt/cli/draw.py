@@ -1,17 +1,15 @@
 import click
 
 
-
 from .ttt import ttt
-from .util import invert_option
+from .util import invert_option, outline_option
 
-from ..core import term
 from ..core.blit import blit
-from ..core.image import load_image
-from ..core.atlas import load_atlas
-from ..core.banner import render_pattern
-
-from ..resources.patterns.patterns import get_pattern
+from ..core.image import Image
+from ..core.atlas import Atlas
+from ..core.banner import Banner
+from ..core.engine import render
+from ..core.effects import Outline, OutlineMode, outline
 
 
 @ttt.group()
@@ -22,17 +20,19 @@ def draw():
 @draw.command()
 @click.argument("file", type=click.Path(exists=True, dir_okay=False))
 @invert_option
-def image(file, invert):
+@outline_option
+def image(file, invert, outline_modes):
     """
     Draw a picture provided by the given FILE.
     """
-    blocks = load_image(file, invert=invert)
-    blit(blocks)
+    image = Image(file)
+    blit(render(outline(outline_modes, image()), invert=invert))
 
 
 @draw.command()
 @click.argument("file", type=click.Path(exists=True, dir_okay=False))
 @invert_option
+@outline_option
 @click.option(
     "-w", "--width",
     type=int, required=True,
@@ -68,7 +68,7 @@ def image(file, invert):
     type=int, default=None,
     help="Index of the sprite to draw (0-based). If not provided, all sprites are drawn consecutively."
 )
-def atlas(file, invert, width, height, offset_x, offset_y, gap_x, gap_y, index):
+def atlas(file, invert, outline_modes, width, height, offset_x, offset_y, gap_x, gap_y, index):
     """
     Draw a sprite from the sprite atlas provided by the given FILE.
 
@@ -77,25 +77,26 @@ def atlas(file, invert, width, height, offset_x, offset_y, gap_x, gap_y, index):
     all sprites are drawn consecutively.
     """
 
-    blocks = load_atlas(
-        file,
+    atlas = Atlas(
+        file=file,
         sprite_width=width,
         sprite_height=height,
         offset_x=offset_x,
         offset_y=offset_y,
         gap_x=gap_x,
-        gap_y=gap_y,
-        index=index,
-        invert=invert
+        gap_y=gap_y
     )
+
     if index is not None:
-        blit(blocks)
+        blit(render(outline(outline_modes, atlas(index=index)), invert=invert))
     else:
-        for b in blocks:
-            blit(b)
+        for i in range(atlas.total_sprites):
+            blit(render(outline(outline_modes, atlas(index=i)), invert=invert))
 
 
 @draw.command()
+@invert_option
+@outline_option
 @click.option(
     "-p", "--pattern", "pattern_name",
     metavar="INTEGER",
@@ -113,8 +114,7 @@ def atlas(file, invert, width, height, offset_x, offset_y, gap_x, gap_y, index):
     type=click.IntRange(min=1), default=None,
     help="Repeat the full pattern x times.",
 )
-@invert_option
-def banner(pattern_name, lines, repeat, invert):
+def banner(invert, outline_modes, pattern_name, lines, repeat):
     """
     Draw a full-width banner using repeating patterns.
 
@@ -125,16 +125,5 @@ def banner(pattern_name, lines, repeat, invert):
     finally:
         pass
 
-    pattern = get_pattern(pattern_name)
-    width = term.get_size()[0] * 2
-
-    if lines is None:
-        height = pattern.size[1]
-    else:
-        height = lines * 4
-
-    if repeat is not None:
-        height = pattern.size[1] * repeat
-
-    blocks = render_pattern(pattern, width, height, invert=invert)
-    blit(blocks)
+    banner = Banner(pattern_name)
+    blit(render(outline(outline_modes, banner(lines=lines, repeat=repeat)) , invert=invert))

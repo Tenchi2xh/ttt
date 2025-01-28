@@ -1,15 +1,17 @@
 import sys
+from typing import List
 import click
 
-from ..core.effects import OutlineMode
+
 
 from .ttt import ttt
-from .util import invert_option
+from .util import invert_option, outline_option
 
 from ..core import term
-from ..core.text import Font
-from ..core.text import render_text
 from ..core.blit import blit
+from ..core.text import Font, Text
+from ..core.engine import render
+from ..core.effects import OutlineMode, outline
 from ..resources import all_fonts, font_names
 
 # TODO: Alignments
@@ -30,20 +32,15 @@ samples = {
 }
 
 
-def blit_text(text: str, font: Font, invert: bool, outline: OutlineMode):
-    blocks = render_text(
-        text=text,
-        max_width=2 * term.get_size()[0],
-        font=font,
-        invert=invert,
-        outline=outline
-    )
-    blit(blocks)
+def blit_text(text: str, font: Font, invert: bool, outline_modes: List[OutlineMode]):
+    text_renderer = Text(font)
+    blit(render(outline(outline_modes, text_renderer(text=text)), invert=invert))
 
 
 @ttt.command()
 @click.argument("text", required=False)
 @invert_option
+@outline_option
 @click.option(
     "-f", "--font",
     type=click.Choice(font_names),
@@ -55,13 +52,7 @@ def blit_text(text: str, font: Font, invert: bool, outline: OutlineMode):
     "-l", "--list-fonts", is_flag=True,
     help="List all available fonts with details and examples.",
 )
-@click.option(
-    "-o", "--outline",
-    type=click.Choice(OutlineMode),
-    default=OutlineMode.none,
-    help="Draw the text with an outline. Default is 'none'."
-)
-def write(text, invert, font, list_fonts, outline):
+def write(text, invert, outline_modes, font, list_fonts):
     """
     Renders TEXT with a specified font or list available fonts.
 
@@ -76,13 +67,14 @@ def write(text, invert, font, list_fonts, outline):
             print(f"{i + 1}. {f.id} '{f.name}' ({f.size}px) by {f.author}: {f.url}")
             print()
             if text:
-                blit_text(text, font=f, invert=invert, outline=outline)
+                blit_text(text, font=f, invert=invert, outline_modes=outline_modes)
             else:
-                blit_text(f.name, font=f, invert=invert, outline=outline)
-                blit_text(" ".join(samples[cs] for cs in f.charsets), font=f, invert=invert, outline=outline)
+                blit_text(f.name, font=f, invert=invert, outline_modes=outline_modes)
+                blit_text(" ".join(samples[cs] for cs in f.charsets), font=f, invert=invert, outline_modes=outline_modes)
             print()
 
     else:
         if not text:
             raise click.UsageError("Missing argument 'TEXT'.")
-        blit_text(text, font=next(f for f in all_fonts if f.id == font), invert=invert, outline=outline)
+        blit_text(text, font=next(f for f in all_fonts if f.id == font), invert=invert, outline_modes=outline_modes)
+

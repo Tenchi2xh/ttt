@@ -1,13 +1,14 @@
-from PIL import Image
-from .blocks import to_blocks_pil
+from typing import override
+
+import PIL
+
+from .engine import Renderable
 
 
-def load(file: str):
-    image = Image.open(file).convert("1", dither=Image.NONE)
-    width, height = image.size
-    return image, width, height
+class Image(Renderable):
+    def __init__(self, file: str):
+        self.image = PIL.Image.open(file).convert("1", dither=PIL.Image.NONE)
 
-
-def load_image(file: str, invert: bool):
-    image, width, height = load(file)
-    return to_blocks_pil(image, x0=0, y0=0, width=width, height=height, invert=invert)
+    @override
+    def to_image(self, available_width: int):
+        return self.image
