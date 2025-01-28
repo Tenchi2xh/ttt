@@ -3,7 +3,7 @@ from functools import wraps
 
 from ..core.blit import blit as do_blit
 from ..core.engine import RenderTarget, render
-from ..core.effects import OutlineMode, outline
+from ..core.renderables import OutlineMode, outline
 
 
 invert_option = click.option(

@@ -1,7 +1,7 @@
 import json
 import importlib.resources
 
-from ...core.text import Font
+from ...core.renderables import Font
 
 
 def load_font(name: str):

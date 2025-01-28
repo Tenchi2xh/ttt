@@ -1,10 +1,10 @@
 from enum import StrEnum, auto
-from typing import Any, Callable, Dict, List, override
+from typing import List, override
 
 import numpy as np
 from PIL import Image
 
-from .engine import RenderTarget, Renderable
+from ..engine import RenderTarget, Renderable
 
 
 class OutlineMode(StrEnum):
@@ -83,21 +83,3 @@ def outline(outline_modes: List[OutlineMode], target: RenderTarget):
             target=Outline(mode)(target=target)
         )
     return target
-
-
-def draw_with_outline(mode: OutlineMode, x: int, y: int, draw: Callable[[int, int, int], None]):
-    fill = 255 if mode == OutlineMode.none else 0
-
-    if mode in (OutlineMode.soft, OutlineMode.hard):
-        draw(x - 1, y, 255)
-        draw(x + 1, y, 255)
-        draw(x, y - 1, 255)
-        draw(x, y + 1, 255)
-
-    if mode == OutlineMode.hard:
-        draw(x - 1, y - 1, 255)
-        draw(x + 1, y - 1, 255)
-        draw(x - 1, y + 1, 255)
-        draw(x + 1, y + 1, 255)
-
-    draw(x, y, fill)

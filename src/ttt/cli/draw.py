@@ -3,9 +3,7 @@ import click
 from .ttt import ttt
 from .util import inject_blitter
 
-from ..core.image import Image
-from ..core.atlas import Atlas
-from ..core.banner import Banner
+from ..core.renderables import Image, Atlas, Banner
 
 
 @ttt.group()

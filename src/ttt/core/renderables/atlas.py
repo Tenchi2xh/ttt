@@ -2,7 +2,7 @@ from typing import override
 
 import PIL
 
-from .engine import Renderable
+from ..engine import Renderable
 
 
 class Atlas(Renderable):

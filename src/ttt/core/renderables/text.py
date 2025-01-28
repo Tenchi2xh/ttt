@@ -3,7 +3,7 @@ from typing import List, Optional, override
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 
-from .engine import Renderable
+from ..engine import Renderable
 
 
 @dataclass

@@ -4,7 +4,7 @@ import click
 from .ttt import ttt
 from .util import inject_blitter
 
-from ..core.text import Font, Text
+from ..core.renderables import Font, Text
 from ..resources import all_fonts, font_names
 
 
