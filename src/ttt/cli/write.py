@@ -2,7 +2,7 @@ import sys
 import click
 
 from .ttt import ttt
-from .util import inject_blitter
+from .util import inject_blitter, font_option
 
 from ..core.renderables import Font, Text
 from ..resources import all_fonts, font_names
@@ -27,16 +27,10 @@ samples = {
 @ttt.command()
 @click.argument("text", required=False)
 @click.option(
-    "-f", "--font",
-    type=click.Choice(font_names),
-    metavar="FONT",
-    default="monogram",
-    help="Specify the font to use for rendering the text. Default is 'monogram'."
-)
-@click.option(
     "-l", "--list-fonts", is_flag=True,
     help="List all available fonts with details and examples.",
 )
+@font_option
 @inject_blitter
 def write(text, font, list_fonts, blit):
     """

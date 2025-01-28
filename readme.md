@@ -22,6 +22,15 @@ TODO: Show some screenshots and gifs
   ttt watch "https://dn720401.ca.archive.org/0/items/TouhouBadApple/Touhou%20-%20Bad%20Apple.mp4" -a -m
   ```
 
+- Misc:
+
+  ```bash
+  poetry run ttt frame -f kiwisoda -i 52 -p 4 -P $'Hello,\nworld!'
+  ls | poetry run ttt frame -p 4 -V -i 88
+  ls | poetry run ttt frame -p 4 -i 88 -f m3x6
+  poetry run ttt draw atlas resources/1bit_icons_i_by_PiiiXL.png -w 16 -h 16 -ox 8 -oy 8 -gx 8 -gy 8 -i 31 | poetry run ttt frame  -f kiwisoda -i 52 -V
+  ```
+
 > [!NOTE]
 > Did you know? The video player is SO FAST it can reach up to _**2000**_ FPS!
 > You can disable the frame rate limit with the `-F` option.

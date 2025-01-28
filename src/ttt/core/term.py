@@ -12,6 +12,7 @@ FULL_SCREEN_OFF = CSI + "?1049l"
 HIDE_CURSOR = CSI + "?25l"
 SHOW_CURSOR = CSI + "?25h"
 CLEAR_SCREEN = CSI + "2J"
+INVERT = CSI + "7m"
 RESET = CSI + "0m"
 
 
@@ -22,6 +23,21 @@ def clear_screen():
 
 def move_cursor(x, y):
     sys.stdout.write(f"{CSI}{y + 1};{x + 1}H")
+    sys.stdout.flush()
+
+
+def move_cursor_up(amount):
+    sys.stdout.write(f"{CSI}{amount}A")
+    sys.stdout.flush()
+
+
+def move_cursor_down(amount):
+    sys.stdout.write(f"{CSI}{amount}B")
+    sys.stdout.flush()
+
+
+def move_cursor_right(amount):
+    sys.stdout.write(f"{CSI}{amount}C")
     sys.stdout.flush()
 
 
@@ -58,6 +74,7 @@ def full_screen():
 
 @contextmanager
 def hide_cursor():
+    atexit.register(lambda: sys.stdout.write(SHOW_CURSOR) or sys.stdout.flush())
     sys.stdout.write(HIDE_CURSOR)
     sys.stdout.flush()
     try:
@@ -67,4 +84,3 @@ def hide_cursor():
         sys.stdout.flush()
 
 
-atexit.register(lambda: sys.stdout.write(SHOW_CURSOR) or sys.stdout.flush())
