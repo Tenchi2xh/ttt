@@ -1,15 +1,11 @@
 import click
 
-
 from .ttt import ttt
-from .util import invert_option, outline_option
+from .util import inject_blitter
 
-from ..core.blit import blit
 from ..core.image import Image
 from ..core.atlas import Atlas
 from ..core.banner import Banner
-from ..core.engine import render
-from ..core.effects import Outline, OutlineMode, outline
 
 
 @ttt.group()
@@ -18,21 +14,18 @@ def draw():
 
 
 @draw.command()
+@inject_blitter
 @click.argument("file", type=click.Path(exists=True, dir_okay=False))
-@invert_option
-@outline_option
-def image(file, invert, outline_modes):
+def image(file, blit):
     """
     Draw a picture provided by the given FILE.
     """
     image = Image(file)
-    blit(render(outline(outline_modes, image()), invert=invert))
+    blit(image())
 
 
 @draw.command()
 @click.argument("file", type=click.Path(exists=True, dir_okay=False))
-@invert_option
-@outline_option
 @click.option(
     "-w", "--width",
     type=int, required=True,
@@ -68,7 +61,8 @@ def image(file, invert, outline_modes):
     type=int, default=None,
     help="Index of the sprite to draw (0-based). If not provided, all sprites are drawn consecutively."
 )
-def atlas(file, invert, outline_modes, width, height, offset_x, offset_y, gap_x, gap_y, index):
+@inject_blitter
+def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
     """
     Draw a sprite from the sprite atlas provided by the given FILE.
 
@@ -88,15 +82,13 @@ def atlas(file, invert, outline_modes, width, height, offset_x, offset_y, gap_x,
     )
 
     if index is not None:
-        blit(render(outline(outline_modes, atlas(index=index)), invert=invert))
+        blit(atlas(index=index))
     else:
         for i in range(atlas.total_sprites):
-            blit(render(outline(outline_modes, atlas(index=i)), invert=invert))
+            blit(atlas(index=i))
 
 
 @draw.command()
-@invert_option
-@outline_option
 @click.option(
     "-p", "--pattern", "pattern_name",
     metavar="INTEGER",
@@ -114,7 +106,8 @@ def atlas(file, invert, outline_modes, width, height, offset_x, offset_y, gap_x,
     type=click.IntRange(min=1), default=None,
     help="Repeat the full pattern x times.",
 )
-def banner(invert, outline_modes, pattern_name, lines, repeat):
+@inject_blitter
+def banner(pattern_name, lines, repeat, blit):
     """
     Draw a full-width banner using repeating patterns.
 
@@ -126,4 +119,4 @@ def banner(invert, outline_modes, pattern_name, lines, repeat):
         pass
 
     banner = Banner(pattern_name)
-    blit(render(outline(outline_modes, banner(lines=lines, repeat=repeat)) , invert=invert))
+    blit(banner(lines=lines, repeat=repeat))
