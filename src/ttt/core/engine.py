@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, Self, Tuple
 
 import numpy as np
-from PIL import Image
+from PIL.Image import Image
 
 from . import term
 from .convert import to_blocks

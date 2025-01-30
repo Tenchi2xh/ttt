@@ -17,7 +17,7 @@ invert_option = click.option(
 
 outline_option = click.option(
     "-o", "--outline", "outline_modes",
-    type=click.Choice(OutlineMode),
+    type=click.Choice(OutlineMode), # type: ignore
     multiple=True,
     help="Draw using an outline effect. This option can be repeated."
 )

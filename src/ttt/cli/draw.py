@@ -105,7 +105,7 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
     help="Repeat the full pattern x times.",
 )
 @inject_blitter
-def banner(pattern_name, lines, repeat, blit):
+def banner(pattern_name: int, lines, repeat, blit):
     """
     Draw a full-width banner using repeating patterns.
 

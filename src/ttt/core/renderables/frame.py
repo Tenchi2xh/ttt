@@ -12,7 +12,7 @@ class Frame(Renderable):
         self.bits = cut_corners(self.frame, 3)
 
     @override
-    def to_image(
+    def to_image( # type: ignore
         self,
         available_width: int,
         target: RenderTarget,
@@ -77,7 +77,7 @@ class Frame(Renderable):
         return result
 
 
-def cut_corners(image: Image, divide_by: int):
+def cut_corners(image: Image.Image, divide_by: int):
     width = image.width
     bit_width = width // divide_by
 
@@ -91,5 +91,5 @@ def cut_corners(image: Image, divide_by: int):
     return bits
 
 
-def is_white(image: Image):
+def is_white(image: Image.Image):
     return image.getpixel((3, 3)) == 255

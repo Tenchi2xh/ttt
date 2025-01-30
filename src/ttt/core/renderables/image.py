@@ -1,18 +1,17 @@
 from typing import override
 
-import PIL
-from PIL.Image import Image as PILImage
+from PIL import Image as PILImage
 
 from ..engine import Renderable
 
 
 class Image(Renderable):
-    def __init__(self, file: str | PILImage):
+    def __init__(self, file: str | PILImage.Image):
         if isinstance(file, str):
-            self.image = PIL.Image.open(file).convert("1", dither=PIL.Image.NONE)
+            self.image = PILImage.open(file).convert("1", dither=PILImage.Dither.NONE)
         else:
             self.image = file
 
     @override
-    def to_image(self, available_width: int):
+    def to_image(self, available_width: int): # type: ignore
         return self.image

@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 
 
-def encode(image: Image):
+def encode(image: Image.Image):
     pixels = np.array(image)
     packed_bits = np.packbits(pixels.flatten()).tobytes()
     b64 = b64encode(packed_bits)
@@ -24,7 +24,7 @@ def write_flat_json(objects, file):
 
 def package_frames():
     file = "resources/1bit_frames_by_PiiiXL.png"
-    image = Image.open(file).convert("1", dither=Image.NONE)
+    image = Image.open(file).convert("1", dither=Image.Dither.NONE)
 
     size = 24
     x0, y0 = 16, 288
@@ -71,7 +71,7 @@ def package_patterns():
                     name = overrides[number]
 
                 with zf.open(file) as f:
-                    image = Image.open(f).convert("1", dither=Image.NONE)
+                    image = Image.open(f).convert("1", dither=Image.Dither.NONE)
 
                     patterns.append({
                         "n": name,

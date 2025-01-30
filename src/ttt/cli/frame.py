@@ -79,7 +79,7 @@ def frame(text, verbatim, frame_perfect, full_width, padding, index, font, blit)
         # TODO: Fix wrong invert when --invert is used or some effects
         invert = term.INVERT if d["invert"] else ""
         term.move_cursor_up(d["total_rows"] - d["row"])
-        for line in lines:
+        for line in lines: # type: ignore
             term.move_cursor_right(d["col"])
             print(invert + line + term.RESET)
-        term.move_cursor_down(d["total_rows"] - d["row"] - len(lines))
+        term.move_cursor_down(d["total_rows"] - d["row"] - len(lines)) # type: ignore
