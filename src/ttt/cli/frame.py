@@ -34,7 +34,7 @@ from ..resources import all_fonts
 @click.option(
     "-i", "--index",
     type=int, default=27,
-    help="Frame number."
+    help="Frame number. Use command 'list frames' to see all frames."
 )
 @font_option
 @inject_blitter
@@ -73,6 +73,7 @@ def frame(text, verbatim, frame_perfect, full_width, padding, index, font, blit)
         )
     )
 
+    # TODO: Helper functions to print verbatim stuff?
     if verbatim:
         d = frame.verbatim_data
         # TODO: Fix wrong invert when --invert is used or some effects

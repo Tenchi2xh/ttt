@@ -91,7 +91,7 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
     "-p", "--pattern", "pattern_name",
     metavar="INTEGER",
     required=True, type=click.IntRange(min=0, max=299),
-    help="Pattern number."
+    help="Pattern number. Use command 'list patterns' to see all patterns."
 )
 @click.option(
     "-l", "--lines",

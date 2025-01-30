@@ -30,5 +30,6 @@ class Renderable(ABC):
 
         return blocks
 
+
 def render(target: RenderTarget, invert: bool = False):
     return target.renderable.render(invert=invert, **target.kwargs)

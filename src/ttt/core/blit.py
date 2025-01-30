@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import List, Tuple
 import numpy as np
 
 from .blocks import int_to_block
@@ -12,6 +12,27 @@ def blit(blocks: np.ndarray, offset: int=0, end: str="\n"):
     for line in blocks:
         buffer.append(padding + "".join(int_to_block[b] for b in line))
     print("\n".join(buffer), end=end)
+
+
+
+def blit_multiple(blocks_list: List[np.ndarray], gap: int=1):
+    max_height = max(blocks.shape[0] for blocks in blocks_list)
+    filler = 0
+
+    def pad_bottom(blocks):
+        return np.pad(blocks, ((0, max_height - blocks.shape[0]), (0, 0)), mode="constant", constant_values=filler)
+
+    padded_blocks = [pad_bottom(block) for block in blocks_list]
+    gap_array = np.full((max_height, gap), filler)
+
+    result = []
+    for i, block in enumerate(padded_blocks):
+        result.append(block)
+        if i < len(padded_blocks) - 1:
+            result.append(gap_array)
+
+    flat = np.concatenate(result, axis=1)
+    blit(flat)
 
 
 def blit_colors(blocks: np.ndarray, colors: np.ndarray, offset: int=0, end: str="\n"):
