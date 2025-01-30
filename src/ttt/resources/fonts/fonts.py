@@ -1,7 +1,7 @@
 import json
 import importlib.resources
 
-from ...core.renderables import Font
+from ...core.bits import Font
 
 
 def load_font(name: str):
@@ -11,8 +11,8 @@ def load_font(name: str):
     else:
         filename = f"{name}.ttf"
 
-    metadata = json.loads(importlib.resources.read_text(__package__, f"{name}.json"))
-    font = importlib.resources.read_binary(__package__, filename)
+    metadata = json.loads(importlib.resources.read_text(__package__, f"{name}.json")) # type: ignore
+    font = importlib.resources.read_binary(__package__, filename) # type: ignore
 
     assert all(k in metadata for k in ("name", "author", "url", "size"))
 

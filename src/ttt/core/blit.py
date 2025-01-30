@@ -6,13 +6,17 @@ from ..core import term
 from ..core.colors import unsort_indices
 
 
-def blit(blocks: np.ndarray, offset: int=0, end: str="\n"):
-    buffer = []
+def blit(blocks: np.ndarray, offset: int = 0, end: str = "\n", do_print: bool = True):
     padding = "" if offset == 0 else term.move_cursor_right_raw(offset)
+
+    buffer: List[str] = []
     for line in blocks:
         buffer.append(padding + "".join(int_to_block[b] for b in line))
-    print("\n".join(buffer), end=end)
 
+    if do_print:
+        print("\n".join(buffer), end=end)
+
+    return buffer
 
 
 def blit_multiple(blocks_list: List[np.ndarray], gap: int=1):

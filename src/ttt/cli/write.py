@@ -4,7 +4,7 @@ import click
 from .ttt import ttt
 from .util import inject_blitter, font_option
 
-from ..core.renderables import Text
+from ..core.bits import Text
 from ..resources import all_fonts
 
 
@@ -12,7 +12,7 @@ from ..resources import all_fonts
 @click.argument("text", required=False)
 @font_option
 @inject_blitter
-def write(text, font, list_fonts, blit):
+def write(text, font, blit):
     """
     Renders TEXT with a specified font or list available fonts.
 
@@ -26,5 +26,4 @@ def write(text, font, list_fonts, blit):
         raise click.UsageError("Missing argument 'TEXT'.")
 
     font = next(f for f in all_fonts if f.id == font)
-    text_renderer = Text(font)
-    blit(text_renderer(text=text))
+    blit(Text(text=text, font=font))

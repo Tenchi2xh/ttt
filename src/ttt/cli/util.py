@@ -1,10 +1,8 @@
-from typing import List
 import click
 from functools import wraps
 
-from ..core.blit import blit as do_blit, blit_multiple
-from ..core.engine import RenderTarget, render
-from ..core.renderables import OutlineMode, outline
+from ..core.bits import OutlineMode, outline
+from ..core.engine import Bit
 from ..resources import font_names
 
 
@@ -38,13 +36,8 @@ def inject_blitter(command_function):
     @click.pass_context
     @wraps(command_function)
     def wrapper(ctx, invert, outline_modes, *args, **kwargs):
-        def blit(render_target: RenderTarget | List[RenderTarget], gap=2):
-            if isinstance(render_target, RenderTarget):
-                return do_blit(render(outline(outline_modes, render_target), invert=invert))
-            return blit_multiple(
-                [render(outline(outline_modes, rt), invert=invert) for rt in render_target],
-                gap=gap
-            )
+        def blit(target: Bit):
+            return outline(outline_modes, target).blit(invert=invert)
 
         ctx.invoke(command_function, blit=blit, *args, **kwargs)
 

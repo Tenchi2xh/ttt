@@ -4,8 +4,8 @@ import click
 from .ttt import ttt
 from .util import inject_blitter, font_option
 
-from ..core import term
-from ..core.renderables import Frame, Text, Blank
+from ..core.bits import Frame, Text
+from ..core.engine import RawBit
 from ..resources import all_fonts
 
 
@@ -51,35 +51,18 @@ def frame(text, verbatim, frame_perfect, full_width, padding, index, font, blit)
     if not text:
         raise click.UsageError("Missing argument 'TEXT'.")
 
-    font = next(f for f in all_fonts if f.id == font)
-    text_renderer = Text(font)
-    blank = Blank()
-
     if verbatim:
-        lines = text.splitlines()
-        width = max(len(l) for l in lines) * 2
-        height = len(lines) * 4
-        render_target = blank(width=width, height=height)
+        target = RawBit(text)
     else:
-        render_target = text_renderer(text=text)
+        font = next(f for f in all_fonts if f.id == font)
+        target = Text(text=text, font=font)
 
-    frame = Frame(index)
-    blit(
-        frame(
-            target=render_target,
-            frame_perfect=frame_perfect,
-            full_width=full_width,
-            padding=padding,
-        )
+    frame = Frame(
+        index=index,
+        target=target,
+        frame_perfect=frame_perfect,
+        full_width=full_width,
+        padding=padding
     )
 
-    # TODO: Helper functions to print verbatim stuff?
-    if verbatim:
-        d = frame.verbatim_data
-        # TODO: Fix wrong invert when --invert is used or some effects
-        invert = term.INVERT if d["invert"] else ""
-        term.move_cursor_up(d["total_rows"] - d["row"])
-        for line in lines: # type: ignore
-            term.move_cursor_right(d["col"])
-            print(invert + line + term.RESET)
-        term.move_cursor_down(d["total_rows"] - d["row"] - len(lines)) # type: ignore
+    blit(frame)

@@ -163,7 +163,7 @@ def video_frames(
         )
 
     process.wait()
-    if enable_audio:
+    if audio_thread:
         audio_thread.join()
 
 

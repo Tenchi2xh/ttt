@@ -3,7 +3,7 @@ import click
 from .ttt import ttt
 from .util import inject_blitter
 
-from ..core.renderables import Image, Atlas, Banner
+from ..core.bits import Image, Atlas, Banner
 
 
 @ttt.group()
@@ -14,12 +14,12 @@ def draw():
 @draw.command()
 @inject_blitter
 @click.argument("file", type=click.Path(exists=True, dir_okay=False))
-def image(file, blit):
+def image(file: str, blit):
     """
     Draw a picture provided by the given FILE.
     """
     image = Image(file)
-    blit(image())
+    blit(image)
 
 
 @draw.command()
@@ -56,7 +56,7 @@ def image(file, blit):
 )
 @click.option(
     "-i", "--index",
-    type=int, default=None,
+    type=int, default=0,
     help="Index of the sprite to draw (0-based). If not provided, all sprites are drawn consecutively."
 )
 @inject_blitter
@@ -76,14 +76,11 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
         offset_x=offset_x,
         offset_y=offset_y,
         gap_x=gap_x,
-        gap_y=gap_y
+        gap_y=gap_y,
+        index=index
     )
 
-    if index is not None:
-        blit(atlas(index=index))
-    else:
-        for i in range(atlas.total_sprites):
-            blit(atlas(index=i))
+    blit(atlas)
 
 
 @draw.command()
@@ -116,5 +113,5 @@ def banner(pattern_name: int, lines, repeat, blit):
     finally:
         pass
 
-    banner = Banner(pattern_name)
-    blit(banner(lines=lines, repeat=repeat))
+    banner = Banner(pattern_name, lines=lines, repeat=repeat)
+    blit(banner)

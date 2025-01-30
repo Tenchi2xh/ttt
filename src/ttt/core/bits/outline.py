@@ -1,10 +1,7 @@
 from enum import StrEnum, auto
 from typing import List, override
 
-import numpy as np
-from PIL import Image
-
-from ..engine import RenderTarget, Renderable
+from ..engine import Bit, RasterBit, Canvas
 
 
 class OutlineMode(StrEnum):
@@ -14,27 +11,30 @@ class OutlineMode(StrEnum):
     shadow = auto()
 
 
-class Outline(Renderable):
-    def __init__(self, outline_mode: OutlineMode):
+class Outline(RasterBit):
+    def __init__(self, outline_mode: OutlineMode, target: Bit):
         self.mode = outline_mode
+        self.target = target
 
     @override
-    def to_image(self, available_width: int, target: RenderTarget):
+    def to_canvas(self, available_width: int) -> Canvas:
         if self.mode == OutlineMode.none:
-            return target.renderable.to_image(available_width=available_width, **target.kwargs)
+            return self.target.to_canvas(available_width)
 
         else:
             extra_size = 3 if self.mode == OutlineMode.shadow else 2
 
-            image = target.renderable.to_image(available_width=available_width - extra_size, **target.kwargs)
-            width, height = image.width + extra_size, image.height + extra_size
-            result = Image.new("1", (width, height), 0)
+            canvas = self.target.to_canvas(available_width - extra_size)
+            width, height = canvas.width + extra_size, canvas.height + extra_size
+
+            result = Canvas.new(width, height, 0)
+            result.raws = canvas.raws
 
             def draw(dx, dy, negative: bool = False):
-                nonlocal image
+                nonlocal canvas
                 _overlay(
-                    image=result,
-                    overlay=image,
+                    base=result,
+                    overlay=canvas,
                     x=dx,
                     y=dy,
                     match_color=255,
@@ -54,6 +54,7 @@ class Outline(Renderable):
                     draw(2, 2)
 
                 draw(1, 1, negative=True)
+                result.raws = result.shifted_raws(1, 1, toggle_invert=True)
 
             elif self.mode == OutlineMode.shadow:
                 draw(3, 3)
@@ -62,24 +63,25 @@ class Outline(Renderable):
                 draw(2, 0, negative=True)
                 draw(2, 2, negative=True)
                 draw(1, 1)
+                result.raws = result.shifted_raws(1, 1)
 
             return result
 
 
-def _overlay(image: Image, overlay: Image, x: int, y: int, match_color: int, write_color: int):
-    pixels = np.array(overlay).astype(np.uint8) * 255
+def _overlay(base: Canvas, overlay: Canvas, x: int, y: int, match_color: int, write_color: int):
+    pixels = overlay.pixels()
     for j in range(overlay.height):
         for i in range(overlay.width):
-            color = pixels[j, i]
+            color = pixels[i, j]
             if color == match_color:
-                image.putpixel((x + i, y + j), write_color)
+                base.put_pixel(x + i, y + j, write_color)
 
 
-def outline(outline_modes: List[OutlineMode], target: RenderTarget):
+def outline(outline_modes: List[OutlineMode], target: Bit) -> Bit:
     if outline_modes:
         mode = outline_modes[0]
         return outline(
             outline_modes=outline_modes[1:],
-            target=Outline(mode)(target=target)
+            target=Outline(mode, target=target)
         )
     return target
