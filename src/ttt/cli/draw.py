@@ -2,7 +2,7 @@ import click
 
 from ..core.bits import Atlas, Banner, Image
 from .ttt import ttt
-from .util import inject_blitter
+from .util import design_option, inject_blitter
 
 
 @ttt.group()
@@ -107,15 +107,6 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
 
 @draw.command()
 @click.option(
-    "-p",
-    "--pattern",
-    "pattern_name",
-    metavar="INTEGER",
-    required=True,
-    type=click.IntRange(min=0, max=299),
-    help="Pattern number. Use command 'list patterns' to see all patterns.",
-)
-@click.option(
     "-l",
     "--lines",
     type=int,
@@ -130,17 +121,14 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
     default=None,
     help="Repeat the full pattern x times.",
 )
+@design_option("flo1", "pattern")
 @inject_blitter
-def banner(pattern_name: int, lines, repeat, blit):
+def banner(design, lines, repeat, blit):
     """
     Draw a full-width banner using repeating patterns.
 
     Patterns by Lettercore (https://lettercore.itch.io/).
     """
-    try:
-        pattern_name = int(pattern_name)
-    finally:
-        pass
 
-    banner = Banner(pattern_name, lines=lines, repeat=repeat)
+    banner = Banner(design, lines=lines, repeat=repeat)
     blit(banner)

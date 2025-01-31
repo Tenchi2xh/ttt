@@ -6,7 +6,7 @@ from ..core.bits import Frame, Text
 from ..core.engine import RawBit
 from ..resources import all_fonts
 from .ttt import ttt
-from .util import font_option, inject_blitter
+from .util import design_option, font_option, inject_blitter
 
 
 @ttt.command()
@@ -34,16 +34,10 @@ from .util import font_option, inject_blitter
     default=0,
     help="Padding (in pixels) between the frame and the contents.",
 )
-@click.option(
-    "-i",
-    "--index",
-    type=int,
-    default=27,
-    help="Frame number. Use command 'list frames' to see all frames.",
-)
+@design_option("27", "frame")
 @font_option
 @inject_blitter
-def frame(text, verbatim, frame_perfect, full_width, padding, index, font, blit):
+def frame(text, verbatim, frame_perfect, full_width, padding, design, font, blit):
     """
     Renders TEXT with a specified font inside a frame.
 
@@ -63,7 +57,7 @@ def frame(text, verbatim, frame_perfect, full_width, padding, index, font, blit)
         target = Text(text=text, font=font)
 
     frame = Frame(
-        index=index,
+        index=design,
         target=target,
         frame_perfect=frame_perfect,
         full_width=full_width,

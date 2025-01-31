@@ -1,8 +1,12 @@
+from collections.abc import Sequence
+from typing import Callable
+
 import click
 
 from ..core.bits import Column, Grid, Image, Text
 from ..core.engine import RawBit
 from ..resources import (
+    Resource,
     all_fonts,
     all_frames,
     all_icons,
@@ -36,9 +40,15 @@ def list():
     pass
 
 
+named_option = click.option(
+    "-N", "--named", is_flag=True, help="Only show designs that have an alias name."
+)
+
+
 @list.command()
+@named_option
 @inject_blitter
-def icons(blit):
+def icons(blit, named: bool):
     """
     Lists all available icons.
     """
@@ -47,16 +57,13 @@ def icons(blit):
     print("- PiiiXL: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
     print()
 
-    targets = [
-        Column([RawBit(f"#{i}\nby PiiiXL"), Image(get_icon(i))])
-        for i in range(len(all_icons))
-    ]
-    blit(Grid(targets=targets))
+    blit_list(blit, all_icons, get_icon, named)
 
 
 @list.command()
+@named_option
 @inject_blitter
-def frames(blit):
+def frames(blit, named: bool):
     """
     Lists all available frame designs.
     """
@@ -65,16 +72,13 @@ def frames(blit):
     print("- PiiiXL: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
     print()
 
-    targets = [
-        Column([RawBit(f"#{i}\nby PiiiXL"), Image(get_frame(i))])
-        for i in range(len(all_frames))
-    ]
-    blit(Grid(targets=targets))
+    blit_list(blit, all_frames, get_frame, named)
 
 
 @list.command()
+@named_option
 @inject_blitter
-def patterns(blit):
+def patterns(blit, named):
     """
     Lists all available pattern designs.
     """
@@ -83,11 +87,7 @@ def patterns(blit):
     print("- lettercore: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
     print()
 
-    targets = [
-        Column([RawBit(f"#{i}\nby lettercore"), Image(get_pattern(i))])
-        for i in range(len(all_patterns))
-    ]
-    blit(Grid(targets=targets))
+    blit_list(blit, all_patterns, get_pattern, named)
 
 
 @list.command()
@@ -109,3 +109,34 @@ def fonts(text, blit):
             blit(Text(text=f.name, font=f))
             blit(Text(text=" ".join(samples[cs] for cs in f.charsets), font=f))
         print()
+
+
+def blit_list(blit, resources: Sequence[Resource], getter: Callable, named: bool):
+    targets = [
+        Column([RawBit(make_label(i, resources)), Image(getter(i))])
+        for i in range(len(resources))
+        if named and resources[i]["name"] or not named
+    ]
+    blit(Grid(targets=targets))
+
+
+def make_label(i: int, resources: Sequence[Resource]):
+    resource = resources[i]
+    lines = [(f"#{i}", "")]
+
+    author = resource["author"]
+    name = resource["name"]
+
+    right_width = len(author)
+
+    if name is not None:
+        lines.append(("Alias: ", name))
+        right_width = max(len(s) for s in (author, name))
+    else:
+        lines.append(("", ""))
+
+    lines.append(("Author:", author))
+
+    right_width = max(right_width, resource["width"] // 2 - 8)
+
+    return "\n".join(line[0] + " " + line[1].rjust(right_width) for line in lines)

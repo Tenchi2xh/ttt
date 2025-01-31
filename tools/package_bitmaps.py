@@ -8,6 +8,10 @@ import numpy as np
 from PIL import Image
 
 
+with open("tools/bitmap_names.json") as f:
+    bitmap_names = json.load(f)
+
+
 def encode(image: Image.Image):
     pixels = np.array(image)
     packed_bits = np.packbits(pixels.flatten()).tobytes()
@@ -43,7 +47,15 @@ def package_frames():
                 dx = 0
                 continue
 
-        frames.append(encode(frame))
+        frames.append(
+            {
+                "name": None,
+                "width": size,
+                "height": size,
+                "data": encode(frame),
+                "author": "PiiiXL",
+            }
+        )
         dx += size
 
     write_flat_json(frames, "src/ttt/resources/bitmaps/frames.json")
@@ -57,6 +69,7 @@ def package_icons():
     gap = 8
 
     icons = []
+    n = 0
 
     for file in files:
         image = Image.open(file).convert("1", dither=Image.Dither.NONE)
@@ -67,7 +80,20 @@ def package_icons():
                 y = offset + (size + gap) * j
                 icon = image.crop((x, y, x + size, y + size))
 
-                icons.append(encode(icon))
+                name = next(
+                    (name[1] for name in bitmap_names["icons"] if name[0] == n), None
+                )
+                n += 1
+
+                icons.append(
+                    {
+                        "name": name,
+                        "width": size,
+                        "height": size,
+                        "data": encode(icon),
+                        "author": "PiiiXL",
+                    }
+                )
 
     write_flat_json(icons, "src/ttt/resources/bitmaps/icons.json")
 
@@ -97,10 +123,11 @@ def package_patterns():
 
                     patterns.append(
                         {
-                            "n": name,
-                            "w": image.width,
-                            "h": image.height,
-                            "p": encode(image),
+                            "name": name,
+                            "width": image.width,
+                            "height": image.height,
+                            "data": encode(image),
+                            "author": "lettercore",
                         }
                     )
 

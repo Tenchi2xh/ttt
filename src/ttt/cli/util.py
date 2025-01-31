@@ -35,6 +35,20 @@ font_option = click.option(
 )
 
 
+def design_option(default: str, resource_type: str):
+    return click.option(
+        "-d",
+        "--design",
+        metavar="DESIGN",
+        type=str,
+        default=default,
+        help=(
+            f"{resource_type.capitalize} design number or alias. "
+            f"Use command 'list {resource_type}s' to see all {resource_type}s."
+        ),
+    )
+
+
 def inject_blitter(command_function):
     @invert_option
     @outline_option
