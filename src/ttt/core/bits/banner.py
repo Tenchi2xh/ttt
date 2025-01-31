@@ -6,7 +6,10 @@ from ..engine import Canvas, RasterBit
 
 class Banner(RasterBit):
     def __init__(
-        self, pattern_name: int | str, lines: Optional[int], repeat: Optional[int]
+        self,
+        pattern_name: int | str,
+        lines: Optional[int] = None,
+        repeat: Optional[int] = None,
     ):
         self.pattern = get_pattern(pattern_name)
         self.lines = lines

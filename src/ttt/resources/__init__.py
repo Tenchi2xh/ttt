@@ -7,7 +7,7 @@ from .bitmaps import (
     get_icon,
     get_pattern,
 )
-from .fonts import all_fonts, font_names
+from .fonts import all_fonts, find_font, font_names
 
 
 __all__ = [
@@ -17,6 +17,7 @@ __all__ = [
     "get_pattern",
     "all_fonts",
     "font_names",
+    "find_font",
     "all_icons",
     "get_icon",
     "Resource",

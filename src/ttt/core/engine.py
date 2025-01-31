@@ -88,7 +88,12 @@ class Bit(ABC):
     def to_canvas(self, available_width: int) -> Canvas:
         pass
 
-    def blit(self, available_width: int = term.get_size()[0] * 2, invert: bool = False):
+    def blit(  # noqa: C901
+        self,
+        available_width: int = term.get_size()[0] * 2,
+        invert: bool = False,
+        do_print: bool = True,
+    ):
         canvas = self.to_canvas(available_width=available_width)
         if invert:
             canvas = canvas.invert()
@@ -142,7 +147,10 @@ class Bit(ABC):
 
             output_buffer = inverted_buffer
 
-        print("\n".join(output_buffer))
+        result = "\n".join(output_buffer)
+        if do_print:
+            print(result)
+        return result
 
 
 class RawBit(Bit):

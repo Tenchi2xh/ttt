@@ -3,7 +3,7 @@ import sys
 import click
 
 from ..core.bits import Text
-from ..resources import all_fonts
+from ..resources import find_font
 from .ttt import ttt
 from .util import font_option, inject_blitter
 
@@ -25,5 +25,5 @@ def write(text, font, blit):
     if not text:
         raise click.UsageError("Missing argument 'TEXT'.")
 
-    font = next(f for f in all_fonts if f.id == font)
+    font = find_font(font)
     blit(Text(text=text, font=font))

@@ -56,7 +56,7 @@ def colors_raw(colors: tuple[int, int]):
     return f"{CSI}38;5;{colors[0]};48;5;{colors[1]}m"
 
 
-def get_size():
+def get_size() -> tuple[int, int]:
     return shutil.get_terminal_size()
 
 

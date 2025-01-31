@@ -50,3 +50,7 @@ _fonts = [
 all_fonts = [load_font(n) for n in _fonts]
 
 font_names = [f.id for f in all_fonts]
+
+
+def find_font(font_name: str):
+    return next(f for f in all_fonts if f.id == font_name)

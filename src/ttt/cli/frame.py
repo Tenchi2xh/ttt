@@ -4,7 +4,7 @@ import click
 
 from ..core.bits import Frame, Text
 from ..core.engine import RawBit
-from ..resources import all_fonts
+from ..resources import find_font
 from .ttt import ttt
 from .util import design_option, font_option, inject_blitter
 
@@ -53,7 +53,7 @@ def frame(text, verbatim, frame_perfect, full_width, padding, design, font, blit
     if verbatim:
         target = RawBit(text)
     else:
-        font = next(f for f in all_fonts if f.id == font)
+        font = find_font(font)
         target = Text(text=text, font=font)
 
     frame = Frame(
