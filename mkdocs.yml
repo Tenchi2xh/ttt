@@ -1,0 +1,25 @@
+site_name: ttt
+
+nav:
+  - Home: index.md
+  - About: about.md
+
+plugins:
+    - search
+    - macros:
+        module_name: docs/macros
+
+theme:
+  name: terminal
+  palette: dark
+  features:
+    - footer.prev_next
+    - style.links.underline.hide
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: true
+      pygments_style: github-dark
+      noclasses: true
+  - pymdownx.inlinehilite
