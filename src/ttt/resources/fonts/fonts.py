@@ -1,7 +1,7 @@
 import importlib.resources
 import json
 
-from ...core.bits import Font
+from ...core.font import Font
 
 
 def load_font(name: str):

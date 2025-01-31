@@ -1,9 +1,11 @@
 from .atlas import Atlas
 from .banner import Banner
+from .column import Column
 from .frame import Frame
+from .grid import Grid
 from .image import Image
 from .outline import Outline, OutlineMode, outline
-from .text import Font, Text
+from .text import Text
 
 
 __all__ = [
@@ -14,6 +16,7 @@ __all__ = [
     "Outline",
     "OutlineMode",
     "outline",
-    "Font",
     "Text",
+    "Grid",
+    "Column",
 ]

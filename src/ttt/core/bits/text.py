@@ -1,24 +1,10 @@
-from dataclasses import dataclass
 from io import BytesIO
-from typing import Optional, override
+from typing import override
 
 from PIL import ImageFont
 
 from ..engine import Canvas, RasterBit
-
-
-@dataclass
-class Font:
-    id: str
-    name: str
-    author: str
-    url: str
-    size: int
-    offset_y: Optional[int]
-    line_height: Optional[int]
-    transform: list[str]
-    charsets: list[str]
-    binary: bytes
+from ..font import Font
 
 
 class Text(RasterBit):

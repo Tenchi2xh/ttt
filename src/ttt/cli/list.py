@@ -1,6 +1,7 @@
 import click
 
-from ..core.bits import Text
+from ..core.bits import Column, Grid, Image, Text
+from ..core.engine import RawBit
 from ..resources import all_fonts, all_frames, all_patterns, get_frame, get_pattern
 from .ttt import ttt
 from .util import inject_blitter
@@ -38,7 +39,11 @@ def frames(blit):
     print("- PiiiXL: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
     print()
 
-    display_grid(blit, all_frames, get_frame)
+    targets = [
+        Column([RawBit(f"#{i}\nby PiiiXL"), Image(get_frame(i))])
+        for i in range(len(all_frames))
+    ]
+    blit(Grid(targets=targets))
 
 
 @list.command()
@@ -52,7 +57,11 @@ def patterns(blit):
     print("- lettercore: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
     print()
 
-    display_grid(blit, all_patterns, get_pattern)
+    targets = [
+        Column([RawBit(f"#{i}\nby lettercore"), Image(get_pattern(i))])
+        for i in range(len(all_patterns))
+    ]
+    blit(Grid(targets=targets))
 
 
 @list.command()
@@ -74,8 +83,3 @@ def fonts(text, blit):
             blit(Text(text=f.name, font=f))
             blit(Text(text=" ".join(samples[cs] for cs in f.charsets), font=f))
         print()
-
-
-def display_grid(blit, all_images, getter):
-    # TODO: implement grid Bit
-    pass
