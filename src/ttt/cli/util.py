@@ -43,7 +43,7 @@ def design_option(default: str, resource_type: str):
         type=str,
         default=default,
         help=(
-            f"{resource_type.capitalize} design number or alias. "
+            f"{resource_type.capitalize()} design number or alias. "
             f"Use command 'list {resource_type}s' to see all {resource_type}s."
         ),
     )

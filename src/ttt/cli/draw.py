@@ -1,6 +1,7 @@
 import click
 
 from ..core.bits import Atlas, Banner, Image
+from ..resources import get_icon
 from .ttt import ttt
 from .util import design_option, inject_blitter
 
@@ -18,6 +19,20 @@ def image(file: str, blit):
     Draw a picture provided by the given FILE.
     """
     image = Image(file)
+    blit(image)
+
+
+@draw.command()
+@design_option("31", "icon")
+@inject_blitter
+def icon(design, blit):
+    """
+    Draw a built-in icon.
+
+    Icons by PiiiXL (https://piiixl.itch.io)
+    """
+
+    image = Image(get_icon(design))
     blit(image)
 
 
@@ -127,7 +142,7 @@ def banner(design, lines, repeat, blit):
     """
     Draw a full-width banner using repeating patterns.
 
-    Patterns by Lettercore (https://lettercore.itch.io/).
+    Patterns by Lettercore (https://lettercore.itch.io).
     """
 
     banner = Banner(design, lines=lines, repeat=repeat)
