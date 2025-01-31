@@ -1,35 +1,37 @@
 import tempfile
-import wave
 import threading
-from pathlib import Path
-from typing import List, Optional, Tuple
+import wave
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Optional
 
 import ffmpeg
-import pyaudio
 import numpy as np
+import pyaudio
 from PIL import Image
 
+from ..core.time import callback_timer
 from .colors import x11_256_palette
 from .convert import to_blocks, to_color_blocks
-from ..core.time import callback_timer
 
 
 @dataclass
-class Frame():
+class Frame:
     input_width: int
     input_height: int
     output_width: int
     output_height: int
     blocks: np.ndarray
     colors: Optional[np.ndarray]
-    step_times: List[Tuple[str, float]]
+    step_times: list[tuple[str, float]]
     target_frame_time: float
 
 
 def video_metrics(file: str):
     probe = ffmpeg.probe(file)
-    video_stream = next((stream for stream in probe["streams"] if stream["codec_type"] == "video"), None)
+    video_stream = next(
+        (stream for stream in probe["streams"] if stream["codec_type"] == "video"), None
+    )
     if video_stream is None:
         raise ValueError("No video stream found in the file.")
 
@@ -55,16 +57,17 @@ def video_metrics(file: str):
     return scaled_width, scaled_height, frame_time
 
 
-def video_frames(
+def video_frames(  # noqa: C901
     file: str,
-    output_width: int, output_height: int,
-    invert: bool=False,
-    dither: bool=False,
-    color: bool=True,
-    resize: bool=True,
+    output_width: int,
+    output_height: int,
+    invert: bool = False,
+    dither: bool = False,
+    color: bool = True,
+    resize: bool = True,
     preserve_ratio=True,
-    enable_metrics: bool=False,
-    enable_audio: bool=True,
+    enable_metrics: bool = False,
+    enable_audio: bool = True,
 ):
     global print
 
@@ -90,21 +93,21 @@ def video_frames(
     process = ffmpeg.input(file).filter("scale", output_width, output_height)
     if color:
         process = ffmpeg.filter(
-            [
-                process,
-                ffmpeg.input(str(get_palette()))
-            ],
-            "paletteuse", dither="bayer" if dither else "none",
+            [process, ffmpeg.input(str(get_palette()))],
+            "paletteuse",
+            dither="bayer" if dither else "none",
         )
 
-    process = (
-        process
-        .output("pipe:", format="rawvideo", pix_fmt=pix_fmt)
-        .run_async(pipe_stdout=True, pipe_stderr=True)
+    process = process.output("pipe:", format="rawvideo", pix_fmt=pix_fmt).run_async(
+        pipe_stdout=True, pipe_stderr=True
     )
 
     row_bytes = (output_width + 7) // 8
-    shape = (output_height, row_bytes) if pix_fmt == "monob" else (output_height, output_width)
+    shape = (
+        (output_height, row_bytes)
+        if pix_fmt == "monob"
+        else (output_height, output_width)
+    )
 
     bytes_to_read = shape[0] * shape[1]
 
@@ -117,18 +120,21 @@ def video_frames(
     make_frame = make_frame_1bit if dither else make_frame_8bit
 
     if not enable_metrics:
-        print = lambda *_: None
 
+        def print(*_):
+            return None
+
+    audio_thread = None
     if enable_audio:
         audio_thread = threading.Thread(target=play_audio, args=(file,))
         audio_thread.start()
 
     while True:
-        step_times = []
+        step_times: list[tuple[str, float]] = []
 
         def display_metrics(elapsed: float, name: str):
             nonlocal step_times
-            step_times.append((name, elapsed))
+            step_times.append((name, elapsed))  # noqa: B023
 
         with callback_timer(display_metrics, "io"):
             in_bytes = process.stdout.read(bytes_to_read)
@@ -149,7 +155,9 @@ def video_frames(
             if not color:
                 blocks = to_blocks(frame, 0, 0, output_width, output_height, invert)
             else:
-                blocks, colors = to_color_blocks(frame, 0, 0, output_width, output_height)
+                blocks, colors = to_color_blocks(
+                    frame, 0, 0, output_width, output_height
+                )
 
         yield Frame(
             input_width=input_width,
@@ -159,7 +167,7 @@ def video_frames(
             blocks=blocks,
             colors=colors,
             step_times=step_times,
-            target_frame_time=target_frame_time
+            target_frame_time=target_frame_time,
         )
 
     process.wait()
@@ -169,10 +177,9 @@ def video_frames(
 
 def play_audio(file: str):
     process = (
-        ffmpeg
-            .input(file)
-            .output("pipe:", format="wav")
-            .run_async(pipe_stdout=True, pipe_stderr=True)
+        ffmpeg.input(file)
+        .output("pipe:", format="wav")
+        .run_async(pipe_stdout=True, pipe_stderr=True)
     )
 
     wf = wave.open(process.stdout, "rb")
@@ -181,7 +188,7 @@ def play_audio(file: str):
         format=p.get_format_from_width(wf.getsampwidth()),
         channels=wf.getnchannels(),
         rate=wf.getframerate(),
-        output=True
+        output=True,
     )
 
     chunk_size = 1024

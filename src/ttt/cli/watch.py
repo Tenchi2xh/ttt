@@ -1,61 +1,69 @@
-import time
-import click
 import shutil
+import time
 
-from .ttt import ttt
-from .util import invert_option
+import click
 
 from ..core import term
-from ..core.time import callback_timer
 from ..core.blit import blit, blit_colors
-from ..core.video import video_frames, Frame
+from ..core.time import callback_timer
+from ..core.video import Frame, video_frames
+from .ttt import ttt
+from .util import invert_option
 
 
 @ttt.command()
 @click.argument("file")
+@click.option("-D", "--disable-dithering", is_flag=True, help="Disable dithering.")
+@click.option("-c", "--color", is_flag=True, help="Enable color mode.")
 @click.option(
-    "-D", "--disable-dithering",
+    "-R",
+    "--no-resize",
     is_flag=True,
-    help="Disable dithering."
+    help=(
+        "Display the video in its original resolution "
+        "(only use for small videos; overriden if too big)."
+    ),
 )
 @click.option(
-    "-c", "--color",
+    "-f",
+    "--fill",
     is_flag=True,
-    help="Enable color mode."
+    help="Disregard aspect ratio and fill the screen (overriden by '--no-resize').",
 )
 @click.option(
-    "-R", "--no-resize",
+    "-a",
+    "--enable-audio",
     is_flag=True,
-    help="Display the video in its original resolution (only use for small videos; overriden if too big)."
+    help="Enable audio (synchronization not guaranteed).",
 )
 @click.option(
-    "-f", "--fill",
+    "-F",
+    "--disable-frame-rate-limit",
     is_flag=True,
-    help="Disregard aspect ratio and fill the screen (overriden by '--no-resize')."
+    help="Disable frame rate limit (mutes the audio).",
 )
-@click.option(
-    "-a", "--enable-audio",
-    is_flag=True,
-    help="Enable audio (synchronization not guaranteed)."
-)
-@click.option(
-    "-F", "--disable-frame-rate-limit",
-    is_flag=True,
-    help="Disable frame rate limit (mutes the audio)."
-)
-@click.option(
-    "-m", "--enable-metrics",
-    is_flag=True,
-    help="Show frame rate metrics."
-)
+@click.option("-m", "--enable-metrics", is_flag=True, help="Show frame rate metrics.")
 @invert_option
-def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio, disable_frame_rate_limit, enable_metrics):
+def watch(  # noqa: C901
+    file,
+    disable_dithering,
+    color,
+    no_resize,
+    fill,
+    invert,
+    enable_audio,
+    disable_frame_rate_limit,
+    enable_metrics,
+):
     """
     Watch a video provided by the given FILE.
     """
 
     if shutil.which("ffmpeg") is None:
-        raise click.UsageError("ffmpeg is not installed or not available in the PATH. Please install ffmpeg and try again.")
+        raise click.UsageError(
+            "ffmpeg is not installed or not available in the PATH. "
+            "Please install ffmpeg and try again."
+        )
 
     if disable_frame_rate_limit:
         enable_audio = False
@@ -66,19 +74,23 @@ def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio,
 
     frames = video_frames(
         file,
-        screen_width, screen_height,
+        screen_width,
+        screen_height,
         invert=invert,
-        dither=not(disable_dithering),
+        dither=not (disable_dithering),
         color=color,
-        resize=not(no_resize),
-        preserve_ratio=not(fill),
+        resize=not (no_resize),
+        preserve_ratio=not (fill),
         enable_metrics=enable_metrics,
         enable_audio=enable_audio,
     )
 
     global print
+
     if not enable_metrics:
-        print = lambda *_: None
+
+        def print(*_):
+            return None
 
     overshoot = 0
 
@@ -135,7 +147,7 @@ def watch(file, disable_dithering, color, no_resize, fill, invert, enable_audio,
                     ox = (screen_width - frame.output_width) // (2 * 2)
                     oy = (screen_height - frame.output_height) // (2 * 4)
                     term.move_cursor(0, oy)
-                    do_blit(frame.blocks, frame.colors, offset=ox, end="")
+                    do_blit(frame.blocks, frame.colors, offset=ox, end="")  # type: ignore
 
     if enable_metrics:
         print(f"Min FPS: {min_fps:7.1f} FPS")

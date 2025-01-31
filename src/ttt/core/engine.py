@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, replace
-from typing import List, Self
+from typing import Self
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 from PIL.ImageFont import FreeTypeFont
-import numpy as np
 
 from . import term
 from .blit import blit
@@ -21,13 +21,13 @@ class Raw:
 
 class Canvas:
     def __init__(self, contents: Image.Image | str):
-        self.raws: List[Raw] = []
+        self.raws: list[Raw] = []
 
         if isinstance(contents, Image.Image):
             self.image = contents
         else:
             lines = contents.splitlines()
-            width = max(len(l) for l in lines)
+            width = max(len(line) for line in lines)
             height = len(lines)
             self.image = Image.new("1", (width * 2, height * 4), 0)
             for i, line in enumerate(lines):
@@ -60,12 +60,7 @@ class Canvas:
         else:
             self.image.paste(other.image, (x, y))
             for raw in other.raws:
-                self.raws.append(
-                    replace(raw,
-                        x=raw.x + x,
-                        y=raw.y + y
-                    )
-                )
+                self.raws.append(replace(raw, x=raw.x + x, y=raw.y + y))
 
     def shifted_raws(self, dx: int, dy: int, toggle_invert: bool = False):
         return [
@@ -73,7 +68,7 @@ class Canvas:
                 raw,
                 x=raw.x + dx,
                 y=raw.y + dy,
-                invert=not raw.invert if toggle_invert else raw.invert
+                invert=not raw.invert if toggle_invert else raw.invert,
             )
             for raw in self.raws
         ]
@@ -103,25 +98,26 @@ class Bit(ABC):
         blocks = to_blocks(pixels, 0, 0, image.width, image.height, invert=False)
 
         output_buffer = blit(blocks, do_print=False)
-        buffer_width = max(len(l) for l in output_buffer)
+        buffer_width = max(len(line) for line in output_buffer)
 
-        # TODO: respect raw.invert
-        # - Make a grid 'inverts' the size of output_buffer, all False
-        # - When adding a raw line, flip all relevant bools if invert is true
-        # - At the end, insert invert ANSIs
-
-        invert_flags = [[False for _ in range(buffer_width)] for _ in range(len(output_buffer))]
+        invert_flags = [
+            [False for _ in range(buffer_width)] for _ in range(len(output_buffer))
+        ]
         raw_inverted = False
 
         for raw in canvas.raws:
             row = raw.y // 4
             col_from = raw.x // 2
             col_to = min(buffer_width, col_from + len(raw.text))
+
             line = output_buffer[row]
             output_buffer[row] = line[:col_from] + raw.text + line[col_to:]
+
             if raw.invert:
                 raw_inverted = True
-                invert_flags[row][col_from : col_to] = [not f for f in invert_flags[row][col_from : col_to]]
+                invert_flags[row][col_from:col_to] = [
+                    not f for f in invert_flags[row][col_from:col_to]
+                ]
 
         if raw_inverted:
             inverted_buffer = []

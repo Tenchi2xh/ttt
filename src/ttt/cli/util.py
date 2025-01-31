@@ -1,5 +1,6 @@
-import click
 from functools import wraps
+
+import click
 
 from ..core.bits import OutlineMode, outline
 from ..core.engine import Bit
@@ -7,26 +8,30 @@ from ..resources import font_names
 
 
 invert_option = click.option(
-    "--invert",
-    is_flag=True,
-    help="Draw using inverted colors."
+    "--invert", is_flag=True, help="Draw using inverted colors."
 )
 
 
 outline_option = click.option(
-    "-o", "--outline", "outline_modes",
-    type=click.Choice(OutlineMode), # type: ignore
+    "-o",
+    "--outline",
+    "outline_modes",
+    type=click.Choice(OutlineMode),  # type: ignore
     multiple=True,
-    help="Draw using an outline effect. This option can be repeated."
+    help="Draw using an outline effect. This option can be repeated.",
 )
 
 
 font_option = click.option(
-    "-f", "--font",
+    "-f",
+    "--font",
     type=click.Choice(font_names),
     metavar="FONT",
     default="monogram",
-    help="Specify the font to use for rendering the text. Use command 'list fonts' to see all fonts. Default is 'monogram'."
+    help=(
+        "Specify the font to use for rendering the text. "
+        "Use command 'list fonts' to see all fonts. Default is 'monogram'."
+    ),
 )
 
 
@@ -39,6 +44,6 @@ def inject_blitter(command_function):
         def blit(target: Bit):
             return outline(outline_modes, target).blit(invert=invert)
 
-        ctx.invoke(command_function, blit=blit, *args, **kwargs)
+        ctx.invoke(command_function, *args, blit=blit, **kwargs)
 
     return wrapper

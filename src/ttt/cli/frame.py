@@ -1,40 +1,45 @@
 import sys
-import click
 
-from .ttt import ttt
-from .util import inject_blitter, font_option
+import click
 
 from ..core.bits import Frame, Text
 from ..core.engine import RawBit
 from ..resources import all_fonts
+from .ttt import ttt
+from .util import font_option, inject_blitter
 
 
 @ttt.command()
 @click.argument("text", required=False)
 @click.option(
-    "-V", "--verbatim",
+    "-V",
+    "--verbatim",
     is_flag=True,
-    help="Don't format input and display it verbatim inside the frame."
+    help="Don't format input and display it verbatim inside the frame.",
 )
 @click.option(
-    "-P", "--frame-perfect",
+    "-P",
+    "--frame-perfect",
     is_flag=True,
-    help="Force the frame width to be at a multiple of 8 to align with the original pixel art."
+    help=(
+        "Force the frame width to be at a multiple of 8 "
+        "to align with the original pixel art."
+    ),
+)
+@click.option("-F", "--full-width", is_flag=True, help="Use as much width as possible.")
+@click.option(
+    "-p",
+    "--padding",
+    type=int,
+    default=0,
+    help="Padding (in pixels) between the frame and the contents.",
 )
 @click.option(
-    "-F", "--full-width",
-    is_flag=True,
-    help="Use as much width as possible."
-)
-@click.option(
-    "-p", "--padding",
-    type=int, default=0,
-    help="Padding (in pixels) between the frame and the contents."
-)
-@click.option(
-    "-i", "--index",
-    type=int, default=27,
-    help="Frame number. Use command 'list frames' to see all frames."
+    "-i",
+    "--index",
+    type=int,
+    default=27,
+    help="Frame number. Use command 'list frames' to see all frames.",
 )
 @font_option
 @inject_blitter
@@ -62,7 +67,7 @@ def frame(text, verbatim, frame_perfect, full_width, padding, index, font, blit)
         target=target,
         frame_perfect=frame_perfect,
         full_width=full_width,
-        padding=padding
+        padding=padding,
     )
 
     blit(frame)

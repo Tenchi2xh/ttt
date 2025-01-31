@@ -1,8 +1,11 @@
-from collections import defaultdict
 import json
+from collections import defaultdict
 from pathlib import Path
-from fontTools.ttLib import TTFont, TTCollection
 
+from fontTools.ttLib import TTCollection, TTFont
+
+
+# fmt: off
 unicode_ranges = {
     "Basic Latin":            (0x0020, 0x007F, "Latin"),
     "Latin Extended-A":       (0x0100, 0x017F, "Latin+"),
@@ -17,8 +20,9 @@ unicode_ranges = {
     "Hangul Syllables":       (0xAC00, 0xD7AF, "Korean"),
 }
 
-CJK_simplified  = "爱门国鱼车马云叶语"
+CJK_simplified =  "爱门国鱼车马云叶语"
 CJK_traditional = "愛門國魚車馬雲葉語"
+# fmt: on
 
 supported_threshold = 10
 
@@ -39,7 +43,7 @@ def determine_character_sets(font_path: Path):
     else:
         font = TTFont(font_path)
         cmap = font["cmap"]
-        unicode_maps = cmap.getBestCmap()
+        unicode_maps = cmap.getBestCmap()  # type: ignore
         supported_code_points = set(unicode_maps.keys())
 
     supported_sets = defaultdict(int)

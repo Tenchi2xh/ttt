@@ -1,25 +1,24 @@
 import click
 
-from ..resources import all_fonts, all_frames, all_patterns, get_frame, get_pattern
 from ..core.bits import Text
-
+from ..resources import all_fonts, all_frames, all_patterns, get_frame, get_pattern
 from .ttt import ttt
 from .util import inject_blitter
 
 
 samples = {
-    "Latin":           "AaBbCc",
-    "Latin+":          "ĐđĒēĞğ",
-    "Greek":           "ΑαΒβΓγ",
-    "Cyrillic":        "АаБбВв",
-    "Hebrew":          "אבגד",
-    "Arabic":          "جميل ج م ي ل",
-    "Runic":           "ᚦᚢᚱᛁᛉᚨᛉ",
-    "Hiragana":        "あいうえお",
-    "Katakana":        "アイウエオ",
-    "CJK Simplified":  "爱发叶艺",
+    "Latin": "AaBbCc",
+    "Latin+": "ĐđĒēĞğ",
+    "Greek": "ΑαΒβΓγ",
+    "Cyrillic": "АаБбВв",
+    "Hebrew": "אבגד",
+    "Arabic": "جميل ج م ي ل",
+    "Runic": "ᚦᚢᚱᛁᛉᚨᛉ",
+    "Hiragana": "あいうえお",
+    "Katakana": "アイウエオ",
+    "CJK Simplified": "爱发叶艺",
     "CJK Traditional": "愛發葉藝",
-    "Korean":          "가너미도루배",
+    "Korean": "가너미도루배",
 }
 
 
@@ -40,7 +39,6 @@ def frames(blit):
     print()
 
     display_grid(blit, all_frames, get_frame)
-
 
 
 @list.command()

@@ -1,7 +1,7 @@
 from enum import StrEnum, auto
-from typing import List, override
+from typing import override
 
-from ..engine import Bit, RasterBit, Canvas
+from ..engine import Bit, Canvas, RasterBit
 
 
 class OutlineMode(StrEnum):
@@ -38,7 +38,7 @@ class Outline(RasterBit):
                     x=dx,
                     y=dy,
                     match_color=255,
-                    write_color=0 if negative else 255
+                    write_color=0 if negative else 255,
                 )
 
             if self.mode in (OutlineMode.soft, OutlineMode.hard):
@@ -68,7 +68,9 @@ class Outline(RasterBit):
             return result
 
 
-def _overlay(base: Canvas, overlay: Canvas, x: int, y: int, match_color: int, write_color: int):
+def _overlay(
+    base: Canvas, overlay: Canvas, x: int, y: int, match_color: int, write_color: int
+):
     pixels = overlay.pixels()
     for j in range(overlay.height):
         for i in range(overlay.width):
@@ -77,11 +79,10 @@ def _overlay(base: Canvas, overlay: Canvas, x: int, y: int, match_color: int, wr
                 base.put_pixel(x + i, y + j, write_color)
 
 
-def outline(outline_modes: List[OutlineMode], target: Bit) -> Bit:
+def outline(outline_modes: list[OutlineMode], target: Bit) -> Bit:
     if outline_modes:
         mode = outline_modes[0]
         return outline(
-            outline_modes=outline_modes[1:],
-            target=Outline(mode, target=target)
+            outline_modes=outline_modes[1:], target=Outline(mode, target=target)
         )
     return target

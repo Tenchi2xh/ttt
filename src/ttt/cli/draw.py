@@ -1,9 +1,8 @@
 import click
 
+from ..core.bits import Atlas, Banner, Image
 from .ttt import ttt
 from .util import inject_blitter
-
-from ..core.bits import Image, Atlas, Banner
 
 
 @ttt.group()
@@ -25,39 +24,62 @@ def image(file: str, blit):
 @draw.command()
 @click.argument("file", type=click.Path(exists=True, dir_okay=False))
 @click.option(
-    "-w", "--width",
-    type=int, required=True,
-    help="Width of each sprite in the atlas (in pixels)."
+    "-w",
+    "--width",
+    type=int,
+    required=True,
+    help="Width of each sprite in the atlas (in pixels).",
 )
 @click.option(
-    "-h", "--height",
-    type=int, required=True,
-    help="Height of each sprite in the atlas (in pixels)."
+    "-h",
+    "--height",
+    type=int,
+    required=True,
+    help="Height of each sprite in the atlas (in pixels).",
 )
 @click.option(
-    "-ox", "--offset-x",
-    type=int, default=0,
-    help="Horizontal offset from the top-left corner of the atlas to the first sprite (in pixels). Default is 0."
+    "-ox",
+    "--offset-x",
+    type=int,
+    default=0,
+    help=(
+        "Horizontal offset from the top-left corner of the atlas "
+        "to the first sprite (in pixels). Default is 0."
+    ),
 )
 @click.option(
-    "-oy", "--offset-y",
-    type=int, default=0,
-    help="Vertical offset from the top-left corner of the atlas to the first sprite (in pixels). Default is 0."
+    "-oy",
+    "--offset-y",
+    type=int,
+    default=0,
+    help=(
+        "Vertical offset from the top-left corner of the atlas "
+        "to the first sprite (in pixels). Default is 0."
+    ),
 )
 @click.option(
-    "-gx", "--gap-x",
-    type=int, default=0,
-    help="Horizontal gap between sprites in the atlas (in pixels). Default is 0."
+    "-gx",
+    "--gap-x",
+    type=int,
+    default=0,
+    help="Horizontal gap between sprites in the atlas (in pixels). Default is 0.",
 )
 @click.option(
-    "-gy", "--gap-y",
-    type=int, default=0,
-    help="Vertical gap between sprites in the atlas (in pixels). Default is 0."
+    "-gy",
+    "--gap-y",
+    type=int,
+    default=0,
+    help="Vertical gap between sprites in the atlas (in pixels). Default is 0.",
 )
 @click.option(
-    "-i", "--index",
-    type=int, default=0,
-    help="Index of the sprite to draw (0-based). If not provided, all sprites are drawn consecutively."
+    "-i",
+    "--index",
+    type=int,
+    default=0,
+    help=(
+        "Index of the sprite to draw (0-based). "
+        "If not provided, all sprites are drawn consecutively."
+    ),
 )
 @inject_blitter
 def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
@@ -77,7 +99,7 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
         offset_y=offset_y,
         gap_x=gap_x,
         gap_y=gap_y,
-        index=index
+        index=index,
     )
 
     blit(atlas)
@@ -85,20 +107,27 @@ def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
 
 @draw.command()
 @click.option(
-    "-p", "--pattern", "pattern_name",
+    "-p",
+    "--pattern",
+    "pattern_name",
     metavar="INTEGER",
-    required=True, type=click.IntRange(min=0, max=299),
-    help="Pattern number. Use command 'list patterns' to see all patterns."
+    required=True,
+    type=click.IntRange(min=0, max=299),
+    help="Pattern number. Use command 'list patterns' to see all patterns.",
 )
 @click.option(
-    "-l", "--lines",
-    type=int, default=None,
-    help="Number of text lines to fill (overriden by '-repeat')."
+    "-l",
+    "--lines",
+    type=int,
+    default=None,
+    help="Number of text lines to fill (overriden by '-repeat').",
 )
 @click.option(
-    "-r", "--repeat",
+    "-r",
+    "--repeat",
     metavar="INTEGER",
-    type=click.IntRange(min=1), default=None,
+    type=click.IntRange(min=1),
+    default=None,
     help="Repeat the full pattern x times.",
 )
 @inject_blitter

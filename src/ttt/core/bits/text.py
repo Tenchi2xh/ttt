@@ -1,6 +1,6 @@
-from io import BytesIO
 from dataclasses import dataclass
-from typing import List, Optional, override
+from io import BytesIO
+from typing import Optional, override
 
 from PIL import ImageFont
 
@@ -16,8 +16,8 @@ class Font:
     size: int
     offset_y: Optional[int]
     line_height: Optional[int]
-    transform: List[str]
-    charsets: List[str]
+    transform: list[str]
+    charsets: list[str]
     binary: bytes
 
 
@@ -29,12 +29,11 @@ class Text(RasterBit):
 
     @override
     def to_canvas(self, available_width: int) -> Canvas:
-
         lines, total_width, total_height, line_height = break_and_measure(
             text=transform_text(self.text, self.font),
             max_width=available_width,
             font=self.font,
-            pil_font=self.pil_font
+            pil_font=self.pil_font,
         )
 
         y = self.font.offset_y if self.font.offset_y is not None else 0
@@ -63,8 +62,10 @@ def get_width(text: str, font: ImageFont.FreeTypeFont):
     return int(right - left)
 
 
-def break_and_measure(text: str, max_width: int, font: Font, pil_font: ImageFont.FreeTypeFont):
-    lines: List[str] = []
+def break_and_measure(
+    text: str, max_width: int, font: Font, pil_font: ImageFont.FreeTypeFont
+):
+    lines: list[str] = []
     raw_lines = text.splitlines()
     total_width: int = 0
 

@@ -1,0 +1,24 @@
+# .ruff.toml
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+[lint]
+select = [
+    "E",    # pycodestyle (style errors)
+    "F",    # Pyflakes (unused imports, undefined variables, etc.)
+    "I",    # isort (import sorting)
+    "B",    # flake8-bugbear (common bugs and performance issues)
+    "UP",   # pyupgrade (modern Python syntax)
+    "C90",  # mccabe (complexity warnings)
+]
+
+[lint.isort]
+lines-after-imports = 2
+
+[format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

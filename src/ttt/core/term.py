@@ -1,7 +1,6 @@
+import atexit
 import shutil
 import sys
-import atexit
-from typing import Tuple
 from contextlib import contextmanager
 
 
@@ -53,7 +52,7 @@ def color_bg_raw(bg: int):
     return f"{CSI}48;5;{bg}m"
 
 
-def colors_raw(colors: Tuple[int, int]):
+def colors_raw(colors: tuple[int, int]):
     return f"{CSI}38;5;{colors[0]};48;5;{colors[1]}m"
 
 
@@ -82,5 +81,3 @@ def hide_cursor():
     finally:
         sys.stdout.write(SHOW_CURSOR)
         sys.stdout.flush()
-
-

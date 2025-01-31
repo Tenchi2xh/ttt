@@ -1,11 +1,11 @@
 import sys
-import click
 
-from .ttt import ttt
-from .util import inject_blitter, font_option
+import click
 
 from ..core.bits import Text
 from ..resources import all_fonts
+from .ttt import ttt
+from .util import font_option, inject_blitter
 
 
 @ttt.command()

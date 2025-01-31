@@ -1,9 +1,9 @@
-from typing import List, override
+from typing import override
 
 from PIL.Image import Image
 
-from ..engine import RasterBit, Bit, Canvas
 from ...resources import get_frame
+from ..engine import Bit, Canvas, RasterBit
 
 
 class Frame(RasterBit):
@@ -47,25 +47,27 @@ class Frame(RasterBit):
             total_width = new_total_width
             total_height = new_total_height
 
+        bits = self.bits
+
         fill = 0
-        if is_white(self.bits[1][1]):
+        if is_white(bits[1][1]):
             target_canvas = target_canvas.invert()
             fill = 255
 
         result = Canvas.new(total_width, total_height, fill)
 
         for x in range(frame_size, total_width - frame_size, frame_size):
-            result.paste(self.bits[0][1], x, 0)
-            result.paste(self.bits[2][1], x, total_height - frame_size)
+            result.paste(bits[0][1], x, 0)
+            result.paste(bits[2][1], x, total_height - frame_size)
 
         for y in range(frame_size, total_height - frame_size, frame_size):
-            result.paste(self.bits[1][0], 0, y)
-            result.paste(self.bits[1][2], total_width - frame_size, y)
+            result.paste(bits[1][0], 0, y)
+            result.paste(bits[1][2], total_width - frame_size, y)
 
-        result.paste(self.bits[0][0], 0, 0)
-        result.paste(self.bits[0][2], total_width - frame_size, 0)
-        result.paste(self.bits[2][0], 0, total_height - frame_size)
-        result.paste(self.bits[2][2], total_width - frame_size, total_height - frame_size)
+        result.paste(bits[0][0], 0, 0)
+        result.paste(bits[0][2], total_width - frame_size, 0)
+        result.paste(bits[2][0], 0, total_height - frame_size)
+        result.paste(bits[2][2], total_width - frame_size, total_height - frame_size)
 
         result.paste(target_canvas, x0, y0)
 
@@ -83,7 +85,7 @@ def cut_corners(image: Image, divide_by: int):
     width = image.width
     bit_width = width // divide_by
 
-    bits: List[List[Image]] = []
+    bits: list[list[Image]] = []
 
     for y in range(0, width, bit_width):
         row = []

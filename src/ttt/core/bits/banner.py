@@ -1,16 +1,12 @@
 from typing import Optional, override
 
-from ..engine import Canvas, RasterBit
-
 from ...resources import get_pattern
+from ..engine import Canvas, RasterBit
 
 
 class Banner(RasterBit):
     def __init__(
-        self,
-        pattern_name: int | str,
-        lines: Optional[int],
-        repeat: Optional[int]
+        self, pattern_name: int | str, lines: Optional[int], repeat: Optional[int]
     ):
         self.pattern = get_pattern(pattern_name)
         self.lines = lines

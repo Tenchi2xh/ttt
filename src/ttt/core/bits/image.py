@@ -2,8 +2,8 @@ from typing import override
 
 from PIL import Image as PILImage
 
+from ..engine import Canvas, RasterBit
 from .util import load_image
-from ..engine import RasterBit, Canvas
 
 
 class Image(RasterBit):

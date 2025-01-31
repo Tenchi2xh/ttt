@@ -1,6 +1,6 @@
 .DS_Store
 
-/.vscode
+/.vscode/c_cpp_properties.json
 /dist
 /build
 /src/ttt/**/*.c
