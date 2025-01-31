@@ -49,6 +49,29 @@ def package_frames():
     write_flat_json(frames, "src/ttt/resources/bitmaps/frames.json")
 
 
+def package_icons():
+    files = [f"resources/1bit_icons_{n}_by_PiiiXL.png" for n in ("i", "ii")]
+
+    size = 16
+    offset = 8
+    gap = 8
+
+    icons = []
+
+    for file in files:
+        image = Image.open(file).convert("1", dither=Image.Dither.NONE)
+
+        for j in range(21):
+            for i in range(21):
+                x = offset + (size + gap) * i
+                y = offset + (size + gap) * j
+                icon = image.crop((x, y, x + size, y + size))
+
+                icons.append(encode(icon))
+
+    write_flat_json(icons, "src/ttt/resources/bitmaps/icons.json")
+
+
 def package_patterns():
     packs = [f"resources/1bit_patterns_pack{i}_by_lettercore.zip" for i in range(1, 4)]
     pattern = re.compile(r".*patterns/.*n.png")
@@ -85,5 +108,6 @@ def package_patterns():
 
 
 if __name__ == "__main__":
-    # package_patterns()
+    package_patterns()
     package_frames()
+    package_icons()

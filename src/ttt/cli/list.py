@@ -2,7 +2,15 @@ import click
 
 from ..core.bits import Column, Grid, Image, Text
 from ..core.engine import RawBit
-from ..resources import all_fonts, all_frames, all_patterns, get_frame, get_pattern
+from ..resources import (
+    all_fonts,
+    all_frames,
+    all_icons,
+    all_patterns,
+    get_frame,
+    get_icon,
+    get_pattern,
+)
 from .ttt import ttt
 from .util import inject_blitter
 
@@ -26,6 +34,24 @@ samples = {
 @ttt.group()
 def list():
     pass
+
+
+@list.command()
+@inject_blitter
+def icons(blit):
+    """
+    Lists all available icons.
+    """
+
+    print("Frame authors and licenses:")
+    print("- PiiiXL: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
+    print()
+
+    targets = [
+        Column([RawBit(f"#{i}\nby PiiiXL"), Image(get_icon(i))])
+        for i in range(len(all_icons))
+    ]
+    blit(Grid(targets=targets))
 
 
 @list.command()
