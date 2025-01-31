@@ -2,8 +2,8 @@ from .util import Resource, load_resources, resource_getter
 
 
 all_patterns: list[Resource] = load_resources("patterns.json")
-all_frames = load_resources("frames.json")
-all_icons = load_resources("icons.json")
+all_frames: list[Resource] = load_resources("frames.json")
+all_icons: list[Resource] = load_resources("icons.json")
 
 all_patterns.sort(key=lambda p: p["height"])
 

@@ -11,7 +11,7 @@ class Text(RasterBit):
     def __init__(self, text: str, font: Font):
         self.text = text
         self.font = font
-        self.pil_font = ImageFont.truetype(BytesIO(font.binary), size=font.size)
+        self.pil_font = ImageFont.truetype(BytesIO(font.binary()), size=font.size)
 
     @override
     def to_canvas(self, available_width: int) -> Canvas:

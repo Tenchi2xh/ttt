@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Callable, Optional
 
 
 @dataclass
@@ -13,4 +13,4 @@ class Font:
     line_height: Optional[int]
     transform: list[str]
     charsets: list[str]
-    binary: bytes
+    binary: Callable[[], bytes]

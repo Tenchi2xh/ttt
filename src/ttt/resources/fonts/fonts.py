@@ -1,5 +1,6 @@
 import importlib.resources
 import json
+from functools import cache
 
 from ...core.font import Font
 
@@ -12,7 +13,10 @@ def load_font(name: str):
         filename = f"{name}.ttf"
 
     metadata = json.loads(importlib.resources.read_text(__package__, f"{name}.json"))  # type: ignore
-    font = importlib.resources.read_binary(__package__, filename)  # type: ignore
+
+    @cache
+    def get_font():
+        return importlib.resources.read_binary(__package__, filename)  # type: ignore
 
     assert all(k in metadata for k in ("name", "author", "url", "size"))
 
@@ -26,7 +30,7 @@ def load_font(name: str):
         line_height=metadata.get("line_height"),
         transform=metadata.get("transform", []),
         charsets=metadata["charsets"],
-        binary=font,
+        binary=get_font,
     )
 
 
