@@ -1,0 +1,77 @@
+:root {
+    --global-font-size: 16px;
+    /* 20 = 16 * 1.25, native ratio of font */
+    --global-line-height: 20px;
+    --global-space: 20px;
+    --font-stack: Iosevka Kotan;
+    --mono-font-stack: Iosevka Kotan;
+    --background-color: black;
+}
+
+.container {
+    max-width: calc(16em + 40em + 1em + var(--global-space) * 4);
+}
+
+@media only screen and (min-width: 62em) {
+    .terminal-mkdocs-main-grid {
+        /* 40em = 80 column display */
+        grid-template-columns: 16em 40em;
+    }
+}
+
+.terminal-mkdocs-main-grid {
+    grid-column-gap: 1em;
+}
+
+/* .container {
+    background-size: 8px 20px;
+    background-image:
+        linear-gradient(to right, #333 1px, transparent 1px),
+        linear-gradient(to bottom, #333 1px, transparent 1px);
+} */
+
+pre, code, .highlight {
+    background: transparent !important;
+}
+
+pre code {
+    overflow-x: unset;
+}
+
+pre {
+    margin: var(--global-space) 0;
+    border: none;
+    font-family: Iosevka Kotan Term;
+    line-height: var(--global-line-height) !important;
+    padding: 0;
+    min-width: 40em;
+}
+
+hr {
+    border-bottom: 1px solid var(--secondary-color);
+    margin-block-start: 30px;
+    margin-block-end: 29px;
+}
+
+aside hr {
+    margin-block-start: -10px;
+}
+
+.terminal-mkdocs-side-nav-items::before {
+    content: "Index";
+    display: block;
+    margin-bottom: 20px;
+}
+
+.terminal-mkdocs-side-nav-item--active::before {
+    content: "→ ";
+    font-style: normal;
+}
+
+.terminal-prompt::before {
+    content: "❱ ";
+}
+
+.terminal-prompt::after {
+    width: 0.5em;
+}

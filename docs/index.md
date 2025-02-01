@@ -4,11 +4,16 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 Using my wonderful tool, you can make flowers!
 
-{{ Banner("flo1").blit() }}
+{{ example('Banner("flo1").blit()') }}
 
 And write text!
 
-{{ Text("Hello, world!", font=find_font("kiwisoda")).blit() }}
+{{ example('Text(
+    "Hello, world!",
+    font=find_font("kiwisoda")
+).blit()') }}
+
+---
 
 ## Commands
 

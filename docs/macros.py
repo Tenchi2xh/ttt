@@ -12,64 +12,68 @@ from ttt.core.bits import (
     Text,
     outline,
 )
+from ttt.core.engine import Bit
 from ttt.resources import find_font
 
 
-# TODO: Include in theme
-style = """
-font-family: Iosevka Kotan Term;
-line-height: 1.2;
-"""
+def example_block(code: str, example: str):
+    return f"""
+```python
+>>> {"\n... ".join(code.splitlines())}
+```
+
+<pre>\n{example}\n</pre>
+    """
 
 
-def pre(text: str):
-    return f'<pre style="{style}">\n{text}\n</pre>'
-
-
-def patch_blit(cls):
+def patch_blit(cls: type[Bit]):
     if hasattr(cls, "_patched"):
         return cls
+    cls._patched = True  # type: ignore
 
-    cls._patched = True
     method = cls.blit
 
     @functools.wraps(method)
-    def blit(self, available_width=74 * 2, invert=False, do_print=False):
-        return pre(
-            method(
-                self, available_width=available_width, invert=invert, do_print=do_print
-            )
+    def blit(self, available_width=80 * 2, invert=False, do_print=False):
+        return method(
+            self, available_width=available_width, invert=invert, do_print=do_print
         )
 
     cls.blit = blit
 
 
-[
-    patch_blit(cls)
-    for cls in [
-        Atlas,
-        Banner,
-        Column,
-        Frame,
-        Grid,
-        Image,
-        Outline,
-        Text,
-    ]
+bits: list[type[Bit]] = [
+    Atlas,
+    Banner,
+    Column,
+    Frame,
+    Grid,
+    Image,
+    Outline,
+    Text,
 ]
+
+others = [
+    find_font,
+    outline,
+    OutlineMode,
+]
+
+[patch_blit(cls) for cls in bits]
 
 
 def define_env(env):
-    env.variables["Atlas"] = Atlas
-    env.variables["Banner"] = Banner
-    env.variables["Column"] = Column
-    env.variables["Frame"] = Frame
-    env.variables["Grid"] = Grid
-    env.variables["Image"] = Image
-    env.variables["Outline"] = Outline
-    env.variables["OutlineMode"] = OutlineMode
-    env.variables["Text"] = Text
+    # [env.macro(cls) for cls in bits]
+    # env.macro(find_font)
+    # env.macro(outline)
+    # env.macro(OutlineMode)
+    @env.macro
+    def example(code):
+        result = eval(
+            code,
+            {
+                **{obj.__name__: obj for obj in bits + others},
+            },
+        )
 
-    env.macro(find_font)
-    env.macro(outline)
-    env.macro(pre)
+        return example_block(code, result)

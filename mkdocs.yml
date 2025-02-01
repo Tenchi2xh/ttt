@@ -11,15 +11,35 @@ plugins:
 
 theme:
   name: terminal
+  custom_dir: docs/overrides
   palette: dark
   features:
     - footer.prev_next
     - style.links.underline.hide
+    - navigation.side.indexes
+
+extra_css:
+  - style.css
 
 markdown_extensions:
+  # Python Markdown
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - toc:
+      permalink: "#"
+      baselevel: 1
+      toc_depth: 2
+
+  # PyMdown Extensions
   - pymdownx.superfences
   - pymdownx.highlight:
       use_pygments: true
       pygments_style: github-dark
       noclasses: true
   - pymdownx.inlinehilite
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
