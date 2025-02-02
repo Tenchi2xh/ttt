@@ -3,6 +3,7 @@ site_name: ttt
 nav:
   - Home: index.md
   - About: about.md
+  - Art credits: art_credits.md
   - API reference:
     - Index: api/index.md
     - Engine: api/engine.md
@@ -44,6 +45,9 @@ theme:
 
 extra_css:
   - style.css
+
+extra_javascript:
+  - random_bg.js
 
 markdown_extensions:
   # Python Markdown

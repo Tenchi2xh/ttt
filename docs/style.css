@@ -18,8 +18,25 @@
     --doc-symbol-module-fg-color: #78dce8;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: var(--random-bg);
+    image-rendering: pixelated;
+    transform: scaleX(4) scaleY(5);
+    transform-origin: top left;
+    opacity: 0.1;
+    z-index: -1;
+}
+
 .container {
     max-width: calc(16em + 40em + 1em + var(--global-space) * 4);
+    background-color: black;
+}
+
+.container:nth-child(2) {
+    padding-bottom: calc(var(--global-space) * 2);
 }
 
 @media only screen and (min-width: 62em) {
@@ -148,6 +165,9 @@ ul > li::after {
     content: "•";
 }
 
+blockquote, h1, ol, p, ul {
+    margin-bottom: var(--global-space);
+}
 
 table {
     border-spacing: 0;
@@ -179,6 +199,10 @@ h1, h2, h3, h4, h5, h6 {
     width: fit-content;
 }
 
+h1, h2 {
+    font-weight: 900;
+}
+
 h1:not(.doc) {
     padding-top: calc(var(--global-space) * 2);
     border-bottom: 4px double var(--font-color);
@@ -189,13 +213,13 @@ h1:not(.doc) {
 h2:not(.doc) {
     border-bottom: 2px solid var(--font-color);
     padding-bottom: 9px;
-    margin-bottom: 9px;
+    margin-bottom: 29px;
 }
 
 h3:not(.doc) {
     border-bottom: 1px solid var(--font-color);
     padding-bottom: 10px;
-    margin-bottom: 9px;
+    margin-bottom: 29px;
     font-weight: normal;
 }
 
@@ -261,3 +285,27 @@ section > .doc-module .doc-contents { border-color: var(--doc-symbol-module-fg-c
 
 .doc-label::before { content: "("; }
 .doc-label::after { content: ")"; }
+
+.footnote ol::before {
+    content: "Footnotes:";
+    display: block;
+    margin-bottom: var(--global-space);
+    font-weight: 900;
+}
+
+.footnote li {
+    padding-left: 0 !important;
+    display: flex;
+}
+
+.footnote li::before {
+    content: counter(item) ":";
+    margin-right: 10px;
+    counter-increment: item;
+}
+
+sup > .footnote-ref {
+    display: inline-block;
+    width: 8px;
+    font-weight: 900;
+}

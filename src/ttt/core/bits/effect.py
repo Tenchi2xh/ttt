@@ -97,7 +97,7 @@ def outline(outline_modes: list[OutlineMode], target: Bit) -> Bit:
         target (Bit): Bit to which the outline effects will be applied
 
     Returns:
-        Bit: Outlined `Bit`
+        Outlined Bit
     """
     if outline_modes:
         mode = outline_modes[0]
