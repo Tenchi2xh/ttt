@@ -35,7 +35,7 @@ samples = {
 }
 
 
-@ttt.group()
+@ttt.group(help="Commands for listing built-in resources.")
 def list():
     pass
 

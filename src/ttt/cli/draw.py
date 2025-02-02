@@ -6,7 +6,7 @@ from .ttt import ttt
 from .util import design_option, inject_blitter
 
 
-@ttt.group()
+@ttt.group(help="Main drawing commands.")
 def draw():
     pass
 
@@ -29,7 +29,7 @@ def icon(design, blit):
     """
     Draw a built-in icon.
 
-    Icons by PiiiXL (https://piiixl.itch.io)
+    Icons by PiiiXL (https://piiixl.itch.io).
     """
 
     image = Image(get_icon(design))

@@ -6,7 +6,8 @@
     --font-stack: Iosevka Kotan Term;
     --mono-font-stack: Iosevka Kotan Term;
     --background-color: black;
-    --code-bg-color: #141414;
+    --code-bg-color: transparent;
+    --table-bg-color: #141414;
     --table-color: #555;
     --font-color: #ccc;
 
@@ -62,7 +63,7 @@ b, strong {
     color: #ffffff;
 }
 
-p code, ul code, ol code {
+code:not(pre > code):not(code.doc-symbol):not(table code):not(small code) {
     background-color: black;
     filter: invert(1) hue-rotate(180deg);
 }
@@ -70,6 +71,7 @@ p code, ul code, ol code {
 pre code {
     overflow-x: unset;
     padding: var(--global-space) 0;
+    background: var(--table-bg-color);
 }
 
 code::after, code::before {
@@ -171,8 +173,8 @@ blockquote, h1, ol, p, ul {
 
 table {
     border-spacing: 0;
-    background-color: var(--code-bg-color);
-    border-top: var(--global-space) solid var(--code-bg-color);
+    background-color: var(--table-bg-color);
+    border-top: var(--global-space) solid var(--table-bg-color);
     border-collapse: none;
 }
 
@@ -308,4 +310,8 @@ sup > .footnote-ref {
     display: inline-block;
     width: 8px;
     font-weight: 900;
+}
+
+small {
+    font-size: 100%;
 }

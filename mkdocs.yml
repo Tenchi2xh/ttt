@@ -7,11 +7,19 @@ nav:
     - How does it work?: ttt/how.md
     - Showcase: ttt/showcase.md
     - Art credits: ttt/art_credits.md
+  - CLI reference:
+    - Index: cli/commands.md
+    - Draw: cli/draw.md
+    - Write: cli/write.md
+    - List: cli/list.md
   - API reference:
     - Index: api/index.md
     - Engine: api/engine.md
     - Bits: api/bits.md
   - Lorem: lorem.md
+
+hooks:
+  - docs/patches.py
 
 plugins:
   - search
@@ -75,3 +83,6 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.mark
   - pymdownx.tilde
+
+  # Other
+  - mkdocs-click

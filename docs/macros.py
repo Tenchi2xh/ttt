@@ -1,4 +1,5 @@
 import functools
+import textwrap
 
 from ttt.core.bits import (
     Atlas,
@@ -13,17 +14,7 @@ from ttt.core.bits import (
     outline,
 )
 from ttt.core.engine import Bit
-from ttt.resources import find_font
-
-
-def example_block(code: str, example: str):
-    return f"""
-```python
->>> {"\n... ".join(code.splitlines())}
-```
-
-<pre>\n{example}\n</pre>
-    """
+from ttt.resources import find_font, get_icon
 
 
 def patch_blit(cls: type[Bit]):
@@ -53,27 +44,49 @@ bits: list[type[Bit]] = [
     Text,
 ]
 
-others = [
-    find_font,
-    outline,
-    OutlineMode,
-]
+others = {
+    "find_font": find_font,
+    "outline": outline,
+    "OutlineMode": OutlineMode,
+    "get_icon": get_icon,
+}
 
 [patch_blit(cls) for cls in bits]
 
 
+command_template = """
+```bash
+$ {command}
+```
+
+<pre>{result}</pre>
+"""
+
+code_template = """
+```python
+>>> {code}
+```
+
+<pre>{result}</pre>
+"""
+
+
 def define_env(env):
-    # [env.macro(cls) for cls in bits]
-    # env.macro(find_font)
-    # env.macro(outline)
-    # env.macro(OutlineMode)
     @env.macro
-    def example(code):
+    def example(code, command: str | None = None, indent=0):
         result = eval(
             code,
             {
-                **{obj.__name__: obj for obj in bits + others},
+                **{obj.__name__: obj for obj in bits},
+                **others,
             },
         )
 
-        return example_block(code, result)
+        if command:
+            output = command_template.format(command=command, result=result)
+        else:
+            output = code_template.format(
+                code="\n... ".join(code.splitlines()), result=result
+            )
+
+        return textwrap.indent(output, " " * indent)
