@@ -14,6 +14,7 @@ plugins:
       module_name: docs/macros
   - mkdocstrings:
       default_handler: python
+      custom_templates: docs/overrides/mkdocstrings
       handlers:
         python:
           options:
@@ -34,7 +35,7 @@ plugins:
 
 theme:
   name: terminal
-  custom_dir: docs/overrides
+  custom_dir: docs/overrides/theme
   palette: dark
   features:
     - footer.prev_next
@@ -60,7 +61,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight:
       use_pygments: true
-      pygments_style: github-dark
+      pygments_style: monokai
       noclasses: true
   - pymdownx.inlinehilite
   - pymdownx.caret
