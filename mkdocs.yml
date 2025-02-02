@@ -3,11 +3,34 @@ site_name: ttt
 nav:
   - Home: index.md
   - About: about.md
+  - API reference:
+    - Index: api/index.md
+    - Engine: api/engine.md
+    - Bits: api/bits.md
 
 plugins:
-    - search
-    - macros:
-        module_name: docs/macros
+  - search
+  - macros:
+      module_name: docs/macros
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: false
+            # show_if_no_docstring: true
+            # summary: true
+            show_signature_annotations: true
+            separate_signature: true
+            line_length: 80
+            show_root_heading: true
+            group_by_category: true
+            # show_category_heading: true
+            show_symbol_type_heading: true
+            heading_level: 2
+            docstring_options:
+              ignore_init_summary: true
+            merge_init_into_class: true
 
 theme:
   name: terminal
@@ -31,7 +54,7 @@ markdown_extensions:
   - toc:
       permalink: "#"
       baselevel: 1
-      toc_depth: 2
+      toc_depth: 3
 
   # PyMdown Extensions
   - pymdownx.superfences

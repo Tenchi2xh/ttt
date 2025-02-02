@@ -12,7 +12,17 @@ class OutlineMode(StrEnum):
 
 
 class Outline(RasterBit):
+    """
+    Renders an outline effect around target Bit.
+    """
+
     def __init__(self, outline_mode: OutlineMode, target: Bit):
+        """Inits Outline.
+
+        Args:
+            outline_mode (OutlineMode): Which type of outline to apply.
+            target (Bit): Bit to which the outline effect will be applied.
+        """
         self.mode = outline_mode
         self.target = target
 
@@ -80,6 +90,15 @@ def _overlay(
 
 
 def outline(outline_modes: list[OutlineMode], target: Bit) -> Bit:
+    """Recursively wraps target Bit with all the outlines provided.
+
+    Args:
+        outline_modes (list[OutlineMode]): Outline modes too wrap with
+        target (Bit): Bit to which the outline effects will be applied
+
+    Returns:
+        Bit: Outlined `Bit`
+    """
     if outline_modes:
         mode = outline_modes[0]
         return outline(

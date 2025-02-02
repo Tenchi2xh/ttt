@@ -6,6 +6,8 @@
     --font-stack: Iosevka Kotan;
     --mono-font-stack: Iosevka Kotan;
     --background-color: black;
+    --code-bg-color: #141414;
+    --table-color: #555;
 }
 
 .container {
@@ -30,16 +32,27 @@
         linear-gradient(to bottom, #333 1px, transparent 1px);
 } */
 
-pre, code, .highlight {
-    background: transparent !important;
+p code, ul code, ol code {
+    background-color: black;
+    filter: invert(1) hue-rotate(180deg);
 }
 
 pre code {
     overflow-x: unset;
+    padding: var(--global-space) 0;
+}
+
+code::after, code::before {
+    content: "";
+}
+
+.doc-heading > code ~ a {
+    margin-left: -8px;
 }
 
 pre {
-    margin: var(--global-space) 0;
+    margin-top: 0;
+    margin-bottom: var(--global-space);
     border: none;
     font-family: Iosevka Kotan Term;
     line-height: var(--global-line-height) !important;
@@ -47,8 +60,12 @@ pre {
     min-width: 40em;
 }
 
+code::before {
+    content: none;
+}
+
 hr {
-    border-bottom: 1px solid var(--secondary-color);
+    border-bottom: 1px solid var(--table-color);
     margin-block-start: 30px;
     margin-block-end: 29px;
 }
@@ -57,12 +74,36 @@ aside hr {
     margin-block-start: -10px;
 }
 
+section hr {
+    margin-block-start: 70px;
+    margin-block-end: 69px;
+}
+
+
+
+.container > hr {
+    margin-block-start: 70px;
+}
+
+#terminal-mkdocs-side-panel {
+    padding-top: calc(var(--global-space) * 2);
+}
+
+#terminal-mkdocs-side-panel hr {
+    display: none;
+}
+
 .terminal-mkdocs-side-nav-items::before {
     content: "Index";
     display: block;
     margin-bottom: 20px;
 }
 
+.terminal-mkdocs-side-nav-item--active--active {
+    font-style: italic;
+}
+
+.terminal-mkdocs-side-nav-item--active--active::before,
 .terminal-mkdocs-side-nav-item--active::before {
     content: "→ ";
     font-style: normal;
@@ -74,4 +115,91 @@ aside hr {
 
 .terminal-prompt::after {
     width: 0.5em;
+    animation: cursor 1s steps(1, end) infinite;
+}
+
+ol, ul {
+    margin-top: 0;
+}
+
+ul > li > ul {
+    padding-left: var(--global-space) !important;
+}
+
+li {
+    padding-left: 0 !important;
+}
+
+table {
+    border-spacing: 0;
+    background-color: var(--code-bg-color);
+    border-top: var(--global-space) solid var(--code-bg-color);
+    border-collapse: none;
+}
+
+table th {
+    border: none;
+    border-bottom: 2px solid var(--table-color);
+    padding-top: 0;
+    padding-bottom: 9px;
+}
+
+table td {
+    border: none;
+    border-bottom: 1px solid var(--table-color);
+    padding-top: 9px;
+    padding-bottom: 10px;
+}
+
+table tr:last-child td {
+    border: none;
+    padding-bottom: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    width: fit-content;
+}
+
+h1:not(.doc) {
+    padding-top: calc(var(--global-space) * 2);
+    border-bottom: 4px double var(--font-color);
+    padding-bottom: 8px;
+    margin-bottom: 28px;
+}
+
+h2:not(.doc) {
+    border-bottom: 2px solid var(--font-color);
+    padding-bottom: 9px;
+    margin-bottom: 9px;
+}
+
+h3:not(.doc) {
+    border-bottom: 1px solid var(--font-color);
+    padding-bottom: 10px;
+    margin-bottom: 9px;
+    font-weight: normal;
+}
+
+code.doc-symbol {
+    border-radius: 0;
+    font-size: 1em;
+    padding: 0;
+}
+
+code.doc-symbol-method::after {
+    content: "method";
+}
+
+.doc-children {
+    padding-left: 35px;
+    border-left: 1px solid var(--table-color);
+    margin-left: 4px;
+}
+
+.doc-signature code {
+    background: transparent;
+}
+
+.doc-md-description {
+    font-style: italic;
 }

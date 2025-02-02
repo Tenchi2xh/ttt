@@ -20,7 +20,15 @@ class Raw:
 
 
 class Canvas:
+    """Abstraction layer for drawing with pixels and text at the same time."""
+
     def __init__(self, contents: Image.Image | str):
+        """Inits a Canvas.
+
+        Args:
+            contents (Image.Image | str):
+                Initial contents of this Canvas, either an Image or some verbatim text.
+        """
         self.raws: list[Raw] = []
 
         if isinstance(contents, Image.Image):
@@ -36,25 +44,55 @@ class Canvas:
         self.draw = ImageDraw.Draw(self.image)
 
     @classmethod
-    def new(cls, width: int, height: int, color: int):
+    def new(cls, width: int, height: int, color: int) -> "Canvas":
+        """Create a new blank Canvas.
+
+        Args:
+            width (int): Width in pixels.
+            height (int): Height in pixels.
+            color (int): Fill color of the new Canvas (0 = black, 255 = white).
+
+        Returns:
+            A new blank Canvas.
+        """
         image = Image.new("1", (width, height), color)
         return cls(image)
 
     @property
-    def width(self):
+    def width(self) -> int:
+        """Width of this Canvas."""
         return self.image.width
 
     @property
-    def height(self):
+    def height(self) -> int:
+        """Height of this Canvas."""
         return self.image.height
 
-    def pixels(self):
+    def pixels(self) -> np.ndarray:
+        """Returns a 2D numpy array representing the pixel values of this Canvas.
+
+        Values are 0 for black and 255 for white.
+        """
         return np.array(self.image).transpose().astype(np.uint8) * 255
 
     def put_pixel(self, x: int, y: int, fill: int):
+        """Change the color value of the given pixel coordinates.
+
+        Args:
+            x (int): Horizontal coordinate of the pixel.
+            y (int): Vertical coordinate of the pixel.
+            fill (int): New color value (0 = black, 255 = white).
+        """
         self.image.putpixel((x, y), fill)
 
     def paste(self, other: Self | Image.Image, x: int, y: int):
+        """Draw another Canvas on top of this one.
+
+        Args:
+            other (Canvas | Image.Image): Other Canvas to draw (or PIL Image).
+            x (int): Horizontal offset of where to draw the other Canvas.
+            y (int): Vertical offset of where to draw the other Canvas.
+        """
         if isinstance(other, Image.Image):
             self.image.paste(other, (x, y))
         else:
@@ -62,7 +100,17 @@ class Canvas:
             for raw in other.raws:
                 self.raws.append(replace(raw, x=raw.x + x, y=raw.y + y))
 
-    def shifted_raws(self, dx: int, dy: int, toggle_invert: bool = False):
+    def shifted_raws(self, dx: int, dy: int, toggle_invert: bool = False) -> list[Raw]:
+        """Returns a copy of the verbatim texts of this Canvas, shifted by an offset.
+
+        Args:
+            dx (int): Horizontal offset.
+            dy (int): Vertical offset.
+            toggle_invert (bool, optional): Also invert the colors of the verbatim text.
+
+        Returns:
+            A copy of the verbatim texts with shifted coordinates.
+        """
         return [
             replace(
                 raw,
@@ -74,18 +122,47 @@ class Canvas:
         ]
 
     def invert(self):
+        """Returns a copy of this Canvas with inverted colors.
+
+        Returns:
+            Canvas: A copy of this Canvas with inverted colors.
+        """
         result = Canvas(ImageOps.invert(self.image))
         for raw in self.raws:
             result.raws.append(replace(raw, invert=not raw.invert))
         return result
 
     def draw_text(self, x: int, y: int, text: str, font: FreeTypeFont, fill: int):
+        """Draw rasterized text on this Canvas.
+
+        Args:
+            x (int): Horizontal coordinate of the text, in pixels.
+            y (int): Vertical offset of the text, in pixels.
+            text (str): Text to write.
+            font (FreeTypeFont): PIL Font object.
+            fill (int): Text color (0 = black, 255 = white).
+        """
         self.draw.text((x, y), text=text, font=font, fill=fill)
 
 
 class Bit(ABC):
+    """Rendereable element of the *ttt* engine.
+
+    Can be either made from pixels ([RasterBit][ttt.core.engine.RasterBit])
+    or verbatim text ([RawBit][ttt.core.engine.RawBit]).
+    """
+
     @abstractmethod
     def to_canvas(self, available_width: int) -> Canvas:
+        """Render this Bit into a [Canvas][ttt.core.engine.Canvas].
+
+        Args:
+            available_width (int):
+                Width budget given to this Bit and its children for rendering.
+
+        Returns:
+            A rendered Canvas.
+        """
         pass
 
     def blit(  # noqa: C901
@@ -93,7 +170,18 @@ class Bit(ABC):
         available_width: int = term.get_size()[0] * 2,
         invert: bool = False,
         do_print: bool = True,
-    ):
+    ) -> str:
+        """Recursively render the Bit tree and convert to printable text.
+
+        Args:
+            available_width (int, optional): Width budget given to this Bit
+                and its children for rendering. Defaults to current terminal width.
+            invert (bool, optional): Render with inverted colors.
+            do_print (bool, optional): Also print the final rendered result.
+
+        Returns:
+            A rendered Bit
+        """
         canvas = self.to_canvas(available_width=available_width)
         if invert:
             canvas = canvas.invert()
@@ -154,8 +242,22 @@ class Bit(ABC):
 
 
 class RawBit(Bit):
+    """Renderable Bit representing verbatim text.
+
+    Contents of this type of Bit are *not rendered using pixels* but will instead
+    be **outputed as-is to the terminal**.
+
+    Since real text cannot be precisely positioned like pixels, the final position of a
+    raw Bit will be rounded to the nearest multiple of 2 horizontally, and 4 vertically.
+    """
+
     # TODO: Breakable and non-breakable mode, use available_width
     def __init__(self, raw_text: str):
+        """Inits a RawBit.
+
+        Args:
+            raw_text (str): Text content to be rendered verbatim.
+        """
         self.raw_text = raw_text
 
     def to_canvas(self, available_width: int) -> Canvas:
@@ -163,6 +265,8 @@ class RawBit(Bit):
 
 
 class RasterBit(Bit, ABC):
+    """Abstract class for renderable Bits using pixels."""
+
     @abstractmethod
     def to_canvas(self, available_width: int) -> Canvas:
         pass
