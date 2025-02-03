@@ -5,7 +5,8 @@
 - Draw [images](#ttt-draw-image) and built-in [Icons](#ttt-draw-icon):
 
 {{ example(
-    'Image(get_icon("31")).blit()', command="ttt draw icon -d 39",
+    'Image(get_icon("31")).blit()',
+    command="ttt draw icon -d 39",
     indent=4
 ) }}
 

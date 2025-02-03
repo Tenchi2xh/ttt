@@ -11,9 +11,9 @@ class Frame(RasterBit):
         self,
         index: int,
         target: Bit,
-        frame_perfect: bool,
-        full_width: bool,
-        padding: int,
+        frame_perfect: bool = True,
+        full_width: bool = False,
+        padding: int = 0,
     ):
         self.frame = get_frame(index)
         self.bits = cut_corners(self.frame, 3)

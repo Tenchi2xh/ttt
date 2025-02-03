@@ -34,4 +34,4 @@ Make sure to check out all the different fonts using [`ttt list fonts`](list.md)
     :command: write
     :prog_name: ttt write
     :style: table
-    :depth: 2
+    :depth: 1

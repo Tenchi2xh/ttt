@@ -10,10 +10,11 @@ from ttt.core.bits import (
     Image,
     Outline,
     OutlineMode,
+    Row,
     Text,
     outline,
 )
-from ttt.core.engine import Bit
+from ttt.core.engine import Bit, RawBit
 from ttt.resources import find_font, get_icon
 
 
@@ -42,6 +43,8 @@ bits: list[type[Bit]] = [
     Image,
     Outline,
     Text,
+    Row,
+    RawBit,
 ]
 
 others = {
@@ -54,26 +57,28 @@ others = {
 [patch_blit(cls) for cls in bits]
 
 
-command_template = """
+example_template = """<div class="example"><pre>{result}</pre></div>"""
+
+command_template = f"""
 ```bash
-❱ {command}
+❱ {{command}}
 ```
 
-<div class="example"><pre>{result}</pre></div>
+{example_template}
 """
 
-code_template = """
+code_template = f"""
 ```python
->>> {code}
+>>> {{code}}
 ```
 
-<div class="example"><pre>{result}</pre></div>
+{example_template}
 """
 
 
 def define_env(env):
     @env.macro
-    def example(code, command: str | None = None, indent=0):
+    def example(code, command: str | None = None, only_example: bool = False, indent=0):
         result = eval(
             code,
             {
@@ -82,7 +87,9 @@ def define_env(env):
             },
         )
 
-        if command:
+        if only_example:
+            output = example_template.format(result=result)
+        elif command:
             output = command_template.format(command=command, result=result)
         else:
             output = code_template.format(

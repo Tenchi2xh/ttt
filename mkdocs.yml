@@ -13,6 +13,8 @@ nav:
     - Draw: cli/draw.md
     - Write: cli/write.md
     - List: cli/list.md
+    - Frame: cli/frame.md
+    - Watch: cli/watch.md
   - API reference:
     - Index: api/index.md
     - Engine: api/engine.md
