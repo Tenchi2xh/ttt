@@ -4,7 +4,7 @@ import click
 
 from ..core.bits import Frame, Text
 from ..core.engine import RawBit
-from ..resources import find_font
+from ..resources import find_font, get_icon
 from .ttt import ttt
 from .util import design_option, font_option, inject_blitter
 
@@ -34,10 +34,35 @@ from .util import design_option, font_option, inject_blitter
     default=0,
     help="Padding (in pixels) between the frame and the contents.",
 )
+@click.option(
+    "-L",
+    "--left-icon",
+    type=str,
+    default=None,
+    help="Icon to display on the left. Use command 'list icons' to see all icons.",
+)
+@click.option(
+    "-R",
+    "--right-icon",
+    type=str,
+    default=None,
+    help="Icon to display on the right. Use command 'list icons' to see all icons.",
+)
 @design_option("27", "frame")
 @font_option
 @inject_blitter
-def frame(text, verbatim, frame_perfect, full_width, padding, design, font, blit):
+def frame(
+    text,
+    verbatim,
+    frame_perfect,
+    full_width,
+    padding,
+    left_icon,
+    right_icon,
+    design,
+    font,
+    blit,
+):
     """
     Renders TEXT with a specified font inside a frame.
 
@@ -56,12 +81,20 @@ def frame(text, verbatim, frame_perfect, full_width, padding, design, font, blit
         font = find_font(font)
         target = Text(text=text, font=font)
 
+    if left_icon:
+        left_icon = get_icon(left_icon)
+
+    if right_icon:
+        right_icon = get_icon(right_icon)
+
     frame = Frame(
         index=design,
         target=target,
         frame_perfect=frame_perfect,
         full_width=full_width,
         padding=padding,
+        left_image=left_icon,
+        right_image=right_icon,
     )
 
     blit(frame)
