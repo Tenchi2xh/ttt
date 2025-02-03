@@ -58,6 +58,12 @@ body::before {
         flex-direction: column;
         align-items: center;
     }
+    table {
+        max-width: calc(100vw - var(--global-space) * 4) !important;
+        display: block;
+        overflow-x: auto;
+        /* white-space: nowrap; */
+    }
 }
 
 .terminal-mkdocs-main-grid {
@@ -204,6 +210,7 @@ table {
     background-color: var(--table-bg-color);
     border-top: var(--global-space) solid var(--table-bg-color);
     border-collapse: none;
+    max-width: 100%;
 }
 
 table th {
