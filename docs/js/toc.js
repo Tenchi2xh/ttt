@@ -1,16 +1,3 @@
-const numBackgrounds = 300;
-
-function setRandomBackground() {
-    let n = Math.floor(1 + Math.random() * numBackgrounds);
-
-    if (n === 5) {
-        ++n;  // 5 has gone missing. If anyone has found 5, please let me know.
-    }
-
-    let formatted = n.toString().padStart(3, "0");
-    document.documentElement.style.setProperty("--random-bg", `url("backgrounds/${formatted}.png")`);
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const headings = document.querySelectorAll("main h1, main h2, main h3");
     const tocLinks = document.querySelectorAll(".sticky-toc a");
@@ -30,5 +17,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
     headings.forEach((heading) => observer.observe(heading));
 });
-
-setRandomBackground();

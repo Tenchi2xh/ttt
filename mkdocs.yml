@@ -59,7 +59,9 @@ extra_css:
   - style.css
 
 extra_javascript:
-  - scripts.js
+  - js/background.js
+  - js/toc.js
+  - js/title.js
 
 markdown_extensions:
   # Python Markdown

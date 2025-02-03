@@ -56,7 +56,7 @@ others = {
 
 command_template = """
 ```bash
-$ {command}
+❱ {command}
 ```
 
 <pre>{result}</pre>
