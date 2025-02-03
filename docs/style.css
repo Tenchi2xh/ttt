@@ -45,6 +45,17 @@ body::before {
         /* 40em = 80 column display */
         grid-template-columns: 16em 40em;
     }
+    .terminal-nav {
+        flex-direction: row;
+        align-items: start;
+    }
+}
+
+@media screen and (max-width: 62rem) {
+    .terminal-nav {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .terminal-mkdocs-main-grid {
@@ -147,7 +158,7 @@ span.terminal-mkdocs-side-nav-item--active:not(:has(~ ul .terminal-mkdocs-side-n
     background-color: var(--primary-color);
     color: black;
     display: inline-block;
-    width: 100%;
+    width: 200%;
     margin-left: -100px;
     padding-left: 100px !important;
 }
