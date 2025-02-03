@@ -408,3 +408,13 @@ small {
 .modal-footer {
     display: none !important;
 }
+
+.example {
+    max-width: calc(100vw - var(--global-space)* 4);
+    overflow-x: auto;
+    display: block;
+}
+
+.example pre {
+    white-space: pre;
+}

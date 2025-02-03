@@ -59,7 +59,7 @@ command_template = """
 ❱ {command}
 ```
 
-<pre>{result}</pre>
+<div class="example"><pre>{result}</pre></div>
 """
 
 code_template = """
@@ -67,7 +67,7 @@ code_template = """
 >>> {code}
 ```
 
-<pre>{result}</pre>
+<div class="example"><pre>{result}</pre></div>
 """
 
 
