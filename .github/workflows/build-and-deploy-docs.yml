@@ -9,13 +9,16 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
+  build-and-deploy-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: pip install poetry
-      - run: poetry install
-      - run: mkdocs gh-deploy --force
+      - name: Install dependencies
+        run: |
+          sudo apt-get install portaudio19-dev
+          pip install poetry
+          poetry install
+      - run: poetry run mkdocs gh-deploy --force
