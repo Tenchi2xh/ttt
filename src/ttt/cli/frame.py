@@ -2,7 +2,7 @@ import sys
 
 import click
 
-from ..core.bits import Frame, Text
+from ..core.bits import Frame, Image, Row, Text
 from ..core.engine import RawBit
 from ..resources import find_font, get_icon
 from .ttt import ttt
@@ -76,16 +76,21 @@ def frame(
         raise click.UsageError("Missing argument 'TEXT'.")
 
     if verbatim:
-        target = RawBit(text)
+        text_bit = RawBit(text)
     else:
         font = find_font(font)
-        target = Text(text=text, font=font)
+        text_bit = Text(text=text, font=font)
+
+    targets = []
 
     if left_icon:
-        left_icon = get_icon(left_icon)
+        targets.append(Image(get_icon(left_icon)))
+
+    targets.append(text_bit)
+    target = Row(targets, gap=2)
 
     if right_icon:
-        right_icon = get_icon(right_icon)
+        targets.append(Image(get_icon(right_icon)))
 
     frame = Frame(
         index=design,
@@ -93,8 +98,6 @@ def frame(
         frame_perfect=frame_perfect,
         full_width=full_width,
         padding=padding,
-        left_image=left_icon,
-        right_image=right_icon,
     )
 
     blit(frame)

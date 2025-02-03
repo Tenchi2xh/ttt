@@ -5,6 +5,7 @@ from .effect import Outline, OutlineMode, outline
 from .frame import Frame
 from .grid import Grid
 from .image import Image
+from .row import Row
 from .text import Text
 
 
@@ -19,4 +20,5 @@ __all__ = [
     "Text",
     "Grid",
     "Column",
+    "Row",
 ]

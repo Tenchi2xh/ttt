@@ -1,4 +1,4 @@
-from typing import Optional, override
+from typing import override
 
 from PIL.Image import Image
 
@@ -14,8 +14,6 @@ class Frame(RasterBit):
         frame_perfect: bool,
         full_width: bool,
         padding: int,
-        left_image: Optional[Image] = None,
-        right_image: Optional[Image] = None,
     ):
         self.frame = get_frame(index)
         self.bits = cut_corners(self.frame, 3)
@@ -23,28 +21,18 @@ class Frame(RasterBit):
         self.frame_perfect = frame_perfect
         self.full_width = full_width
         self.padding = padding
-        self.left_image = left_image
-        self.right_image = right_image
 
     @override
     def to_canvas(self, available_width: int) -> Canvas:
         frame_size = 8
         pad = self.padding
 
-        left_width = self.left_image.width + pad if self.left_image else 0
-        right_width = self.right_image.width + pad if self.right_image else 0
-
-        target_width = (
-            available_width - frame_size * 2 - pad * 2 - left_width - right_width
-        )
+        target_width = available_width - frame_size * 2 - pad * 2
         target_canvas = self.target.to_canvas(available_width=target_width)
 
-        x0 = frame_size + pad + left_width
-        y0 = frame_size + pad
+        x0 = y0 = frame_size + pad
 
-        total_width = (
-            target_canvas.width + pad * 2 + frame_size * 2 + left_width + right_width
-        )
+        total_width = target_canvas.width + pad * 2 + frame_size * 2
         total_height = target_canvas.height + pad * 2 + frame_size * 2
 
         if self.full_width:
@@ -83,21 +71,7 @@ class Frame(RasterBit):
         result.paste(bits[2][0], 0, total_height - frame_size)
         result.paste(bits[2][2], total_width - frame_size, total_height - frame_size)
 
-        if self.left_image:
-            result.paste(
-                self.left_image,
-                frame_size + pad,
-                (total_height - self.left_image.height) // 2,
-            )
-
         result.paste(target_canvas, x0, y0)
-
-        if self.right_image:
-            result.paste(
-                self.right_image,
-                total_width - frame_size - right_width,
-                (total_height - self.right_image.height) // 2,
-            )
 
         self.verbatim_data = {
             "col": x0 // 2,
