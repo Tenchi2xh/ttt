@@ -1,4 +1,5 @@
 site_name: ttt
+site_url: https://tenchi.team2xh.net/ttt/
 
 nav:
   - Home: index.md
