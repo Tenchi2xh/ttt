@@ -5,6 +5,7 @@
 /dist
 /build
 /src/ttt/**/*.c
+/site
 
 *.so
 *.pyc

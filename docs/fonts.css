@@ -1,0 +1,23 @@
+@font-face {
+    font-family: Iosevka Kotan Term;
+    src: url(fonts/IosevkaKotanTerm-Regular-subset.woff2) format("woff2"), url(fonts/IosevkaKotanTerm-Regular-subset.zopfli.woff) format("woff"), url(fonts/IosevkaKotanTerm-Regular-subset.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: Iosevka Kotan Term;
+    src: url(fonts/IosevkaKotanTerm-Italic-subset.woff2) format("woff2"), url(fonts/IosevkaKotanTerm-Italic-subset.zopfli.woff) format("woff"), url(fonts/IosevkaKotanTerm-Italic-subset.ttf) format("truetype");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Iosevka Kotan Term;
+    src: url(fonts/IosevkaKotanTerm-Heavy-subset.woff2) format("woff2"), url(fonts/IosevkaKotanTerm-Heavy-subset.zopfli.woff) format("woff"), url(fonts/IosevkaKotanTerm-Heavy-subset.ttf) format("truetype");
+    font-weight: 700 900;
+}
+
+@font-face {
+    font-family: Iosevka Kotan Term;
+    src: url(fonts/IosevkaKotanTerm-HeavyItalic-subset.woff2) format("woff2"), url(fonts/IosevkaKotanTerm-HeavyItalic-subset.zopfli.woff) format("woff"), url(fonts/IosevkaKotanTerm-HeavyItalic-subset.ttf) format("truetype");
+    font-weight: 700 900;
+    font-style: italic;
+}
