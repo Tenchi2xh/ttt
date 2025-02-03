@@ -122,20 +122,34 @@ section hr {
     display: none;
 }
 
+.terminal-mkdocs-side-nav-items,
+.sticky-toc {
+    overflow: hidden;
+}
+
 .terminal-mkdocs-side-nav-items::before {
     content: "Index";
     display: block;
     margin-bottom: 20px;
 }
 
-.terminal-mkdocs-side-nav-item--active--active {
-    font-style: italic;
+.terminal-mkdocs-side-nav-item--active {
+    font-style: normal;
 }
 
-.terminal-mkdocs-side-nav-item--active--active::before,
-.terminal-mkdocs-side-nav-item--active::before {
+/* .terminal-mkdocs-side-nav-item--active:not(:has(~ * .terminal-mkdocs-side-nav-item--active))::before {
     content: "→ ";
     font-style: normal;
+} */
+
+span.terminal-mkdocs-side-nav-item--active:not(:has(~ ul .terminal-mkdocs-side-nav-item--active)),
+.sticky-toc .active {
+    background-color: var(--primary-color);
+    color: black;
+    display: inline-block;
+    width: 100%;
+    margin-left: -100px;
+    padding-left: 100px !important;
 }
 
 .terminal-prompt::before {
@@ -155,11 +169,8 @@ li {
     padding-left: var(--global-space) !important;
 }
 
-#terminal-mkdocs-side-panel ul > li > ul {
-    padding-left: var(--global-space) !important;
-}
-
-#terminal-mkdocs-side-panel li {
+.terminal-mkdocs-side-nav-li,
+.sticky-toc > nav > ul > li {
     padding-left: 0 !important;
 }
 
@@ -314,4 +325,9 @@ sup > .footnote-ref {
 
 small {
     font-size: 100%;
+}
+
+.sticky-toc {
+    position: sticky;
+    top: calc(var(--global-space) * 2);
 }

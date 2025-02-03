@@ -59,7 +59,7 @@ extra_css:
   - style.css
 
 extra_javascript:
-  - random_bg.js
+  - scripts.js
 
 markdown_extensions:
   # Python Markdown
