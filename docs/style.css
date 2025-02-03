@@ -153,14 +153,18 @@ section hr {
     font-style: normal;
 } */
 
-span.terminal-mkdocs-side-nav-item--active:not(:has(~ ul .terminal-mkdocs-side-nav-item--active)),
-.sticky-toc .active {
-    background-color: var(--primary-color);
-    color: black;
+
+#terminal-mkdocs-side-panel span, #terminal-mkdocs-side-panel a {
     display: inline-block;
     width: 200%;
     margin-left: -100px;
     padding-left: 100px !important;
+}
+
+span.terminal-mkdocs-side-nav-item--active:not(:has(~ ul .terminal-mkdocs-side-nav-item--active)),
+.sticky-toc .active {
+    background-color: var(--primary-color);
+    color: black;
 }
 
 .terminal-prompt::before {

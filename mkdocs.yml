@@ -4,8 +4,8 @@ nav:
   - Home: index.md
   - ttt:
     - Installation: ttt/install.md
-    - How does it work?: ttt/how.md
     - Showcase: ttt/showcase.md
+    - How does it work?: ttt/how.md
     - Art credits: ttt/art_credits.md
   - CLI reference:
     - Index: cli/commands.md
