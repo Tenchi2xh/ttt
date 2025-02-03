@@ -342,3 +342,63 @@ small {
     position: sticky;
     top: calc(var(--global-space) * 2);
 }
+
+.modal-content {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.modal {
+    background: transparent;
+    backdrop-filter: blur(7px);
+}
+
+.modal-header, .modal-body {
+    padding: var(--global-space) !important;
+    border: none !important;
+}
+
+.modal-body {
+    padding-bottom: 0 !important;
+}
+
+.modal-header button {
+    padding: 0 0.5em !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+.modal-header button::before {
+    content: "❌";
+    display: block;
+}
+
+.modal-header button span[aria-hidden] {
+    display: none;
+}
+
+.modal-title {
+    line-height: unset !important;
+}
+
+.modal .form-group {
+    padding: 0 5px;
+}
+
+.modal #searchInputLabel {
+    font-style: italic;
+}
+
+.modal input[type="search"] {
+    padding: 10px 10px;
+    margin: 10px 0;
+    background-color: transparent;
+}
+
+.modal input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.modal-footer {
+    display: none !important;
+}
