@@ -7,9 +7,9 @@ nav:
     - Installation: ttt/install.md
     - Showcase: ttt/showcase.md
     - How does it work?: ttt/how.md
-    - Art credits: ttt/art_credits.md
+    - Art credits: ttt/art-credits.md
   - CLI reference:
-    - Index: cli/commands.md
+    - Index: cli/index.md
     - Draw: cli/draw.md
     - Write: cli/write.md
     - List: cli/list.md

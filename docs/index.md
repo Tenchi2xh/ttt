@@ -1,10 +1,14 @@
-# Welcome to MkDocs
+# ttt
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+TODO:
+
+- Intro, short description
+- All art on this site is made using the tool, with the commands to prove it. Even 404.
+- CLI, API
 
 Using my wonderful tool, you can make flowers!
 
-{{ example('Banner("flo1").blit()') }}
+{{ example('Banner("flo1").blit()', command="ttt draw banner -d flo1") }}
 
 And write text!
 
@@ -12,29 +16,3 @@ And write text!
     "Hello, world!",
     font=find_font("kiwisoda")
 ).blit()') }}
-
----
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-```python
-@draw.command()
-@design_option("31", "icon")
-@inject_blitter
-def icon(design, blit):
-    """
-    Draw a built-in icon.
-
-    Icons by PiiiXL (https://piiixl.itch.io)
-    """
-
-    image = Image(get_icon(design))
-    blit(image)
-```

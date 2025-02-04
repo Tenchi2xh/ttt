@@ -82,6 +82,14 @@ b, strong {
     color: #ffffff;
 }
 
+a b, a strong, a em {
+    color: var(--primary-color);
+}
+
+a b:hover, a strong:hover, a em:hover {
+    color: black;
+}
+
 code:not(pre > code):not(code.doc-symbol):not(table code):not(small code) {
     background-color: black;
     filter: invert(1) hue-rotate(180deg);
@@ -170,6 +178,7 @@ section hr {
 }
 
 span.terminal-mkdocs-side-nav-item--active:not(:has(~ ul .terminal-mkdocs-side-nav-item--active)),
+span.terminal-mkdocs-side-nav-item--active--active,
 .sticky-toc .active {
     background-color: var(--primary-color);
     color: black;
