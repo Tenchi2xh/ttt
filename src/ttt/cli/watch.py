@@ -12,7 +12,7 @@ from .util import invert_option
 
 
 @ttt.command()
-@click.argument("file")
+@click.argument("file", metavar="FILE | URL")
 @click.option("-D", "--disable-dithering", is_flag=True, help="Disable dithering.")
 @click.option("-c", "--color", is_flag=True, help="Enable color mode.")
 @click.option(
@@ -56,7 +56,7 @@ def watch(  # noqa: C901
     enable_metrics,
 ):
     """
-    Watch a video provided by the given FILE.
+    Watch a video provided by the given FILE or URL.
     """
 
     if shutil.which("ffmpeg") is None:

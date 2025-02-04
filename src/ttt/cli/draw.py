@@ -13,10 +13,10 @@ def draw():
 
 @draw.command()
 @inject_blitter
-@click.argument("file", type=click.Path(exists=True, dir_okay=False))
+@click.argument("file", metavar="FILE | URL")
 def image(file: str, blit):
     """
-    Draw a picture provided by the given FILE.
+    Draw a picture provided by the given FILE or URL.
     """
     image = Image(file)
     blit(image)
@@ -37,7 +37,7 @@ def icon(design, blit):
 
 
 @draw.command()
-@click.argument("file", type=click.Path(exists=True, dir_okay=False))
+@click.argument("file", metavar="FILE | URL")
 @click.option(
     "-w",
     "--width",
@@ -99,7 +99,7 @@ def icon(design, blit):
 @inject_blitter
 def atlas(file, width, height, offset_x, offset_y, gap_x, gap_y, index, blit):
     """
-    Draw a sprite from the sprite atlas provided by the given FILE.
+    Draw a sprite from the sprite atlas provided by the given FILE or URL.
 
     Options for width, height, offsets, and gaps are used to define the sprite layout,
     and the index option specifies a particular sprite to draw. If no index is provided,
