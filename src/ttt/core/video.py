@@ -7,7 +7,6 @@ from typing import Optional
 
 import ffmpeg
 import numpy as np
-import pyaudio
 from PIL import Image
 
 from ..core.time import callback_timer
@@ -176,6 +175,11 @@ def video_frames(  # noqa: C901
 
 
 def play_audio(file: str):
+    try:
+        import pyaudio
+    except ImportError:
+        return
+
     process = (
         ffmpeg.input(file)
         .output("pipe:", format="wav")

@@ -31,7 +31,7 @@ I can't show it here, but here are two classics to enjoy:
 {{ example(
     'Row([
         Image(get_icon("lightbulb")),
-        RawBit("Tip!\\n\\n"
+        RawBit("<b>Tip!</b>\\n\\n"
             "Since the watch command\'s backend is ffmpeg, it is possible to call the\\n"
             "watch command directly with a URL, but the initial load is quite slow."
         )]).blit()',

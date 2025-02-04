@@ -2,7 +2,9 @@
 
 :root {
     --global-font-size: 16px;
-    /* 20 = 16 * 1.25, native ratio of font */
+    /* Native ratio of the font is 2.5 (16 x 40px) */
+    /* line height is only the space between the lines, so 40 / 2 = 20 */
+    /* global-space is used everywhere with x2 or x4 factors */
     --global-line-height: 20px;
     --global-space: 20px;
     --font-stack: Iosevka Kotan Term;
@@ -91,7 +93,8 @@ a b:hover, a strong:hover, a em:hover {
 }
 
 code:not(pre > code):not(code.doc-symbol):not(table code):not(small code) {
-    background-color: black;
+    background-color: #666;
+    color: white;
     filter: invert(1) hue-rotate(180deg);
 }
 
