@@ -11,6 +11,7 @@ from ..resources import (
     all_frames,
     all_icons,
     all_patterns,
+    credits,
     get_frame,
     get_icon,
     get_pattern,
@@ -54,7 +55,7 @@ def icons(blit, named: bool):
     """
 
     print("Frame authors and licenses:")
-    print("- PiiiXL: (CC BY 4.0) https://creativecommons.org/licenses/by/4.0/")
+    print("- PiiiXL: (CC BY-ND 4.0) https://creativecommons.org/licenses/by-nd/4.0/")
     print()
 
     blit_list(blit, all_icons, get_icon, named)
@@ -101,7 +102,13 @@ def fonts(text, blit):
     """
 
     for i, f in enumerate(all_fonts):
-        print(f"#{i + 1}: {f.id} '{f.name}' ({f.size}px) by {f.author}: {f.url}")
+        credit = next(c for c in credits if c.name == f.name and c.author == f.author)
+        number = f"#{i + 1}: "
+
+        print(f"{number}{f.id} '{f.name}' ({f.size}px) by {f.author}: {f.url}")
+        print(
+            f"{' ' * len(number)}License: {credit.license_name} ({credit.license_url})"
+        )
         print()
         if text:
             blit(Text(text=text, font=f))

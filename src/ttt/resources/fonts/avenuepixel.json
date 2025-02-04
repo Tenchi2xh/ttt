@@ -2,6 +2,7 @@
     "name": "Avenue Pixel",
     "author": "J. D. Jimenez",
     "url": "https://jdjimenez.itch.io/avenue-pixel",
+    "license": "sil",
     "size": 25,
     "offset_y": -1,
     "line_height": 26,

@@ -7,6 +7,7 @@ from .bitmaps import (
     get_icon,
     get_pattern,
 )
+from .credits import credits
 from .fonts import all_fonts, find_font, font_names
 
 
@@ -21,4 +22,5 @@ __all__ = [
     "all_icons",
     "get_icon",
     "Resource",
+    "credits",
 ]

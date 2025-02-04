@@ -434,3 +434,7 @@ small {
 .example pre {
     white-space: pre;
 }
+
+.example pre.tight {
+    margin-bottom: 0;
+}

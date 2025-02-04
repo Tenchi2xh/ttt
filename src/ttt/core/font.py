@@ -8,6 +8,7 @@ class Font:
     name: str
     author: str
     url: str
+    license: str
     size: int
     offset_y: Optional[int]
     line_height: Optional[int]

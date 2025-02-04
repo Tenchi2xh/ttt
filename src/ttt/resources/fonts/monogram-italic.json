@@ -2,6 +2,7 @@
     "name": "monogram",
     "author": "datagoblin",
     "url": "https://datagoblin.itch.io/monogram",
+    "license": "cc0",
     "size": 16,
     "line_height": 15,
     "charsets": [

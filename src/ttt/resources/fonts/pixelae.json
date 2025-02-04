@@ -2,6 +2,7 @@
     "name": "Pixel AE",
     "author": "Essssam",
     "url": "https://essssam.itch.io/pixel-ae",
+    "license": "cc0",
     "size": 10,
     "offset_y": 3,
     "line_height": 18,

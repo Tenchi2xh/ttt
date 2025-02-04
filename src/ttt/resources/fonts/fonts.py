@@ -25,6 +25,7 @@ def load_font(name: str):
         name=metadata["name"],
         author=metadata["author"],
         url=metadata["url"],
+        license=metadata["license"],
         size=metadata["size"],
         offset_y=metadata.get("offset_y"),
         line_height=metadata.get("line_height"),
