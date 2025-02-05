@@ -125,6 +125,7 @@ pre {
     font-family: var(--mono-font-stack);
     line-height: var(--global-line-height) !important;
     padding: 0;
+    background: transparent;
 }
 
 code::before {
@@ -359,6 +360,25 @@ section > .doc-module .doc-contents { border-color: var(--doc-symbol-module-fg-c
     counter-increment: item;
 }
 
+sup:has(a) {
+    position: unset;
+    font-size: unset;
+}
+
+sup a {
+    display: unset !important;
+}
+
+sup a::before {
+    content: "[";
+    display: inline-block;
+}
+
+sup a::after {
+    content: "]";
+    display: inline-block;
+}
+
 sup > .footnote-ref {
     display: inline-block;
     width: 8px;
@@ -440,7 +460,10 @@ small {
     display: block;
 }
 
-.example pre {
+.example pre,
+.blocks-2x2,
+.blocks-2x3,
+.blocks-2x4 {
     white-space: pre;
     /* fixes small rendering glitch where thin black line appear between solid lines */
     text-shadow: var(--secondary-color) 0 0.1px;
@@ -448,4 +471,37 @@ small {
 
 .example pre.tight {
     margin-bottom: 0;
+}
+
+.blocks-2x2 {
+    width: 40%; /* 1 / 2.5 */
+    transform: scaleX(2.5);
+    transform-origin: left;
+}
+
+.blocks-2x3 {
+    width: 60%; /* 3 / 5 */
+    transform: scaleX(calc(5 / 3));
+    transform-origin: left;
+    letter-spacing: -0.2px;
+}
+
+.blocks-2x2.center, .blocks-2x3.center {
+    transform-origin: center;
+}
+
+.side-by-side pre {
+    display: inline-block;
+}
+
+.side-by-side .blocks-2x2 {
+    width: 180px;
+}
+
+.side-by-side .blocks-2x3 {
+    width: 120px;
+}
+
+section p {
+    hyphens: auto;
 }

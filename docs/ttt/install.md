@@ -12,7 +12,7 @@ Optionally:
 - And if you want some audio with your video, you'll need [`portaudio`](#fn:portaudio)[^portaudio], and install `pipx install ttt[audio]` instead of the command above.
 
 [^ffmpeg]: On macOS: `brew install ffmpeg`.<br>On Ubuntu: `apt-get install ffmpeg`.<br>On Windows: ¯\\\_(ツ)\_/¯
-[^portaudio]: On macOS: `brew install portaudio`.<br>On Ubuntu: `apt-get install portaudio19-dev python3-all-dev`.<br>On Windows, the binaries are bundled.
+[^portaudio]: On macOS: `brew install portaudio`.<br>On Ubuntu: `apt-get install portaudio19-dev python3-all-dev`.<br>On Windows, the binaries are bundled with pyaudio.
 
 You should now be able to use the `ttt` command, but probably won't be able to see any output!
 
