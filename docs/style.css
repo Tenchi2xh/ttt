@@ -23,6 +23,11 @@
     --doc-symbol-module-fg-color: #78dce8;
 }
 
+body {
+    padding-top: calc(var(--global-space) * 4);
+    padding-bottom: calc(var(--global-space) * 4);
+}
+
 body::before {
     content: "";
     position: fixed;
@@ -31,7 +36,8 @@ body::before {
     image-rendering: pixelated;
     transform: scaleX(4) scaleY(5);
     transform-origin: top left;
-    opacity: 0.1;
+    opacity: 1;
+    filter: brightness(0.1) sepia(1) saturate(5) hue-rotate(180deg);
     z-index: -1;
 }
 
