@@ -460,10 +460,7 @@ small {
     display: block;
 }
 
-.example pre,
-.blocks-2x2,
-.blocks-2x3,
-.blocks-2x4 {
+.example pre {
     white-space: pre;
     /* fixes small rendering glitch where thin black line appear between solid lines */
     text-shadow: var(--secondary-color) 0 0.1px;
@@ -488,6 +485,11 @@ small {
 
 .blocks-2x2.center, .blocks-2x3.center {
     transform-origin: center;
+}
+
+.side-by-side {
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .side-by-side pre {

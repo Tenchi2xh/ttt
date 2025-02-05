@@ -21,17 +21,20 @@ Many classic computers in the 80s solved this problem by including characters in
 For example, let's take the [ZX80](https://en.wikipedia.org/wiki/ZX80) (1980), which had perfectly square text characters. It included in its character set 7 characters representing small grids of 2×2 pixels. Combined with a space character and by being able to invert colors, it was possible to represent all 16 possible combinations (plus some extra shading):
 
 <center>
+<div class="example">
 <pre class="blocks-2x2 center">
   ▘ ▝ ▀ ▖ ▌ ▞ ▛ ▒ 🮏 🮎
 
 █ ▟ ▙ ▄ ▜ ▐ ▚ ▗ 🮐 🮑 🮒
 </pre>
+</div>
 <em>ZX80 semigraphics character set,<br>represented with [Iosevka](install.md#compatible-fonts) glyphs stretched to 2.5×</em>
 </center>
 
 And here's a rendering of [icon #768](art-credits.md#icons) from `ttt`'s built-in icons using the ZX80 character set:
 
 <center>
+<div class="example">
 <pre class="blocks-2x2 center">
 ▌█▛▛▀▀██
 ▌▛▀▀▀▀▀▜
@@ -40,6 +43,7 @@ And here's a rendering of [icon #768](art-credits.md#icons) from `ttt`'s built-i
 ▌█▀▀▀▀▀█
 ▌▌█████▐
 </pre>
+</div>
 <em>Should this be the save icon?</em>
 </center>
 
@@ -54,6 +58,7 @@ Other computers had taller characters, much like what you are reading right now,
 Since these taller characters have a ratio of 2:3, the obvious thing to do is to divide blocks into 2×3 pixels, resulting in the following 64-character set:
 
 <center>
+<div class="example">
 <pre class="blocks-2x3 center">
   🬀 🬁 🬂 🬃 🬄 🬅 🬆 🬇 🬈 🬉 🬊 🬋 🬌 🬍 🬎
 
@@ -63,18 +68,21 @@ Since these taller characters have a ratio of 2:3, the obvious thing to do is to
 
 🬭 🬮 🬯 🬰 🬱 🬲 🬳 🬴 🬵 🬶 🬷 🬸 🬹 🬺 🬻 █
 </pre>
+</div>
 <em>Full set of 2×3 block graphics,<br>represented with [Iosevka](install.md#compatible-fonts) glyphs stretched to 1.667×</em>
 </center>
 
 This lets us draw, _with the same line height_, an **extra 50% pixels**! (Or, conversely, draw the same number of pixels with 33% less lines)
 
 <center>
+<div class="example">
 <pre class="blocks-2x3 center">
 ▌█🬴🬴🬰🬰██
 ▌▌🬖🬏🬭🬞🬢▐
 ▌🬲🬯🬭🬭🬭🬮🬷
 ▌🬕🬹🬹🬹🬹🬹🬨
 </pre>
+</div>
 </center>
 
 The cassette drawn here uses only 4 lines, whereas the one drawn earlier with 2×2 blocks used 6 lines.
@@ -98,6 +106,7 @@ Even though they stored only half of the 2×4 blocks to save space (the other ha
 Below is the complete 256-character set of 2×4 blocks:
 
 <center>
+<div class="example">
 <pre>
   𜺨 𜺫 🮂 𜴀 ▘ 𜴁 𜴂 𜴃 𜴄 ▝ 𜴅 𜴆 𜴇 𜴈 ▀
 𜴉 𜴊 𜴋 𜴌 🯦 𜴍 𜴎 𜴏 𜴐 𜴑 𜴒 𜴓 𜴔 𜴕 𜴖 𜴗
@@ -116,6 +125,7 @@ Below is the complete 256-character set of 2×4 blocks:
 𜷋 𜷌 𜷍 𜷎 𜷏 𜷐 𜷑 𜷒 𜷓 𜷔 𜷕 𜷖 𜷗 𜷘 𜷙 𜷚
 ▄ 𜷛 𜷜 𜷝 𜷞 ▙ 𜷟 𜷠 𜷡 𜷢 ▟ 𜷣 ▆ 𜷤 𜷥 █
 </pre>
+</div>
 <em>Now we're cooking[^sorted].</em>
 </center>
 
@@ -137,6 +147,7 @@ And again, here is our little cassette tape, this time only using 3 lines of tex
 And here we can see all three systems side by side:
 
 <center>
+<div class="example">
 <div class="side-by-side">
 <pre class="blocks-2x2 center">
 ▌█▛▛▀▀██
@@ -157,6 +168,7 @@ And here we can see all three systems side by side:
 ▌▌𜴞𜴀𜴆𜴃𜴑▐
 ▌▛𜷝𜷝𜷝𜷝𜷝▜
 </pre>
+</div>
 </div>
 </center>
 
