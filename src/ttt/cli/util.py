@@ -11,6 +11,12 @@ invert_option = click.option(
     "--invert", is_flag=True, help="Draw using inverted colors."
 )
 
+braille_option = click.option(
+    "--braille",
+    is_flag=True,
+    help="Draw using braille dots instead of block characters.",
+)
+
 
 outline_option = click.option(
     "-o",
@@ -51,12 +57,13 @@ def design_option(default: str, resource_type: str):
 
 def inject_blitter(command_function):
     @invert_option
+    @braille_option
     @outline_option
     @click.pass_context
     @wraps(command_function)
-    def wrapper(ctx, invert, outline_modes, *args, **kwargs):
+    def wrapper(ctx, invert, outline_modes, braille, *args, **kwargs):
         def blit(target: Bit):
-            return outline(outline_modes, target).blit(invert=invert)
+            return outline(outline_modes, target).blit(invert=invert, braille=braille)
 
         ctx.invoke(command_function, *args, blit=blit, **kwargs)
 

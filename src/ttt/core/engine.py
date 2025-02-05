@@ -169,6 +169,7 @@ class Bit(ABC):
         self,
         available_width: int = term.get_size()[0] * 2,
         invert: bool = False,
+        braille: bool = False,
         do_print: bool = True,
     ) -> str:
         """Recursively render the Bit tree and convert to printable text.
@@ -190,7 +191,7 @@ class Bit(ABC):
         pixels = np.array(image).astype(np.uint8) * 255
         blocks = to_blocks(pixels, 0, 0, image.width, image.height, invert=False)
 
-        output_buffer = blit(blocks, do_print=False)
+        output_buffer = blit(blocks, do_print=False, braille=braille)
         buffer_width = max(len(line) for line in output_buffer)
 
         invert_flags = [

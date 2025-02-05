@@ -2,15 +2,22 @@ import numpy as np
 
 from ..core import term
 from ..core.colors import unsort_indices
-from .blocks import int_to_block
+from .blocks import int_to_block, int_to_braille
 
 
-def blit(blocks: np.ndarray, offset: int = 0, end: str = "\n", do_print: bool = True):
+def blit(
+    blocks: np.ndarray,
+    offset: int = 0,
+    end: str = "\n",
+    do_print: bool = True,
+    braille: bool = False,
+):
     padding = "" if offset == 0 else term.move_cursor_right_raw(offset)
+    mapping = int_to_braille if braille else int_to_block
 
     buffer: list[str] = []
     for line in blocks:
-        buffer.append(padding + "".join(int_to_block[b] for b in line))
+        buffer.append(padding + "".join(mapping[b] for b in line))
 
     if do_print:
         print("\n".join(buffer), end=end)
@@ -19,13 +26,17 @@ def blit(blocks: np.ndarray, offset: int = 0, end: str = "\n", do_print: bool = 
 
 
 def blit_colors(
-    blocks: np.ndarray, colors: np.ndarray, offset: int = 0, end: str = "\n"
+    blocks: np.ndarray,
+    colors: np.ndarray,
+    offset: int = 0,
+    end: str = "\n",
+    braille: bool = False,
 ):
-    height, width = blocks.shape
-
-    buffer = []
     padding = "" if offset == 0 else term.move_cursor_right_raw(offset)
+    mapping = int_to_braille if braille else int_to_block
 
+    height, width = blocks.shape
+    buffer = []
     for j in range(height):
         line = padding
         prev_fg = prev_bg = None
@@ -47,7 +58,7 @@ def blit_colors(
                     color = term.colors_raw((fg, bg))
                 prev_fg, prev_bg = fg, bg
 
-            line += color + int_to_block[blocks[j, i]]
+            line += color + mapping[blocks[j, i]]
 
         buffer.append(line + term.RESET)
 

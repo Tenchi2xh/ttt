@@ -73,10 +73,9 @@ braille_map = """
 ⣤ ⣥ ⣬ ⣭ ⣦ ⣧ ⣮ ⣯ ⣴ ⣵ ⣼ ⣽ ⣶ ⣷ ⣾ ⣿
 """
 
-block_map = braille_map
-
 int_to_block = block_map[1:-1:2]
-int_to_block_inverse = int_to_block[::-1]
+
+int_to_braille = braille_map[1:-1:2]
 
 
 def to_blocks_pil(
