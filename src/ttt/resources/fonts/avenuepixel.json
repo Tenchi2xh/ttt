@@ -4,8 +4,8 @@
     "url": "https://jdjimenez.itch.io/avenue-pixel",
     "license": "sil",
     "size": 25,
-    "offset_y": -1,
-    "line_height": 26,
+    "offset_y": -6,
+    "line_height": 20,
     "charsets": [
         "Latin",
         "Cyrillic"

@@ -4,8 +4,8 @@
     "url": "https://essssam.itch.io/pixel-ae",
     "license": "cc0",
     "size": 10,
-    "offset_y": 3,
-    "line_height": 18,
+    "offset_y": -1,
+    "line_height": 12,
     "charsets": [
         "Latin",
         "Arabic"
