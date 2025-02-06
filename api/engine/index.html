@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="generator" content="mkdocs-1.6.1, mkdocs-terminal-4.7.0">
+     
+     
+    
+    <link rel="canonical" href="https://tenchi.team2xh.net/ttt/api/engine/"><link rel="icon" type="image/png" sizes="192x192" href="../../img/android-chrome-192x192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="../../img/android-chrome-512x512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../img/apple-touch-icon.png" />
+<link rel="shortcut icon" type="image/png" sizes="48x48" href="../../img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png" />
+
+
+    
+ 
+<title>Engine - ttt</title>
+
+
+<link href="../../css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+<link href="../../css/fontawesome/css/solid.min.css" rel="stylesheet">
+<link href="../../css/normalize.css" rel="stylesheet">
+<link href="../../css/terminal.css" rel="stylesheet">
+<link href="../../css/theme.css" rel="stylesheet">
+<link href="../../css/theme.tile_grid.css" rel="stylesheet">
+<link href="../../css/theme.footer.css" rel="stylesheet">
+<!-- dark color palette -->
+<link href="../../css/palettes/dark.css" rel="stylesheet">
+
+<!-- page layout -->
+<style>
+/* initially set page layout to a one column grid */
+.terminal-mkdocs-main-grid {
+    display: grid;
+    grid-column-gap: 1.4em;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+/*  
+*   when side navigation is not hidden, use a two column grid.  
+*   if the screen is too narrow, fall back to the initial one column grid layout.
+*   in this case the main content will be placed under the navigation panel. 
+*/
+@media only screen and (min-width: 70em) {
+    .terminal-mkdocs-main-grid {
+        grid-template-columns: 4fr 9fr;
+    }
+}</style>
+
+<!-- link underline override -->
+<style>
+#terminal-mkdocs-main-content a:not(.headerlink){
+    text-decoration: none;
+}
+</style>
+
+    
+    <link href="../../assets/_mkdocstrings.css" rel="stylesheet"> 
+    <link href="../../style.css" rel="stylesheet">  
+    
+    
+
+    
+    <!-- search css support -->
+<link href="../../css/search/bootstrap-modal.css" rel="stylesheet">
+<!-- search scripts -->
+<script>
+    var base_url = "../..",
+    shortcuts = "{}";
+</script>
+<script src="../../js/jquery/jquery-1.10.1.min.js" defer></script>
+<script src="../../js/bootstrap/bootstrap.min.js" defer></script>
+<script src="../../js/mkdocs/base.js" defer></script>
+    
+    
+    
+    
+    <script src="../../js/background.js"></script>
+    
+    <script src="../../js/toc.js"></script>
+    
+    <script src="../../js/title.js"></script>
+    
+    <script src="../../search/main.js"></script>
+    
+
+    
+</head>
+
+<body class="terminal"><div class="container">
+    <div class="terminal-nav">
+        <header class="terminal-logo">
+            <div id="mkdocs-terminal-site-name" class="logo terminal-prompt"><a href="https://tenchi.team2xh.net/ttt/" class="no-style">ttt</a></div>
+        </header>
+        
+        <nav class="terminal-menu">
+            
+            <ul vocab="https://schema.org/" typeof="BreadcrumbList">
+                
+                
+                <li property="itemListElement" typeof="ListItem">
+                    <a href="../.." class="menu-item " property="item" typeof="WebPage">
+                        <span property="name">Home</span>
+                    </a>
+                    <meta property="position" content="0">
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                <li property="itemListElement" typeof="ListItem">
+                    <a href="../../lorem/" class="menu-item " property="item" typeof="WebPage">
+                        <span property="name">Lorem</span>
+                    </a>
+                    <meta property="position" content="1">
+                </li>
+                
+                    
+                    
+
+
+<li property="itemListElement" typeof="ListItem">
+    <a href="#" class="menu-item" data-toggle="modal" data-target="#mkdocs_search_modal" property="item" typeof="SearchAction">
+        <i aria-hidden="true" class="fa fa-search"></i> <span property="name">Search</span>
+    </a>
+    <meta property="position" content="2">
+</li>
+                    
+            </ul>
+            
+        </nav>
+    </div>
+</div>
+        
+    <div class="container">
+        <div class="terminal-mkdocs-main-grid"><aside id="terminal-mkdocs-side-panel"><nav>
+  
+    <ul class="terminal-mkdocs-side-nav-items">
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../..">Home</a>
+        
+    
+    
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+                
+        
+
+        
+            
+    
+        
+        
+            
+            
+            <span class="
+        
+            
+        
+    
+
+    terminal-mkdocs-side-nav-item terminal-mkdocs-side-nav-section-no-index">ttt</span>
+        
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../ttt/install/">Installation</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../ttt/showcase/">Showcase</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../ttt/how/">How does it work?</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../ttt/art-credits/">Art credits</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+            
+                
+                
+        
+
+             
+            
+    
+        
+        <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/">CLI reference</a>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/draw/">Draw</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/write/">Write</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/list/">List</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/frame/">Frame</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/watch/">Watch</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+            
+                
+                
+        
+
+             
+            
+    
+        
+        <a class="
+
+    terminal-mkdocs-side-nav-item--active" href="../">API reference</a>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        <span class="
+
+    terminal-mkdocs-side-nav-item--active">Engine</span>
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../bits/">Bits</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../lorem/">Lorem</a>
+        
+    
+    
+    
+  </li>
+        
+    </ul>
+  
+</nav><hr>
+<div class="sticky-toc">
+<p>Contents</p>
+<nav>
+    <ul>
+        <li>
+            <a href="#engine">Engine</a>
+            <ul>
+                <li>
+                    <a href="#ttt.core.engine.Bit">Bit</a>
+                    <ul>
+                        <li><a href="#ttt.core.engine.Bit.blit">blit</a></li><li><a href="#ttt.core.engine.Bit.to_canvas">to_canvas</a></li>
+                    </ul>
+
+                </li><li>
+                    <a href="#ttt.core.engine.RasterBit">RasterBit</a>
+                    
+
+                </li><li>
+                    <a href="#ttt.core.engine.RawBit">RawBit</a>
+                    
+
+                </li><li>
+                    <a href="#ttt.core.engine.Canvas">Canvas</a>
+                    <ul>
+                        <li><a href="#ttt.core.engine.Canvas.height">height</a></li><li><a href="#ttt.core.engine.Canvas.width">width</a></li><li><a href="#ttt.core.engine.Canvas.draw_text">draw_text</a></li><li><a href="#ttt.core.engine.Canvas.invert">invert</a></li><li><a href="#ttt.core.engine.Canvas.new">new</a></li><li><a href="#ttt.core.engine.Canvas.paste">paste</a></li><li><a href="#ttt.core.engine.Canvas.pixels">pixels</a></li><li><a href="#ttt.core.engine.Canvas.put_pixel">put_pixel</a></li><li><a href="#ttt.core.engine.Canvas.shifted_raws">shifted_raws</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+</div>
+</aside>
+            <main id="terminal-mkdocs-main-content">
+<section id="mkdocs-terminal-content">
+    <h1 id="engine">Engine<a class="headerlink" href="#engine" title="Permanent link">#</a></h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ttt.core.engine.Bit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ttt.core.engine.Bit</span>
+
+
+<a href="#ttt.core.engine.Bit" class="headerlink" title="Permanent link">#</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>Rendereable element of the <em>ttt</em> engine.</p>
+<p>Can be either made from pixels (<a class="autorefs autorefs-internal" href="#ttt.core.engine.RasterBit">RasterBit</a>)
+or verbatim text (<a class="autorefs autorefs-internal" href="#ttt.core.engine.RawBit">RawBit</a>).</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Bit.blit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">blit</span>
+
+
+<a href="#ttt.core.engine.Bit.blit" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">blit(</span>
+    <span style="color: #F8F8F2">available_width:</span> <span style="color: #F8F8F2">int</span> <span style="color: #FF4689">=</span> <span style="color: #F8F8F2">term</span><span style="color: #FF4689">.</span><span style="color: #F8F8F2">get_size()[</span><span style="color: #AE81FF">0</span><span style="color: #F8F8F2">]</span> <span style="color: #FF4689">*</span> <span style="color: #AE81FF">2</span><span style="color: #F8F8F2">,</span>
+    <span style="color: #F8F8F2">invert:</span> <span style="color: #F8F8F2">bool</span> <span style="color: #FF4689">=</span> <span style="color: #66D9EF">False</span><span style="color: #F8F8F2">,</span>
+    <span style="color: #F8F8F2">braille:</span> <span style="color: #F8F8F2">bool</span> <span style="color: #FF4689">=</span> <span style="color: #66D9EF">False</span><span style="color: #F8F8F2">,</span>
+    <span style="color: #F8F8F2">do_print:</span> <span style="color: #F8F8F2">bool</span> <span style="color: #FF4689">=</span> <span style="color: #66D9EF">True</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">)</span> <span style="color: #FF4689">-&gt;</span> <span style="color: #F8F8F2">str</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Recursively render the Bit tree and convert to printable text.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>available_width</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Width budget given to this Bit
+and its children for rendering. Defaults to current terminal width.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="ttt.core.term.get_size">get_size</span>()[0] * 2</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>invert</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Render with inverted colors.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>do_print</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Also print the final rendered result.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+  <ul>
+      <li class="doc-section-item field-body">
+            <code>str</code>
+        –
+        <div class="doc-md-description">
+          <p>A rendered Bit</p>
+        </div>
+      </li>
+  </ul>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Bit.to_canvas" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">to_canvas</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#ttt.core.engine.Bit.to_canvas" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">to_canvas(available_width:</span> <span style="color: #F8F8F2">int)</span> <span style="color: #FF4689">-&gt;</span> <span style="color: #F8F8F2">Canvas</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Render this Bit into a <a class="autorefs autorefs-internal" href="#ttt.core.engine.Canvas">Canvas</a>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>available_width</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Width budget given to this Bit and its children for rendering.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+  <ul>
+      <li class="doc-section-item field-body">
+            <code><a class="autorefs autorefs-internal" title="ttt.core.engine.Canvas" href="#ttt.core.engine.Canvas">Canvas</a></code>
+        –
+        <div class="doc-md-description">
+          <p>A rendered Canvas.</p>
+        </div>
+      </li>
+  </ul>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ttt.core.engine.RasterBit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ttt.core.engine.RasterBit</span>
+
+
+<a href="#ttt.core.engine.RasterBit" class="headerlink" title="Permanent link">#</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ttt.core.engine.Bit" href="#ttt.core.engine.Bit">Bit</a></code>, <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>Abstract class for renderable Bits using pixels.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ttt.core.engine.RawBit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ttt.core.engine.RawBit</span>
+
+
+<a href="#ttt.core.engine.RawBit" class="headerlink" title="Permanent link">#</a></h2>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">RawBit(raw_text:</span> <span style="color: #F8F8F2">str)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ttt.core.engine.Bit" href="#ttt.core.engine.Bit">Bit</a></code></p>
+
+
+        <p>Renderable Bit representing verbatim text.</p>
+<p>Contents of this type of Bit are <em>not rendered using pixels</em> but will instead
+be <strong>outputed as-is to the terminal</strong>.</p>
+<p>Since real text cannot be precisely positioned like pixels, the final position of a
+raw Bit will be rounded to the nearest multiple of 2 horizontally, and 4 vertically.</p>
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>raw_text</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Text content to be rendered verbatim.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ttt.core.engine.Canvas" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ttt.core.engine.Canvas</span>
+
+
+<a href="#ttt.core.engine.Canvas" class="headerlink" title="Permanent link">#</a></h2>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">Canvas(contents:</span> <span style="color: #F8F8F2">Image</span><span style="color: #FF4689">.</span><span style="color: #F8F8F2">Image</span> <span style="color: #FF4689">|</span> <span style="color: #F8F8F2">str)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+
+        <p>Abstraction layer for drawing with pixels and text at the same time.</p>
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>contents</code>
+            </td>
+            <td>
+                  <code><span title="PIL.Image.Image">Image</span> | str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Initial contents of this Canvas, either an Image or some verbatim text.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="ttt.core.engine.Canvas.height" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span style="color: #F8F8F2">height:</span> <span style="color: #F8F8F2">int</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#ttt.core.engine.Canvas.height" class="headerlink" title="Permanent link">#</a></h3>
+
+    <div class="doc doc-contents ">
+
+        <p>Height of this Canvas.</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="ttt.core.engine.Canvas.width" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span style="color: #F8F8F2">width:</span> <span style="color: #F8F8F2">int</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#ttt.core.engine.Canvas.width" class="headerlink" title="Permanent link">#</a></h3>
+
+    <div class="doc doc-contents ">
+
+        <p>Width of this Canvas.</p>
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.draw_text" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">draw_text</span>
+
+
+<a href="#ttt.core.engine.Canvas.draw_text" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">draw_text(x:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">y:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">text:</span> <span style="color: #F8F8F2">str,</span> <span style="color: #F8F8F2">font:</span> <span style="color: #F8F8F2">FreeTypeFont,</span> <span style="color: #F8F8F2">fill:</span> <span style="color: #F8F8F2">int)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Draw rasterized text on this Canvas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>x</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Horizontal coordinate of the text, in pixels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>y</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Vertical offset of the text, in pixels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>text</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Text to write.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>font</code>
+            </td>
+            <td>
+                  <code><span title="PIL.ImageFont.FreeTypeFont">FreeTypeFont</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>PIL Font object.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fill</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Text color (0 = black, 255 = white).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.invert" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">invert</span>
+
+
+<a href="#ttt.core.engine.Canvas.invert" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">invert()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Returns a copy of this Canvas with inverted colors.</p>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+  <ul>
+      <li class="doc-section-item field-body">
+<b><code>Canvas</code></b>        –
+        <div class="doc-md-description">
+          <p>A copy of this Canvas with inverted colors.</p>
+        </div>
+      </li>
+  </ul>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.new" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">new</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#ttt.core.engine.Canvas.new" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">new(width:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">height:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">color:</span> <span style="color: #F8F8F2">int)</span> <span style="color: #FF4689">-&gt;</span> <span style="color: #F8F8F2">Canvas</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a new blank Canvas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>width</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Width in pixels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>height</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Height in pixels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>color</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Fill color of the new Canvas (0 = black, 255 = white).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+  <ul>
+      <li class="doc-section-item field-body">
+            <code><a class="autorefs autorefs-internal" title="ttt.core.engine.Canvas" href="#ttt.core.engine.Canvas">Canvas</a></code>
+        –
+        <div class="doc-md-description">
+          <p>A new blank Canvas.</p>
+        </div>
+      </li>
+  </ul>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.paste" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">paste</span>
+
+
+<a href="#ttt.core.engine.Canvas.paste" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">paste(other:</span> <span style="color: #F8F8F2">Self</span> <span style="color: #FF4689">|</span> <span style="color: #F8F8F2">Image</span><span style="color: #FF4689">.</span><span style="color: #F8F8F2">Image,</span> <span style="color: #F8F8F2">x:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">y:</span> <span style="color: #F8F8F2">int)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Draw another Canvas on top of this one.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>other</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ttt.core.engine.Canvas" href="#ttt.core.engine.Canvas">Canvas</a> | <span title="PIL.Image.Image">Image</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Other Canvas to draw (or PIL Image).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>x</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Horizontal offset of where to draw the other Canvas.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>y</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Vertical offset of where to draw the other Canvas.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.pixels" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">pixels</span>
+
+
+<a href="#ttt.core.engine.Canvas.pixels" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">pixels()</span> <span style="color: #FF4689">-&gt;</span> <span style="color: #F8F8F2">np</span><span style="color: #FF4689">.</span><span style="color: #F8F8F2">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Returns a 2D numpy array representing the pixel values of this Canvas.</p>
+<p>Values are 0 for black and 255 for white.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.put_pixel" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">put_pixel</span>
+
+
+<a href="#ttt.core.engine.Canvas.put_pixel" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">put_pixel(x:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">y:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">fill:</span> <span style="color: #F8F8F2">int)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Change the color value of the given pixel coordinates.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>x</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Horizontal coordinate of the pixel.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>y</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Vertical coordinate of the pixel.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fill</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>New color value (0 = black, 255 = white).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ttt.core.engine.Canvas.shifted_raws" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">shifted_raws</span>
+
+
+<a href="#ttt.core.engine.Canvas.shifted_raws" class="headerlink" title="Permanent link">#</a></h3>
+<div class="doc-signature highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #F8F8F2">shifted_raws(dx:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">dy:</span> <span style="color: #F8F8F2">int,</span> <span style="color: #F8F8F2">toggle_invert:</span> <span style="color: #F8F8F2">bool</span> <span style="color: #FF4689">=</span> <span style="color: #66D9EF">False</span><span style="color: #F8F8F2">)</span> <span style="color: #FF4689">-&gt;</span> <span style="color: #F8F8F2">list[Raw]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Returns a copy of the verbatim texts of this Canvas, shifted by an offset.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>dx</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Horizontal offset.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dy</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Vertical offset.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>toggle_invert</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Also invert the colors of the verbatim text.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+  <ul>
+      <li class="doc-section-item field-body">
+            <code>list[<span title="ttt.core.engine.Raw">Raw</span>]</code>
+        –
+        <div class="doc-md-description">
+          <p>A copy of the verbatim texts with shifted coordinates.</p>
+        </div>
+      </li>
+  </ul>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+</section>
+
+            </main>
+        </div>
+        <hr><footer>
+    <div class="terminal-mkdocs-footer-grid">
+        <div id="terminal-mkdocs-footer-copyright-info">
+             Made with <a href="https://github.com/ntno/mkdocs-terminal">Terminal for MkDocs</a> and <a href="https://github.com/Tenchi2xh/ttt/tree/main/docs">a lot of customization</a>.
+        </div>
+        <div id="terminal-mkdocs-footer-prev-next">
+            <nav class="btn-group">
+                <a href="../" title="Index">Previous</a>
+                |
+                <a href="../bits/" title="Bits">Next</a>
+            </nav>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="alertdialog" aria-modal="true" aria-labelledby="searchModalLabel">
+    <div class="modal-dialog modal-lg" role="search">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                <button type="button" class="close btn btn-default btn-ghost" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p id="searchInputLabel">Type to start searching</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" aria-labelledby="searchInputLabel" placeholder="" id="mkdocs-search-query" title="Please enter search terms here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No document matches found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</body>
+
+</html>

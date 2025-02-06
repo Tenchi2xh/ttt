@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="generator" content="mkdocs-1.6.1, mkdocs-terminal-4.7.0">
+     
+     
+    
+    <link rel="canonical" href="https://tenchi.team2xh.net/ttt/cli/"><link rel="icon" type="image/png" sizes="192x192" href="../img/android-chrome-192x192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="../img/android-chrome-512x512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+<link rel="shortcut icon" type="image/png" sizes="48x48" href="../img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png" />
+
+
+    
+ 
+<title>CLI reference - ttt</title>
+
+
+<link href="../css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+<link href="../css/fontawesome/css/solid.min.css" rel="stylesheet">
+<link href="../css/normalize.css" rel="stylesheet">
+<link href="../css/terminal.css" rel="stylesheet">
+<link href="../css/theme.css" rel="stylesheet">
+<link href="../css/theme.tile_grid.css" rel="stylesheet">
+<link href="../css/theme.footer.css" rel="stylesheet">
+<!-- dark color palette -->
+<link href="../css/palettes/dark.css" rel="stylesheet">
+
+<!-- page layout -->
+<style>
+/* initially set page layout to a one column grid */
+.terminal-mkdocs-main-grid {
+    display: grid;
+    grid-column-gap: 1.4em;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+/*  
+*   when side navigation is not hidden, use a two column grid.  
+*   if the screen is too narrow, fall back to the initial one column grid layout.
+*   in this case the main content will be placed under the navigation panel. 
+*/
+@media only screen and (min-width: 70em) {
+    .terminal-mkdocs-main-grid {
+        grid-template-columns: 4fr 9fr;
+    }
+}</style>
+
+<!-- link underline override -->
+<style>
+#terminal-mkdocs-main-content a:not(.headerlink){
+    text-decoration: none;
+}
+</style>
+
+    
+    <link href="../assets/_mkdocstrings.css" rel="stylesheet"> 
+    <link href="../style.css" rel="stylesheet">  
+    
+    
+
+    
+    <!-- search css support -->
+<link href="../css/search/bootstrap-modal.css" rel="stylesheet">
+<!-- search scripts -->
+<script>
+    var base_url = "..",
+    shortcuts = "{}";
+</script>
+<script src="../js/jquery/jquery-1.10.1.min.js" defer></script>
+<script src="../js/bootstrap/bootstrap.min.js" defer></script>
+<script src="../js/mkdocs/base.js" defer></script>
+    
+    
+    
+    
+    <script src="../js/background.js"></script>
+    
+    <script src="../js/toc.js"></script>
+    
+    <script src="../js/title.js"></script>
+    
+    <script src="../search/main.js"></script>
+    
+
+    
+</head>
+
+<body class="terminal"><div class="container">
+    <div class="terminal-nav">
+        <header class="terminal-logo">
+            <div id="mkdocs-terminal-site-name" class="logo terminal-prompt"><a href="https://tenchi.team2xh.net/ttt/" class="no-style">ttt</a></div>
+        </header>
+        
+        <nav class="terminal-menu">
+            
+            <ul vocab="https://schema.org/" typeof="BreadcrumbList">
+                
+                
+                <li property="itemListElement" typeof="ListItem">
+                    <a href=".." class="menu-item " property="item" typeof="WebPage">
+                        <span property="name">Home</span>
+                    </a>
+                    <meta property="position" content="0">
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                <li property="itemListElement" typeof="ListItem">
+                    <a href="../lorem/" class="menu-item " property="item" typeof="WebPage">
+                        <span property="name">Lorem</span>
+                    </a>
+                    <meta property="position" content="1">
+                </li>
+                
+                    
+                    
+
+
+<li property="itemListElement" typeof="ListItem">
+    <a href="#" class="menu-item" data-toggle="modal" data-target="#mkdocs_search_modal" property="item" typeof="SearchAction">
+        <i aria-hidden="true" class="fa fa-search"></i> <span property="name">Search</span>
+    </a>
+    <meta property="position" content="2">
+</li>
+                    
+            </ul>
+            
+        </nav>
+    </div>
+</div>
+        
+    <div class="container">
+        <div class="terminal-mkdocs-main-grid"><aside id="terminal-mkdocs-side-panel"><nav>
+  
+    <ul class="terminal-mkdocs-side-nav-items">
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="..">Home</a>
+        
+    
+    
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+                
+        
+
+        
+            
+    
+        
+        
+            
+            
+            <span class="
+        
+            
+        
+    
+
+    terminal-mkdocs-side-nav-item terminal-mkdocs-side-nav-section-no-index">ttt</span>
+        
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../ttt/install/">Installation</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../ttt/showcase/">Showcase</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../ttt/how/">How does it work?</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../ttt/art-credits/">Art credits</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+            
+                
+                
+        
+
+             
+            
+    
+        
+        <span class="
+
+    terminal-mkdocs-side-nav-item--active--active">CLI reference</span>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="draw/">Draw</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="write/">Write</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="list/">List</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="frame/">Frame</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="watch/">Watch</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+            
+                
+                
+        
+
+             
+            
+    
+        
+        <a class="
+
+    terminal-mkdocs-side-nav-item" href="../api/">API reference</a>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../api/engine/">Engine</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../api/bits/">Bits</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../lorem/">Lorem</a>
+        
+    
+    
+    
+  </li>
+        
+    </ul>
+  
+</nav><hr>
+<div class="sticky-toc">
+<p>Contents</p>
+<nav>
+    <ul>
+        <li>
+            <a href="#cli-reference">CLI reference</a>
+            <ul>
+                <li>
+                    <a href="#commands">Commands</a>
+                    <ul>
+                        <li><a href="#global-options">Global options</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+</div>
+</aside>
+            <main id="terminal-mkdocs-main-content">
+<section id="mkdocs-terminal-content">
+    <h1 id="cli-reference">CLI reference<a class="headerlink" href="#cli-reference" title="Permanent link">#</a></h1>
+<p>Welcome to <code>ttt</code>! The pinnacle of command-line artistry. To witness the splendour of what this tool can do, head on over to the <a href="../ttt/showcase/">Showcase</a>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code>❱<span style="color: #F8F8F2"> </span>ttt<span style="color: #F8F8F2"> </span>draw<span style="color: #F8F8F2"> </span>image<span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;https://tenchi.team2xh.net/ttt/images/tram_stop.png&quot;</span>
+</code></pre></div>
+<div class="example">
+<pre>
+████████𜷀█████𜴿𜴫𜴧𜴖𜷕██▙████████𜵊 𜵑𜵑 𜶘▐█▌𜵊𜶈𜴐 ▌𜶘▐██𜷀𜴬𜴰𜴲𜺫𜴆𜷕██▐𜴙𜵕𜴀 𜺫▌𜵊𜶈𜴐  𜶘▐████▐𜴙𜵕𜴀
+████████𜷤██████𜵈𜴹𜷥████████████▌𜵓𜴁  ▐▐𜵏▌▌𜺨  𜴀▐▐𜶛███████𜶫█𜶛▐𜺫 𜴉  ▌▌𜺨   ▐▐𜶛███▟𜺫
+███████████𜴗▀𜵿▀𜵵𜶬𜵄▀𜶺▀𜴦███𜶧████𜶐𜺨 𜺣 ▐▐▌▌▌ 𜵈  ▐▐▐███████▐█▐▐  ▌  ▌▌    ▐▐▐████
+████𜶘██████ ▐▐𜴀𜵸𜷙𜴀𜵲𜵦𜶓𜺣███𜷕████▐  𜴍 ▐▐▌▌▌ 𜺨𜺠𜴐▐▐▐███████𜷕█▐▐  𜺨  ▌▌ 𜵈  ▐▐▐████   𜺠
+████𜶦██████𜷞𜷝𜷝𜷝▖𜴊𜷝▄𜷛𜷜𜷡████████▐   𜵑▐▐▌▌█▆▆▆▆█▐▐███𜶧█████▐▐𜺣  𜴐𜵱▌𜷀 𜺨𜴘𜴁𜷕▐▐████ 𜺠𜴐𜺨
+█████████𜵰█████▌𜴺████████𜵰███𜵊𜴡𜺣𜵑𜵗𜴀▐▐▌▌████𜵏█▐▐███𜷕█████▐▐███▜█▌██████▐▐█𜵏██ 𜺨
+█████████𜵊███𜴏𜵿𜵘🮂🮂🮂🮂▀🮅███𜷀███▌𜶜𜴩𜴩𜴧𜴧𜶎𜴱𜴍𜴍🮅🮅🮅🮅𜴬🮅𜴡𜴡🮅🮅🮅🮅🮅🮅🮅🮅🮅𜴡𜴡🮅🮅🮅𜴱🮅𜴍🮅🮅🮅🮅🮅🮅𜴡𜴡🮅𜴴🮅🮅𜴴𜴳𜴳𜴳
+██████████𜵰𜷒𜴔𜴂𜷓𜺣🮂🮂𜴅▀🮅█▆𜷆𜶫████𜶅𜷣𜷝𜷝𜷝𜷝𜷣𜷝𜵅𜵅𜷝𜷝𜷝𜷝𜷝𜷝𜶑𜶑𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜶑𜶑𜷝𜷝𜷝𜷝𜷝𜵅𜷝𜷝𜷝𜷝𜷝𜷝𜶑𜶑𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝
+█𜴂𜴐𜴐𜴐𜴯𜴓██𜵷𜴐𜺨 𜷓█𜵰𜴹     🮂▀𜴎𜶫██▌𜶆██𜷂𜶆███▌▌██████▐▐█████████▐▐█████▌█𜵏████▐▐████████
+█𜴡𜴂𜴅𜴍𜴂𜺨🮂𜺨   ▗██𜵗𜵗𜴹      𜺠𜴭𜴛𜴛𜴚𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜷚▐𜷣𜵘𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴙𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛𜴛
+█▗𜵯𜶩▖𜷡𜴍█▌   ▟█𜵰𜵗𜵗𜵗𜴹   𜺠𜷡██𜷚█𜺠▂▂▂▂𜶭𜴦██𜵰𜵠𜶲𜶮𜶮𜶮𜶮𜶴𜶏𜶫███𜶧█████𜵰𜵠𜶮𜶮𜶮𜶮𜶮𜶬𜶮𜶮𜶮𜶮𜶮𜵜𜵠█████████
+█𜺫𜷋𜶻𜺨𜵱▖█𜷤𜶻 ▗█𜵰𜵘𜵗𜵗𜵗𜵗𜴹𜺠𜵩𜷕███▐█𜵆𜴜𜶡𜴧𜴧𜴧𜴑𜺫𜴦▌▌𜴪𜴪𜴪𜴪𜴪𜴪▐▐𜴗▀▀𜴈▀▀▀𜴦█▌▌𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴊▌█𜵰▀▀▀▀▀▀▀
+█𜴡🮂🮂𜴍𜴗𜺨█𜷀█𜷤▆𜷝𜶱𜶔𜴋𜺫𜺫𜺫 𜵟𜷐███████▞𜶃𜷒𜶮𜶮𜶮𜶮𜵕𜴄𜴰𜴪𜴪𜴪𜴪𜴪𜴪𜴭𜴁        𜴅𜴴𜴰𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴪𜴰𜴰𜴗𜺨
+█▗𜷥𜷤𜺣𜷡𜵈𜴆𜴆𜴆𜴆𜴆𜴆𜷀𜴗     𜷊𜴇𜴆𜴆𜴆𜴆𜴆𜴆𜴆𜴆 𜴆𜴇𜴆𜴆𜴆𜴆𜺨     ▝      ▝▘      ▘          ▝      ▝▘
+█▐𜶫█▌█▌🮂𜵳🮂🮂🮂𜴢𜴶      ▝𜵊🮂🮂𜵻🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂𜵻🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂🮂𜵻🮂🮂🮂🮂🮂🮂🮂🮂𜴛🮂🮂🮂🮂🮂🮂🮂🮂
+█𜵸𜶉𜶏▌𜵰𜷐𜵠𜵊𜵰𜷚𜷠𜵰█𜷢𜵈▄▗𜵡▗𜵰𜷠𜵰𜷟▙𜶣𜷥𜶣█𜶣█𜷠█𜶣█𜶢▙𜶣𜷥𜶣█𜶣█𜶣█𜵨█𜷠█𜵨█𜷠𜶫𜷠𜶫𜷠𜶫𜷠𜶫𜷠𜶫𜷟𜶡𜷠𜶪𜷠𜶫𜷠𜵰█𜵠𜵊𜵰𜷚𜷣𜶫𜷠𜵰█𜷣
+🮅𜴧𜴨𜴨𜴨𜴵𜴲🮅𜴮🮅🮅𜴲🮅𜴮𜶫𜶐𜵊𜷥𜶗𜴮🮅𜴮🮅🮅𜴮🮅𜴮🮅𜴮🮅𜴭𜴮𜴭🮅𜴮🮅𜴮🮅𜴮🮅𜴮🮅𜴮🮅🮅𜴮🮅🮅𜴭𜴬𜴮𜴵𜴮🮅𜴮🮅𜴮🮅𜴮🮅𜴮🮅𜴮🮅𜴮🮅𜴮🮅🮅𜴮🮅𜴮🮅𜴮🮅🮅𜴲🮅𜴮🮅
+𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜵤𜵤𜵤𜵤𜵤𜵤𜵤𜵬𜵉𜺣𜴶𜴷𜵨𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜵤𜷝𜵤𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝𜷝
+██𜷠𜷚𜷊𜷣████𜷥𜷥𜷥𜷥𜷥𜷥𜷥𜷥𜷥𜷥████████████𜶧████████𜶫𜵨█𜶫██████𜷠𜷚𜷊𜷣█████████████𜷥𜷥██████𜷊███</pre>
+<p><center><em><a href="https://www.deviantart.com/saydzi/art/Tram-stop-1064420434">"Tram stop"</a> by Saydzi</em></center></p>
+</div>
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">#</a></h2>
+<p>This tool has many commands, which are accessed using verbs.</p>
+<p>Some verbs have a <strong>immediate</strong> effect (in bold), while others need to be followed with a <em>noun</em> (in italics):</p>
+<ul>
+<li><em><a href="draw/">Draw</a> image | icon | atlas | banner</em></li>
+<li><a href="write/"><strong>Write</strong></a></li>
+<li><em><a href="list/">List</a> icons | frames | patterns | fonts</em></li>
+<li><a href="frame/"><strong>Frame</strong></a></li>
+<li><a href="watch/"><strong>Watch</strong></a></li>
+</ul>
+<h3 id="global-options">Global options<a class="headerlink" href="#global-options" title="Permanent link">#</a></h3>
+<p>Each command comes with its own set of options, but some universal tricks work everywhere:</p>
+<ul>
+<li>Outlines can be applied with <code>-o</code> / <code>--outline</code>.</li>
+<li>Colors can be inverted with <code>--invert</code>.</li>
+<li>If a command accepts a TEXT argument, it can also read it from a pipe.</li>
+<li>Command expecting a FILE argument also work with a URL.</li>
+</ul>
+<p>Continue to the next page to see how to use each command and all their options.</p>
+</section>
+
+            </main>
+        </div>
+        <hr><footer>
+    <div class="terminal-mkdocs-footer-grid">
+        <div id="terminal-mkdocs-footer-copyright-info">
+             Made with <a href="https://github.com/ntno/mkdocs-terminal">Terminal for MkDocs</a> and <a href="https://github.com/Tenchi2xh/ttt/tree/main/docs">a lot of customization</a>.
+        </div>
+        <div id="terminal-mkdocs-footer-prev-next">
+            <nav class="btn-group">
+                <a href="../ttt/art-credits/" title="Art credits">Previous</a>
+                |
+                <a href="draw/" title="Draw">Next</a>
+            </nav>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="alertdialog" aria-modal="true" aria-labelledby="searchModalLabel">
+    <div class="modal-dialog modal-lg" role="search">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                <button type="button" class="close btn btn-default btn-ghost" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p id="searchInputLabel">Type to start searching</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" aria-labelledby="searchInputLabel" placeholder="" id="mkdocs-search-query" title="Please enter search terms here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No document matches found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</body>
+
+</html>
