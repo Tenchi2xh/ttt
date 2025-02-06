@@ -91,3 +91,17 @@ markdown_extensions:
 
   # Other
   - mkdocs-click
+
+exclude_docs: |
+  __pycache__
+  /macros
+  /overrides
+  /partials
+  /pluglets
+  /css/fontawesome/css/fontawesome.css
+  /css/fontawesome/css/solid.css
+  /css/fontawesome/webfonts
+  /css/palettes/*.css
+  !/css/palettes/dark.css
+  /js/bootstrap/bootstrap.js*
+  *.py
