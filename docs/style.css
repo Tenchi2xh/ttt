@@ -14,6 +14,7 @@
     --table-bg-color: #141414;
     --table-color: #555;
     --font-color: #ccc;
+    --primary-color: #7aafff;
 
     --doc-symbol-parameter-fg-color: #fc9867;
     --doc-symbol-attribute-fg-color: #fc9867;
@@ -37,7 +38,7 @@ body::before {
     transform: scaleX(4) scaleY(5);
     transform-origin: top left;
     opacity: 1;
-    filter: brightness(0.1) sepia(1) saturate(5) hue-rotate(180deg);
+    filter: brightness(0.1) sepia(1) saturate(5) hue-rotate(185deg);
     z-index: -1;
 }
 
@@ -506,4 +507,10 @@ small {
 
 section p {
     hyphens: auto;
+}
+
+.tenchi {
+    width: fit-content;
+    background-color: #5694f1;
+    color: white;
 }
