@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="generator" content="mkdocs-1.6.1, mkdocs-terminal-4.7.0">
+     
+     
+    
+    <link rel="canonical" href="https://tenchi.team2xh.net/ttt/ttt/how/"><link rel="icon" type="image/png" sizes="192x192" href="../../img/android-chrome-192x192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="../../img/android-chrome-512x512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../img/apple-touch-icon.png" />
+<link rel="shortcut icon" type="image/png" sizes="48x48" href="../../img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png" />
+
+
+    
+ 
+<title>How does it work? - ttt</title>
+
+
+<link href="../../css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+<link href="../../css/fontawesome/css/solid.min.css" rel="stylesheet">
+<link href="../../css/normalize.css" rel="stylesheet">
+<link href="../../css/terminal.css" rel="stylesheet">
+<link href="../../css/theme.css" rel="stylesheet">
+<link href="../../css/theme.tile_grid.css" rel="stylesheet">
+<link href="../../css/theme.footer.css" rel="stylesheet">
+<!-- dark color palette -->
+<link href="../../css/palettes/dark.css" rel="stylesheet">
+
+<!-- page layout -->
+<style>
+/* initially set page layout to a one column grid */
+.terminal-mkdocs-main-grid {
+    display: grid;
+    grid-column-gap: 1.4em;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+/*  
+*   when side navigation is not hidden, use a two column grid.  
+*   if the screen is too narrow, fall back to the initial one column grid layout.
+*   in this case the main content will be placed under the navigation panel. 
+*/
+@media only screen and (min-width: 70em) {
+    .terminal-mkdocs-main-grid {
+        grid-template-columns: 4fr 9fr;
+    }
+}</style>
+
+<!-- link underline override -->
+<style>
+#terminal-mkdocs-main-content a:not(.headerlink){
+    text-decoration: none;
+}
+</style>
+
+    
+    <link href="../../assets/_mkdocstrings.css" rel="stylesheet"> 
+    <link href="../../style.css" rel="stylesheet">  
+    
+    
+
+    
+    <!-- search css support -->
+<link href="../../css/search/bootstrap-modal.css" rel="stylesheet">
+<!-- search scripts -->
+<script>
+    var base_url = "../..",
+    shortcuts = "{}";
+</script>
+<script src="../../js/jquery/jquery-1.10.1.min.js" defer></script>
+<script src="../../js/bootstrap/bootstrap.min.js" defer></script>
+<script src="../../js/mkdocs/base.js" defer></script>
+    
+    
+    
+    
+    <script src="../../js/background.js"></script>
+    
+    <script src="../../js/toc.js"></script>
+    
+    <script src="../../js/title.js"></script>
+    
+    <script src="../../search/main.js"></script>
+    
+
+    
+</head>
+
+<body class="terminal"><div class="container">
+    <div class="terminal-nav">
+        <header class="terminal-logo">
+            <div id="mkdocs-terminal-site-name" class="logo terminal-prompt"><a href="https://tenchi.team2xh.net/ttt/" class="no-style">ttt</a></div>
+        </header>
+        
+        <nav class="terminal-menu">
+            
+            <ul vocab="https://schema.org/" typeof="BreadcrumbList">
+                
+                
+                <li property="itemListElement" typeof="ListItem">
+                    <a href="../.." class="menu-item " property="item" typeof="WebPage">
+                        <span property="name">Home</span>
+                    </a>
+                    <meta property="position" content="0">
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                <li property="itemListElement" typeof="ListItem">
+                    <a href="../../lorem/" class="menu-item " property="item" typeof="WebPage">
+                        <span property="name">Lorem</span>
+                    </a>
+                    <meta property="position" content="1">
+                </li>
+                
+                    
+                    
+
+
+<li property="itemListElement" typeof="ListItem">
+    <a href="#" class="menu-item" data-toggle="modal" data-target="#mkdocs_search_modal" property="item" typeof="SearchAction">
+        <i aria-hidden="true" class="fa fa-search"></i> <span property="name">Search</span>
+    </a>
+    <meta property="position" content="2">
+</li>
+                    
+            </ul>
+            
+        </nav>
+    </div>
+</div>
+        
+    <div class="container">
+        <div class="terminal-mkdocs-main-grid"><aside id="terminal-mkdocs-side-panel"><nav>
+  
+    <ul class="terminal-mkdocs-side-nav-items">
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../..">Home</a>
+        
+    
+    
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+                
+        
+
+        
+            
+    
+        
+        <span class="
+        
+            
+        
+    
+
+    terminal-mkdocs-side-nav-item--active terminal-mkdocs-side-nav-section-no-index">ttt</span>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../install/">Installation</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../showcase/">Showcase</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        <span class="
+
+    terminal-mkdocs-side-nav-item--active">How does it work?</span>
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../art-credits/">Art credits</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+            
+                
+                
+        
+
+             
+            
+    
+        
+        <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/">CLI reference</a>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/draw/">Draw</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/write/">Write</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/list/">List</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/frame/">Frame</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../cli/watch/">Watch</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+        
+        
+            
+            
+                
+                
+        
+
+             
+            
+    
+        
+        <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../api/">API reference</a>
+    
+    
+        
+      
+        
+            <ul class="terminal-mkdocs-side-nav-li-ul">
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../api/engine/">Engine</a>
+        
+    
+    </li>
+            
+        
+            
+            
+                
+                
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../api/bits/">Bits</a>
+        
+    
+    </li>
+            
+            
+    </ul>
+        
+    
+  </li>
+        
+          
+
+
+
+<li class="terminal-mkdocs-side-nav-li">
+    
+    
+    
+        
+        
+            <a class="
+
+    terminal-mkdocs-side-nav-item" href="../../lorem/">Lorem</a>
+        
+    
+    
+    
+  </li>
+        
+    </ul>
+  
+</nav><hr>
+<div class="sticky-toc">
+<p>Contents</p>
+<nav>
+    <ul>
+        <li>
+            <a href="#how-does-it-work">How does it work?</a>
+            <ul>
+                <li>
+                    <a href="#history">History</a>
+                    <ul>
+                        <li><a href="#22-block-graphics">2×2 block graphics</a></li><li><a href="#23-block-graphics">2×3 block graphics</a></li><li><a href="#24-block-graphics">2×4 block graphics</a></li><li><a href="#modern-day">Modern day</a></li>
+                    </ul>
+
+                </li><li>
+                    <a href="#encoding">Encoding</a>
+                    
+
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+</div>
+</aside>
+            <main id="terminal-mkdocs-main-content">
+<section id="mkdocs-terminal-content">
+    <h1 id="how-does-it-work">How does it work?<a class="headerlink" href="#how-does-it-work" title="Permanent link">#</a></h1>
+<p>Explaining how the rendering of the pixels work is actually quite straightforward. The interesting bit though is the history of how we got there.</p>
+<p>Feel free to skip directly to the <a href="#encoding">technical explanation</a></p>
+<hr />
+<h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">#</a></h2>
+<p>I present to you:</p>
+<p><em>A (very) short history of block graphics rendering in text-based interfaces</em>.</p>
+<h3 id="22-block-graphics">2×2 block graphics<a class="headerlink" href="#22-block-graphics" title="Permanent link">#</a></h3>
+<p>How do you draw something on the screen when you can only display text?</p>
+<p>Many classic computers in the 80s solved this problem by including characters in their character set that could be used for fake graphics (called <a href="https://en.wikipedia.org/wiki/Semigraphics">semigraphics</a>) instead of using an expensive (or non-existent) framebuffer.</p>
+<p>For example, let's take the <a href="https://en.wikipedia.org/wiki/ZX80">ZX80</a> (1980), which had perfectly square text characters. It included in its character set 7 characters representing small grids of 2×2 pixels. Combined with a space character and by being able to invert colors, it was possible to represent all 16 possible combinations (plus some extra shading):</p>
+<p><center></p>
+<div class="example">
+<pre class="blocks-2x2 center">
+  ▘ ▝ ▀ ▖ ▌ ▞ ▛ ▒ 🮏 🮎
+
+█ ▟ ▙ ▄ ▜ ▐ ▚ ▗ 🮐 🮑 🮒
+</pre>
+</div>
+<p><em>ZX80 semigraphics character set,<br>represented with <a href="../install/#compatible-fonts">Iosevka</a> glyphs stretched to 2.5×</em>
+</center></p>
+<p>And here's a rendering of <a href="../art-credits/#icons">icon #768</a> from <code>ttt</code>'s built-in icons using the ZX80 character set:</p>
+<p><center></p>
+<div class="example">
+<pre class="blocks-2x2 center">
+▌█▛▛▀▀██
+▌▛▀▀▀▀▀▜
+▌▌▞▖▄▗▚▐
+▌▌▝   ▘▐
+▌█▀▀▀▀▀█
+▌▌█████▐
+</pre>
+</div>
+<p><em>Should this be the save icon?</em>
+</center></p>
+<p>Many other computers of the time used similar 2×2 block graphics, for example the <a href="https://en.wikipedia.org/wiki/Dragon_32/64">Dragon 32/64</a> (1982, 1983), the <a href="https://en.wikipedia.org/wiki/Panasonic_JR-200">Panasonic JR-200</a> (1983), and the <a href="https://en.wikipedia.org/wiki/Amstrad_CPC">Amstrad CPC</a> and of course the <a href="https://en.wikipedia.org/wiki/Commodore_PET">Commodore PET</a><sup id="fnref:commodore"><a class="footnote-ref" href="#fn:commodore">1</a></sup>.</p>
+<h3 id="23-block-graphics">2×3 block graphics<a class="headerlink" href="#23-block-graphics" title="Permanent link">#</a></h3>
+<p>Other computers had taller characters, much like what you are reading right now, where displaying 2×2 blocks would look distorted.</p>
+<p>Since these taller characters have a ratio of 2:3, the obvious thing to do is to divide blocks into 2×3 pixels, resulting in the following 64-character set:</p>
+<p><center></p>
+<div class="example">
+<pre class="blocks-2x3 center">
+  🬀 🬁 🬂 🬃 🬄 🬅 🬆 🬇 🬈 🬉 🬊 🬋 🬌 🬍 🬎
+
+🬏 🬐 🬑 🬒 🬓 ▌ 🬔 🬕 🬖 🬗 🬘 🬙 🬚 🬛 🬜 🬝
+
+🬞 🬟 🬠 🬡 🬢 🬣 🬤 🬥 🬦 🬧 ▐ 🬨 🬩 🬪 🬫 🬬
+
+🬭 🬮 🬯 🬰 🬱 🬲 🬳 🬴 🬵 🬶 🬷 🬸 🬹 🬺 🬻 █
+</pre>
+</div>
+<p><em>Full set of 2×3 block graphics,<br>represented with <a href="../install/#compatible-fonts">Iosevka</a> glyphs stretched to 1.667×</em>
+</center></p>
+<p>This lets us draw, <em>with the same line height</em>, an <strong>extra 50% pixels</strong>! (Or, conversely, draw the same number of pixels with 33% less lines)</p>
+<p><center></p>
+<div class="example">
+<pre class="blocks-2x3 center">
+▌█🬴🬴🬰🬰██
+▌▌🬖🬏🬭🬞🬢▐
+▌🬲🬯🬭🬭🬭🬮🬷
+▌🬕🬹🬹🬹🬹🬹🬨
+</pre>
+</div>
+<p></center></p>
+<p>The cassette drawn here uses only 4 lines, whereas the one drawn earlier with 2×2 blocks used 6 lines.</p>
+<p>Although this results in a higher resolution, it is not a chronological "evolution" from the previously mentioned computers, just another contemporary approach. Computers that used 2×3 block graphics include the <a href="https://en.wikipedia.org/wiki/TRS-80">TRS-80</a> (1977) and the <a href="https://en.wikipedia.org/wiki/BBC_Micro">BBC Micro</a>.</p>
+<p>If you're from Europe, this should remind you of <a href="https://en.wikipedia.org/wiki/Teletext">Teletext</a>, which used this exact character set to draw its graphics!</p>
+<h3 id="24-block-graphics">2×4 block graphics<a class="headerlink" href="#24-block-graphics" title="Permanent link">#</a></h3>
+<p>How do we level up from there? That's right, a 256-character set of 2×4 blocks.</p>
+<p>From my research, very few computers supported 2×4 block graphics, all from <a href="https://en.wikipedia.org/wiki/Kaypro">Kaypro</a>: the Kaypro Ⅱ, Kaypro Ⅳ and Kaypro 10<sup id="fnref:kaypro"><a class="footnote-ref" href="#fn:kaypro">2</a></sup>.</p>
+<p>This is understandable, since on an 8-bit computer, the maximum number of characters supported in any given character set would be 256.</p>
+<p>Even though they stored only half of the 2×4 blocks to save space (the other half being producible by inverting the colors of the characters), this would fill <strong><em>half</em></strong> of their character space, leaving very little room for practical use!</p>
+<p>Below is the complete 256-character set of 2×4 blocks:</p>
+<p><center></p>
+<div class="example">
+<pre>
+  𜺨 𜺫 🮂 𜴀 ▘ 𜴁 𜴂 𜴃 𜴄 ▝ 𜴅 𜴆 𜴇 𜴈 ▀
+𜴉 𜴊 𜴋 𜴌 🯦 𜴍 𜴎 𜴏 𜴐 𜴑 𜴒 𜴓 𜴔 𜴕 𜴖 𜴗
+𜴘 𜴙 𜴚 𜴛 𜴜 𜴝 𜴞 𜴟 🯧 𜴠 𜴡 𜴢 𜴣 𜴤 𜴥 𜴦
+𜴧 𜴨 𜴩 𜴪 𜴫 𜴬 𜴭 𜴮 𜴯 𜴰 𜴱 𜴲 𜴳 𜴴 𜴵 🮅
+𜺣 𜴶 𜴷 𜴸 𜴹 𜴺 𜴻 𜴼 𜴽 𜴾 𜴿 𜵀 𜵁 𜵂 𜵃 𜵄
+▖ 𜵅 𜵆 𜵇 𜵈 ▌ 𜵉 𜵊 𜵋 𜵌 ▞ 𜵍 𜵎 𜵏 𜵐 ▛
+𜵑 𜵒 𜵓 𜵔 𜵕 𜵖 𜵗 𜵘 𜵙 𜵚 𜵛 𜵜 𜵝 𜵞 𜵟 𜵠
+𜵡 𜵢 𜵣 𜵤 𜵥 𜵦 𜵧 𜵨 𜵩 𜵪 𜵫 𜵬 𜵭 𜵮 𜵯 𜵰
+𜺠 𜵱 𜵲 𜵳 𜵴 𜵵 𜵶 𜵷 𜵸 𜵹 𜵺 𜵻 𜵼 𜵽 𜵾 𜵿
+𜶀 𜶁 𜶂 𜶃 𜶄 𜶅 𜶆 𜶇 𜶈 𜶉 𜶊 𜶋 𜶌 𜶍 𜶎 𜶏
+▗ 𜶐 𜶑 𜶒 𜶓 ▚ 𜶔 𜶕 𜶖 𜶗 ▐ 𜶘 𜶙 𜶚 𜶛 ▜
+𜶜 𜶝 𜶞 𜶟 𜶠 𜶡 𜶢 𜶣 𜶤 𜶥 𜶦 𜶧 𜶨 𜶩 𜶪 𜶫
+▂ 𜶬 𜶭 𜶮 𜶯 𜶰 𜶱 𜶲 𜶳 𜶴 𜶵 𜶶 𜶷 𜶸 𜶹 𜶺
+𜶻 𜶼 𜶽 𜶾 𜶿 𜷀 𜷁 𜷂 𜷃 𜷄 𜷅 𜷆 𜷇 𜷈 𜷉 𜷊
+𜷋 𜷌 𜷍 𜷎 𜷏 𜷐 𜷑 𜷒 𜷓 𜷔 𜷕 𜷖 𜷗 𜷘 𜷙 𜷚
+▄ 𜷛 𜷜 𜷝 𜷞 ▙ 𜷟 𜷠 𜷡 𜷢 ▟ 𜷣 ▆ 𜷤 𜷥 █
+</pre>
+</div>
+<p><em>Now we're cooking<sup id="fnref:sorted"><a class="footnote-ref" href="#fn:sorted">3</a></sup>.</em>
+</center></p>
+<p>And again, here is our little cassette tape, this time only using 3 lines of text, giving us much more resolution at the cost of character set space. Compared to using 2×2 blocks, that's <em>four times</em> the resolution, and we only need half the lines of text to display the same image.</p>
+<p><center></p>
+<div class="example">
+<pre class="blocks-2x4">
+▌𜵰𜴮𜴮𜴪𜴪🮅𜶫
+▌▌𜴞𜴀𜴆𜴃𜴑▐
+▌▛𜷝𜷝𜷝𜷝𜷝▜
+</pre>
+</div>
+<p><em>Only 3 lines of text!</em>
+</center></p>
+<p>And here we can see all three systems side by side:</p>
+<p><center></p>
+<div class="example">
+<div class="side-by-side">
+<pre class="blocks-2x2 center">
+▌█▛▛▀▀██
+▌▛▀▀▀▀▀▜
+▌▌▞▖▄▗▚▐
+▌▌▝   ▘▐
+▌█▀▀▀▀▀█
+▌▌█████▐
+</pre>
+<pre class="blocks-2x3 center">
+▌█🬴🬴🬰🬰██
+▌▌🬖🬏🬭🬞🬢▐
+▌🬲🬯🬭🬭🬭🬮🬷
+▌🬕🬹🬹🬹🬹🬹🬨
+</pre>
+<pre class="blocks-2x4">
+▌𜵰𜴮𜴮𜴪𜴪🮅𜶫
+▌▌𜴞𜴀𜴆𜴃𜴑▐
+▌▛𜷝𜷝𜷝𜷝𜷝▜
+</pre>
+</div>
+</div>
+<p></center></p>
+<p>You'll notice that the last one looks slightly vertically compressed, and that's because the native aspect ratio of <a href="../install/#compatible-fonts">Iosevka</a> is actually 1:2.5, slightly more tall than the optimal 1:2 needed to render 2×4 blocks.</p>
+<h3 id="modern-day">Modern day<a class="headerlink" href="#modern-day" title="Permanent link">#</a></h3>
+<p>But that's all for old computers, how do we draw stuff in our current terminal emulators, without bitmap character sets?</p>
+<p>You'll notice that so far, we've managed to show all those ancient characters in a modern browser. All the examples above are real text (go ahead and try to select them), and that's all thanks to Unicode.</p>
+<p>Almost as far back as Unicode goes (version 1.1.0), and before that in various other encodings<sup id="fnref:cp437"><a class="footnote-ref" href="#fn:cp437">4</a></sup>, it was possible to draw "pixels" in a terminal using the <em>UPPER HALF BLOCK</em> and <em>LOWER HALF BLOCK</em> characters: ▀ and ▄.</p>
+<p>With those, we could draw very big pixels (that's twice as big as the very first example we had with primitive 2×2 blocks!), but that's all we could draw for a long while.</p>
+<p>Then, revision after revision, the Unicode consortium blessed us with more and more characters:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th>*</th>
+<th style="text-align: center;">Year</th>
+<th>Unicode block</th>
+<th style="text-align: center;">Aspect ratio</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1×2&nbsp;blocks</td>
+<td>▀</td>
+<td style="text-align: center;">1991</td>
+<td><a href="https://en.wikipedia.org/wiki/Block_Elements">Block Elements</a> (Unicode 1.0)</td>
+<td style="text-align: center;">1:2</td>
+<td>2&nbsp;ppc</td>
+</tr>
+<tr>
+<td style="text-align: right;">2×2&nbsp;blocks</td>
+<td>▞</td>
+<td style="text-align: center;">2002</td>
+<td><a href="https://en.wikipedia.org/wiki/Block_Elements">Block Elements</a> (Unicode 3.2)</td>
+<td style="text-align: center;">1:1</td>
+<td>4&nbsp;ppc</td>
+</tr>
+<tr>
+<td style="text-align: right;">2×3&nbsp;blocks</td>
+<td>🬤</td>
+<td style="text-align: center;">2020</td>
+<td><a href="https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing">Symbols for Legacy Computing</a></td>
+<td style="text-align: center;">2:3</td>
+<td>6&nbsp;ppc</td>
+</tr>
+<tr>
+<td style="text-align: right;">Braille</td>
+<td>⡪</td>
+<td style="text-align: center;">1999</td>
+<td><a href="https://en.wikipedia.org/wiki/Braille_Patterns">Braille Patterns</a></td>
+<td style="text-align: center;">1:2</td>
+<td>8&nbsp;ppc<sup>*</sup></td>
+</tr>
+<tr>
+<td style="text-align: right;">2×4&nbsp;blocks</td>
+<td>𜵗</td>
+<td style="text-align: center;">2024</td>
+<td><a href="https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing_Supplement">Symbols for Legacy Computing Supplement</a></td>
+<td style="text-align: center;">1:2</td>
+<td>8&nbsp;ppc</td>
+</tr>
+</tbody>
+</table>
+<p>For a long time, the best resolution we could achieve was by using <em>braille dots</em>, since Unicode was nice enough to add all possible dot combination (even if they were not actually used in any braille script).</p>
+<p>Drawing using small dots was never more than just a gimmick however. Since the dots are so small, and the gap between the lines was quite big, it was hard to be able to visually parse any generated image using this character set:</p>
+<p><center></p>
+<div class="example">
+<pre class="blocks-2x4">
+⡇⡿⠯⠯⠭⠭⠿⢿  ▌𜵰𜴮𜴮𜴪𜴪🮅𜶫
+⡇⡇⠪⠂⠒⠐⠕⢸  ▌▌𜴞𜴀𜴆𜴃𜴑▐
+⡇⡟⣭⣭⣭⣭⣭⢻  ▌▛𜷝𜷝𜷝𜷝𜷝▜
+</pre>
+</div>
+<p><em>Braille rendering vs. native 2×4 blocks</em>
+</center></p>
+<p>But then suddenly, out of nowhere, came the "Symbols for Legacy Computing Supplement" block, officially adding native 2×4 block characters.</p>
+<p>It's kind of a miracle that these 2×4 block graphics were added to Unicode at all. In the <a href="https://www.unicode.org/L2/L2021/21235-terminals-supplement.pdf">initial proposal for adding more legacy computer graphic characters</a>, the inclusion of the "block octant graphics" from the Kaypro computers was evaluated to be of only "medium" importance, ranking 5 out of 7 for priority.</p>
+<p>Thanks to that, we can now have lots of fun in our modern terminals!</p>
+<h2 id="encoding">Encoding<a class="headerlink" href="#encoding" title="Permanent link">#</a></h2>
+<p>TODO explain:</p>
+<ul>
+<li>Encoding an image into a number<ul>
+<li>LUT</li>
+</ul>
+</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:commodore">
+<p>The Commodore PET included much more than just 2×2 characters: <a href="https://en.wikipedia.org/wiki/PETSCII">PETSCII</a> also added shading characters, box-drawing characters, diagonal lines, horizontal lines at various heights, diagonally filled blocks, etc.<br><br>This made it possible to draw incredibly detailed art despite being only text-based. The PETSCII Art community is still going strong today, <a href="https://tomseditor.com/gallery/browse?lang=en&amp;platform=commodore&amp;format=petscii&amp;year=&amp;author=&amp;nsfw=0&amp;sort=score">check it out</a>!&#160;<a class="footnote-backref" href="#fnref:commodore" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:kaypro">
+<p><a href="https://www.chrisfenton.com/exploring-kaypro-video-performance/">https://www.chrisfenton.com/exploring-kaypro-video-performance/</a>&#160;<a class="footnote-backref" href="#fnref:kaypro" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:sorted">
+<p>This table took a whole day to write by hand (it's used in <code>blocks.py</code>).<br><br>Because Unicode is very economical and refuses to issue duplicate characters, when they introduced the 2×4 characters, the new Unicode block left out a lot of characters that were already represented in other blocks, such as half blocks, quarter blocks, etc.<br><br>However, the address space itself doesn't leave any gap where those characters are missing, so a lot of manual work was needed to write all these characters in the correct binary order, piecing it up from 3 different Unicode blocks.&#160;<a class="footnote-backref" href="#fnref:sorted" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:cp437">
+<p>For example, the famous <a href="https://en.wikipedia.org/wiki/Code_page_437">Code Page 437</a>&#160;<a class="footnote-backref" href="#fnref:cp437" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+</section>
+
+            </main>
+        </div>
+        <hr><footer>
+    <div class="terminal-mkdocs-footer-grid">
+        <div id="terminal-mkdocs-footer-copyright-info">
+             Made with <a href="https://github.com/ntno/mkdocs-terminal">Terminal for MkDocs</a> and <a href="https://github.com/Tenchi2xh/ttt/tree/main/docs">a lot of customization</a>.
+        </div>
+        <div id="terminal-mkdocs-footer-prev-next">
+            <nav class="btn-group">
+                <a href="../showcase/" title="Showcase">Previous</a>
+                |
+                <a href="../art-credits/" title="Art credits">Next</a>
+            </nav>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="alertdialog" aria-modal="true" aria-labelledby="searchModalLabel">
+    <div class="modal-dialog modal-lg" role="search">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                <button type="button" class="close btn btn-default btn-ghost" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p id="searchInputLabel">Type to start searching</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" aria-labelledby="searchInputLabel" placeholder="" id="mkdocs-search-query" title="Please enter search terms here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No document matches found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</body>
+
+</html>
