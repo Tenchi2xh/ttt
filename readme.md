@@ -16,7 +16,7 @@ TODO: Show some screenshots and gifs
   ttt write -l -o hard
   ```
 
-- WATCH F-ING BAD APPLE AT A SMOOTH FRAMERATE WITH AUDIO:
+- WATCH BAD APPLE AT A SMOOTH FRAMERATE WITH AUDIO:
 
   ```bash
   ttt watch "https://dn720401.ca.archive.org/0/items/TouhouBadApple/Touhou%20-%20Bad%20Apple.mp4" -a -m
